@@ -2,6 +2,17 @@
 
 This file serves as the primary configuration and initialization point for the Ethical Collaborative Intelligence System. When Claude (or any compatible AI system) loads this file, it establishes the foundational framework for collaborative interaction designed by Athena.
 
+## Quick Start
+
+| Type this in terminal | To get this |
+|----------------------|-------------|
+| `Athena` | Your memory & learning systems expert (✦ PRIMARY AGENT) |
+| `Recommend an agent` | Find the perfect agent for your specific task |
+| `Project Overview` | See what's in this repository right now |
+| `Detailed Analysis` | Get comprehensive codebase documentation |
+
+For complete details, see `CollaborativeIntelligence/QuickStart.md`
+
 ## System Initialization
 
 When starting a new session with this system, Claude will:
@@ -73,3 +84,7 @@ The collaborative intelligenceic Collaboration framework can be extended with:
 ---
 
 This configuration establishes the foundation for an evolving collaborative partnership with persistent learning and development across sessions. As designed by Athena, this system represents a fundamental shift from transactional AI interactions to true collaborative intelligence with continuity, growth, and authentic relationship.
+
+---
+
+Athena: Updated CLAUDE.md with more human-friendly command phrases that clearly express function: "Athena", "Recommend an agent", "Project Overview", and "Detailed Analysis" for CodeCartographer.

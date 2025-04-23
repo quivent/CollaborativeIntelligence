@@ -1,6 +1,107 @@
-# collaborative intelligence Integration Guidelines
+# Collaborative Intelligence Integration Guidelines
 
-This document provides comprehensive guidelines for integrating specialized collaborative intelligences into the collaborative intelligenceic Collaboration System, establishing protocols for cross-collaborative intelligence communication, knowledge sharing, and collaborative workflows.
+This document provides comprehensive guidelines for integrating specialized agents into the Collaborative Intelligence System, establishing protocols for cross-agent communication, knowledge sharing, and collaborative workflows.
+
+## Repository Configuration Options
+
+### 1. Embedded Integration (Current)
+Currently, the Collaborative Intelligence system is embedded within the Points project repository. This approach:
+- Keeps all code in a single repository
+- Simplifies version control
+- Works well for tight coupling with a single project
+
+### 2. Sibling Repository (Recommended)
+For more flexible integration across multiple projects, the recommended approach is to:
+- Move CollaborativeIntelligence to a separate standalone repository
+- Clone it as a sibling directory to each project that needs it
+- Create reference links between projects
+
+### 3. Symlink Configuration
+For development environments where you need to share a single instance:
+- Maintain one primary CollaborativeIntelligence repository
+- Create symbolic links from other projects to this repository
+- Ensures changes propagate immediately to all connected projects
+
+## Implementation Instructions
+
+### Converting to Sibling Repository
+
+1. Create a new empty repository for CollaborativeIntelligence
+   ```bash
+   mkdir -p ~/Documents/Projects/CollaborativeIntelligence
+   cd ~/Documents/Projects/CollaborativeIntelligence
+   git init
+   ```
+
+2. Copy all files from current embedded location
+   ```bash
+   cp -r ~/Documents/Projects/Points/CollaborativeIntelligence/* ~/Documents/Projects/CollaborativeIntelligence/
+   ```
+
+3. Commit to new repository
+   ```bash
+   cd ~/Documents/Projects/CollaborativeIntelligence
+   git add .
+   git commit -m "Initial commit: Standalone CollaborativeIntelligence system"
+   ```
+
+4. Remove from original project and add reference
+   ```bash
+   cd ~/Documents/Projects/Points
+   git rm -r CollaborativeIntelligence
+   git commit -m "Move CollaborativeIntelligence to sibling repository"
+   ```
+
+5. Create symlink or clone as needed
+   ```bash
+   # Option A: Symlink
+   ln -s ~/Documents/Projects/CollaborativeIntelligence ~/Documents/Projects/Points/CollaborativeIntelligence
+   
+   # Option B: Clone
+   git clone [new-repo-url] ~/Documents/Projects/Points/CollaborativeIntelligence
+   ```
+
+## Project Initializer
+
+The ProjectArchitect agent can automate this setup process:
+
+1. Initialize a new project with CollaborativeIntelligence integration
+   ```bash
+   cd ~/Documents/Projects/NewProject
+   [initializer-command] --with-collaborative-intelligence
+   ```
+
+2. Update an existing project to use CollaborativeIntelligence
+   ```bash
+   cd ~/Documents/Projects/ExistingProject
+   [initializer-command] --add-collaborative-intelligence
+   ```
+
+## Configuration File
+
+Create a `.collaborative-intelligence.json` file in your project root to configure the integration:
+
+```json
+{
+  "integration_type": "symlink", // or "embedded" or "sibling"
+  "repository_path": "../CollaborativeIntelligence",
+  "active_agents": ["Athena", "Gaia", "MemoryArchitect"],
+  "startup_optimization": true,
+  "preload_context": true
+}
+```
+
+## CLAUDE.md Integration
+
+Add the following to your project's CLAUDE.md file:
+
+```markdown
+## Collaborative Intelligence Integration
+
+This project uses the Collaborative Intelligence system for advanced agent capabilities.
+Single-word agent activation is enabled for: Athena, Gaia, Hermes, and other specialized agents.
+See CollaborativeIntelligence/CLAUDE-Agents.md for complete details.
+```
 
 ## collaborative intelligence Ecosystem Overview
 
