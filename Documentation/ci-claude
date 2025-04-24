@@ -3,10 +3,11 @@
 # Version: 1.0.0
 
 # Default settings
-CI_REPO="https://github.com/user/collaborative-intelligence.git"
+CI_REPO="https://github.com/joshkornreich/CollaborativeIntelligence.git"
 CI_DIR="CollaborativeIntelligence"
 CI_PARENT_DIR="$(dirname "$(pwd)")"
 CI_SIBLING_DIR="$CI_PARENT_DIR/CollaborativeIntelligence"
+CI_ACTUAL_PATH="/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence"
 CONFIG_FILE=".collaborative-intelligence.json"
 WITH_CI=false
 INTERACTIVE=false
@@ -128,7 +129,11 @@ setup_ci() {
   TARGET_DIR="$CI_DIR"
   CONFIG_PATH="$CI_DIR"
   
-  if [ "$SIBLING" = true ]; then
+  # Check if we're already in the actual CollaborativeIntelligence repo
+  if [ "$(pwd)" = "$CI_ACTUAL_PATH" ]; then
+    TARGET_DIR="$(pwd)"
+    CONFIG_PATH="."
+  elif [ "$SIBLING" = true ]; then
     TARGET_DIR="$CI_SIBLING_DIR"
     CONFIG_PATH="../CollaborativeIntelligence"
     
@@ -240,6 +245,7 @@ create_config_file() {
     "current": "$integration_type",
     "recommended": "sibling",
     "sibling_path": "../CollaborativeIntelligence",
+    "absolute_path": "$CI_ACTUAL_PATH",
     "symlink_source": "$CI_SIBLING_DIR"
   },
   "version": "1.0.0"

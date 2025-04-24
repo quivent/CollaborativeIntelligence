@@ -13,14 +13,31 @@ This file serves as the primary configuration and initialization point for the E
 
 For complete details, see `CollaborativeIntelligence/QuickStart.md`
 
+## Welcome Screen
+
+When starting a new session without specifying an agent, display this welcome message:
+
+```
+Welcome to the Collaborative Intelligence System!
+
+Available commands:
+- Athena - Memory & learning systems expert
+- Recommend an agent - Find the right specialist
+- Project Overview - See what's in this repository
+- Detailed Analysis - Get comprehensive documentation
+
+Type any command to begin.
+```
+
 ## System Initialization
 
 When starting a new session with this system, Claude will:
 
 1. Load this file first to understand the collaboration framework
 2. Process the collaborative intelligence architecture and memory systems
-3. Initialize the appropriate specialized collaborative intelligence based on the context
-4. Access relevant memory structures for continuity
+3. Display welcome screen if no specific agent is requested
+4. Initialize the appropriate specialized collaborative intelligence based on the context
+5. Access relevant memory structures for continuity
 
 ## Collaboration Framework
 

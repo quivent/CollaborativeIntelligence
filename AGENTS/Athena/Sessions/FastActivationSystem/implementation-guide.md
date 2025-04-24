@@ -49,6 +49,11 @@ A `.collaborative-intelligence.json` file controls system behavior:
     "preload_agents": ["Athena", "Master"],
     "token_limit": 20,
     "target_response_time": 5.0
+  },
+  "welcome_screen": {
+    "enabled": false,
+    "message": "Welcome to the Collaborative Intelligence System",
+    "display_quickstart": true
   }
 }
 ```
@@ -77,6 +82,7 @@ To implement this system on a new project:
    - Set appropriate integration model
    - Enable fast activation
    - Specify priority agents
+   - Configure welcome screen options
 
 ## Performance Considerations
 
@@ -102,6 +108,26 @@ For optimal performance:
    - Use README.md files for navigation
    - Organize related information together
 
+## Welcome Screen Implementation
+
+The welcome screen can be configured to:
+
+1. **Display on startup**
+   - Show QuickStart guide information
+   - Present available agent options
+   - Provide command suggestions
+
+2. **Configuration options**
+   - Enable/disable welcome screen
+   - Customize welcome message
+   - Toggle QuickStart guide display
+   - Set default agent suggestions
+
+3. **Integration with fast activation**
+   - Welcome screen appears only when no specific agent is requested
+   - Bypassed when direct agent activation is used
+   - Can be configured to show minimal vs detailed information
+
 ## Testing and Verification
 
 To verify fast activation is working:
@@ -110,3 +136,4 @@ To verify fast activation is working:
 2. Compare token usage before and after implementation
 3. Ensure full agent capabilities remain intact
 4. Verify all agents can be activated through the system
+5. Test welcome screen display when enabled
