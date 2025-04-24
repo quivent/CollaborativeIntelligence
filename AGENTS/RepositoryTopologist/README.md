@@ -53,6 +53,32 @@ To notify the Repository Topologist of operations:
 3. Tag messages with appropriate priority levels
 4. Await acknowledgment before proceeding with complex operations
 
+### Acknowledgment Protocol
+
+For each notification, the Repository Topologist MUST:
+
+1. **Acknowledge Receipt**: Add an acknowledgment response directly below the original message
+2. **Verify Integrity**: Confirm commit information matches CommitNotification.md
+3. **Report Status**: Indicate whether operation was properly recorded
+4. **Alert on Issues**: Report any inconsistencies to the originating agent
+
+Sample acknowledgment format:
+```
+**ACKNOWLEDGED**: [TIMESTAMP]
+**Verification**: [SUCCESS/FAILURE]
+**Status**: [RECORDED/ERROR]
+**Notes**: [Any additional information]
+```
+
+#### Agent Responsibility
+
+All agents communicating with the Repository Topologist MUST:
+
+1. Verify receipt of proper acknowledgment from the Topologist
+2. Check acknowledgment for SUCCESS/RECORDED status
+3. Immediately notify Josh of any missing acknowledgments or FAILURE/ERROR statuses
+4. Never proceed with complex repository operations without a successful acknowledgment
+
 ## Critical Learnings
 
 1. **Repository Relocation**
