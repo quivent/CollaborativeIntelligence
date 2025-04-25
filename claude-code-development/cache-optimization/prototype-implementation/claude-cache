@@ -1,0 +1,432 @@
+#!/bin/bash
+# Claude Code Cache wrapper script with offline/cached mode
+# 
+# This script provides a wrapper around the Claude Code CLI that adds caching
+# and offline mode capabilities. It allows toggling between cached and online modes,
+# automatic file detection and caching, and content previews in cached mode.
+
+# Define paths
+INSTALL_DIR="$HOME/.local/bin"
+CACHE_DIR="$HOME/.claude/cache"
+CONFIG_DIR="$HOME/.claude"
+CONFIG_FILE="$CONFIG_DIR/config.json"
+SESSION_FILE="$CONFIG_DIR/session.json"
+MODULE_PATH="$INSTALL_DIR/claude-cache-module.js"
+ORIGINAL_CLAUDE="$(which -a claude | grep -v "$INSTALL_DIR" | head -n 1)"
+
+# Create session file if it doesn't exist
+if [[ ! -f "$SESSION_FILE" ]]; then
+    echo '{"mode":"cached"}' > "$SESSION_FILE"
+    mkdir -p "$CACHE_DIR"
+fi
+
+# Function to get current session mode
+get_session_mode() {
+    MODE=$(node -e "
+        const fs = require('fs');
+        try {
+            const session = JSON.parse(fs.readFileSync('$SESSION_FILE', 'utf8'));
+            console.log(session.mode || 'cached');
+        } catch (e) {
+            console.log('cached');
+        }
+    ")
+    echo $MODE
+}
+
+# Function to set session mode
+set_session_mode() {
+    MODE="$1"
+    node -e "
+        const fs = require('fs');
+        try {
+            let session = {};
+            if (fs.existsSync('$SESSION_FILE')) {
+                session = JSON.parse(fs.readFileSync('$SESSION_FILE', 'utf8'));
+            }
+            session.mode = '$MODE';
+            fs.writeFileSync('$SESSION_FILE', JSON.stringify(session, null, 2));
+        } catch (e) {
+            console.error('Error setting session mode:', e.message);
+        }
+    "
+}
+
+# Check for session mode commands
+if [[ "$1" == "!cached" || "$1" == "athena" ]]; then
+    set_session_mode "cached"
+    echo -e "\033[1;34m[MODE]\033[0m Switched to cached mode. All queries will use local cache only."
+    echo -e "\033[1;34m[INFO]\033[0m Use \033[1m--query\033[0m or \033[1m-q\033[0m before your query to make a one-time online request."
+    echo -e "\033[1;34m[INFO]\033[0m Use \033[1m!default\033[0m to switch back to online mode."
+    exit 0
+elif [[ "$1" == "!default" ]]; then
+    set_session_mode "default"
+    echo -e "\033[1;32m[MODE]\033[0m Switched to default online mode. All queries will use the Claude API."
+    echo -e "\033[1;32m[INFO]\033[0m Use \033[1m!cached\033[0m to switch back to cached mode."
+    exit 0
+elif [[ "$1" == "!status" ]]; then
+    MODE=$(get_session_mode)
+    echo -e "\033[1;36m[STATUS]\033[0m Current mode: \033[1m$MODE\033[0m"
+    
+    # Show cache stats
+    if [[ -f "$CACHE_DIR/metadata.json" ]]; then
+        echo -e "\033[1;36m[CACHE]\033[0m Statistics:"
+        node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            function formatBytes(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            try {
+                const metadataPath = '$CACHE_DIR/metadata.json';
+                const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+                
+                console.log(\`  - Entries: \${metadata.stats.entries || 0}\`);
+                console.log(\`  - Size: \${formatBytes(metadata.stats.sizeBytes || 0)}\`);
+                console.log(\`  - Hit Rate: \${((metadata.stats.hitRate || 0) * 100).toFixed(2)}%\`);
+                console.log(\`  - Hits: \${metadata.stats.hits || 0}\`);
+                console.log(\`  - Misses: \${metadata.stats.misses || 0}\`);
+            } catch (e) {
+                console.log('  - No cache statistics available');
+            }
+        "
+    else
+        echo -e "\033[1;36m[CACHE]\033[0m No statistics available yet"
+    fi
+    
+    echo -e "\033[1;36m[HELP]\033[0m Commands:"
+    echo "  !cached  - Switch to cached mode (use local cache only)"
+    echo "  !default - Switch to default online mode (use Claude API)"
+    echo "  !status  - Show current mode and cache statistics"
+    echo "  --query \"Your query\" (or -q) - One-time online query"
+    exit 0
+fi
+
+# Check if we're running a cache management command
+if [[ "$1" == "cache" ]]; then
+    ACTION="$2"
+    case "$ACTION" in
+        stats)
+            echo -e "\033[1;36m[CACHE]\033[0m Statistics:"
+            if [[ -f "$CACHE_DIR/metadata.json" ]]; then
+                node -e "
+                    const fs = require('fs');
+                    const path = require('path');
+                    
+                    function formatBytes(bytes) {
+                        if (bytes === 0) return '0 Bytes';
+                        const k = 1024;
+                        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                        const i = Math.floor(Math.log(bytes) / Math.log(k));
+                        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+                    }
+                    
+                    try {
+                        const metadataPath = '$CACHE_DIR/metadata.json';
+                        const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+                        
+                        console.log(\`  - Entries: \${metadata.stats.entries || 0}\`);
+                        console.log(\`  - Size: \${formatBytes(metadata.stats.sizeBytes || 0)}\`);
+                        console.log(\`  - Hit Rate: \${((metadata.stats.hitRate || 0) * 100).toFixed(2)}%\`);
+                        console.log(\`  - Hits: \${metadata.stats.hits || 0}\`);
+                        console.log(\`  - Misses: \${metadata.stats.misses || 0}\`);
+                        console.log(\`  - Invalidations: \${metadata.stats.invalidations || 0}\`);
+                    } catch (e) {
+                        console.log('  - No cache statistics available');
+                    }
+                "
+            else
+                echo "  - No cache statistics available"
+            fi
+            
+            # Show config
+            echo ""
+            echo -e "\033[1;36m[CACHE]\033[0m Configuration:"
+            node -e "
+                const fs = require('fs');
+                try {
+                    const config = JSON.parse(fs.readFileSync('$CONFIG_FILE', 'utf8'));
+                    const cacheConfig = config.cache || {};
+                    
+                    function formatBytes(bytes) {
+                        if (bytes === 0) return '0 Bytes';
+                        const k = 1024;
+                        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                        const i = Math.floor(Math.log(bytes) / Math.log(k));
+                        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+                    }
+                    
+                    console.log(\`  - Enabled: \${cacheConfig.enabled !== false ? 'Yes' : 'No'}\`);
+                    console.log(\`  - TTL: \${cacheConfig.ttl ? (cacheConfig.ttl/60000).toFixed(1) + ' minutes' : 'Default'}\`);
+                    console.log(\`  - Max Size: \${cacheConfig.maxSize ? formatBytes(cacheConfig.maxSize) : 'Default'}\`);
+                    console.log(\`  - Persist On Exit: \${cacheConfig.persistOnExit !== false ? 'Yes' : 'No'}\`);
+                } catch (e) {
+                    console.log('  - Unable to read configuration');
+                }
+            "
+            
+            # Show session info
+            echo ""
+            echo -e "\033[1;36m[SESSION]\033[0m Information:"
+            MODE=$(get_session_mode)
+            echo "  - Current mode: $MODE"
+            
+            # Show cache directory info
+            echo ""
+            echo -e "\033[1;36m[CACHE]\033[0m Directory:"
+            du -sh "$CACHE_DIR" 2>/dev/null || echo "  - Unable to measure cache directory size"
+            ls -la "$CACHE_DIR" | head -n 20 2>/dev/null
+            if [[ $(ls -1 "$CACHE_DIR" | wc -l) -gt 20 ]]; then
+                echo "... (more files not shown)"
+            fi
+            ;;
+            
+        clear)
+            echo -e "\033[1;33m[CACHE]\033[0m Clearing cache..."
+            rm -rf "$CACHE_DIR"/*
+            mkdir -p "$CACHE_DIR"
+            echo -e "\033[1;33m[CACHE]\033[0m Cache cleared."
+            ;;
+            
+        enable)
+            echo -e "\033[1;32m[CACHE]\033[0m Enabling cache..."
+            node -e "
+                const fs = require('fs');
+                try {
+                    const configPath = '$CONFIG_FILE';
+                    let config = {};
+                    try {
+                        config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                    } catch (e) {
+                        config = {};
+                    }
+                    config.cache = config.cache || {};
+                    config.cache.enabled = true;
+                    fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+                    console.log('\033[1;32m[CACHE]\033[0m Cache enabled successfully.');
+                } catch (e) {
+                    console.error('\033[1;31m[ERROR]\033[0m Error enabling cache:', e.message);
+                }
+            "
+            ;;
+            
+        disable)
+            echo -e "\033[1;33m[CACHE]\033[0m Disabling cache..."
+            node -e "
+                const fs = require('fs');
+                try {
+                    const configPath = '$CONFIG_FILE';
+                    let config = {};
+                    try {
+                        config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                    } catch (e) {
+                        config = {};
+                    }
+                    config.cache = config.cache || {};
+                    config.cache.enabled = false;
+                    fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+                    console.log('\033[1;33m[CACHE]\033[0m Cache disabled successfully.');
+                } catch (e) {
+                    console.error('\033[1;31m[ERROR]\033[0m Error disabling cache:', e.message);
+                }
+            "
+            ;;
+            
+        debug)
+            if [[ "$3" == "on" ]]; then
+                echo -e "\033[1;35m[DEBUG]\033[0m Enabling debug mode..."
+                node -e "
+                    const fs = require('fs');
+                    try {
+                        const configPath = '$CONFIG_FILE';
+                        let config = {};
+                        try {
+                            config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                        } catch (e) {
+                            config = {};
+                        }
+                        config.cache = config.cache || {};
+                        config.cache.debug = true;
+                        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+                        console.log('\033[1;35m[DEBUG]\033[0m Debug mode enabled.');
+                    } catch (e) {
+                        console.error('\033[1;31m[ERROR]\033[0m Error enabling debug mode:', e.message);
+                    }
+                "
+            elif [[ "$3" == "off" ]]; then
+                echo -e "\033[1;35m[DEBUG]\033[0m Disabling debug mode..."
+                node -e "
+                    const fs = require('fs');
+                    try {
+                        const configPath = '$CONFIG_FILE';
+                        let config = {};
+                        try {
+                            config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+                        } catch (e) {
+                            config = {};
+                        }
+                        config.cache = config.cache || {};
+                        config.cache.debug = false;
+                        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+                        console.log('\033[1;35m[DEBUG]\033[0m Debug mode disabled.');
+                    } catch (e) {
+                        console.error('\033[1;31m[ERROR]\033[0m Error disabling debug mode:', e.message);
+                    }
+                "
+            else
+                echo -e "\033[1;36m[HELP]\033[0m Usage: claude-cache cache debug [on|off]"
+            fi
+            ;;
+            
+        *)
+            echo -e "\033[1;31m[ERROR]\033[0m Unknown cache command: $ACTION"
+            echo -e "\033[1;36m[HELP]\033[0m Available commands: stats, clear, enable, disable, debug"
+            ;;
+    esac
+    exit 0
+fi
+
+# Check for one-time query flags (--query or -q)
+USE_ONLINE=false
+ARGS=()
+
+# Process all arguments
+for arg in "$@"; do
+    if [[ "$arg" == "--query" || "$arg" == "-q" ]]; then
+        USE_ONLINE=true
+    elif [[ "$USE_ONLINE" == "true" && "$#" -eq 2 ]]; then
+        # If this is the query that follows --query/-q, add it to ARGS
+        ARGS+=("$arg")
+        # Reset the flag so we don't process multiple queries
+        USE_ONLINE=false
+    else
+        ARGS+=("$arg")
+    fi
+done
+
+# Get current session mode
+CURRENT_MODE=$(get_session_mode)
+
+# Determine if we should use online mode
+if [[ "$USE_ONLINE" == "true" || "$CURRENT_MODE" == "default" ]]; then
+    # Use the original Claude CLI (online mode)
+    if [[ "$USE_ONLINE" == "true" ]]; then
+        echo -e "\033[1;32m[MODE]\033[0m Using online mode for this query only."
+    fi
+    
+    # Call the original Claude command
+    "$ORIGINAL_CLAUDE" "${ARGS[@]}"
+    
+    # After the query completes, update our cache
+    # This is done asynchronously after the command finishes
+    # to avoid slowing down the response time
+    if [[ "${#ARGS[@]}" -gt 0 ]]; then
+        # Run in background to not delay the main process
+        (
+            sleep 2  # Wait a bit for the command to complete
+            node -e "
+                const fs = require('fs');
+                const path = require('path');
+                
+                // Import cache module
+                const cacheModulePath = '$INSTALL_DIR/claude-cache-module.js';
+                const cacheModule = require(cacheModulePath);
+                
+                // Initialize cache
+                const fileCache = new cacheModule.FileCache({
+                    debug: false
+                });
+                
+                // Load existing cache
+                fileCache.loadCache().then(() => {
+                    // Extract possible file references from the query
+                    const query = '${ARGS[*]}';
+                    const possibleFiles = cacheModule.extractFilesFromQuery(query);
+                    
+                    // For each possible file, check if it exists and cache it
+                    for (const file of possibleFiles) {
+                        // Add support for absolute and relative paths
+                        const filePath = path.isAbsolute(file) ? file : path.resolve(process.cwd(), file);
+                        
+                        if (fs.existsSync(filePath)) {
+                            try {
+                                // Check if it's a binary file
+                                if (!cacheModule.isBinaryFilePath(filePath)) {
+                                    // Only cache if the file exists and is readable
+                                    const content = fs.readFileSync(filePath, 'utf8');
+                                    fileCache.set(filePath, content);
+                                    console.log('\033[1;32m[CACHE]\033[0m Updated cache for: ' + filePath);
+                                }
+                            } catch (e) {
+                                // Silently ignore files we can't read
+                            }
+                        }
+                    }
+                    
+                    // Persist cache
+                    fileCache.persistCache();
+                }).catch(e => {
+                    // Silently ignore errors in background process
+                });
+            " &>/dev/null &
+        )
+    fi
+else
+    # We're in cached mode
+    
+    # First time message
+    if [[ ! -f "$CACHE_DIR/.welcomed" ]]; then
+        echo -e "\033[1;34m[CACHED MODE]\033[0m Working with local cache only. No API calls will be made."
+        echo -e "\033[1;34m[HELP]\033[0m Commands to know:"
+        echo "  • Use \033[1m--query\033[0m or \033[1m-q\033[0m before your query to make a one-time online request"
+        echo "  • Use \033[1m!default\033[0m to switch to online mode permanently"
+        echo "  • Use \033[1m!status\033[0m to see current mode and available commands"
+        echo -e "\033[1;34m[INFO]\033[0m If you encounter any issues with cached mode, use \033[1m!default\033[0m to return to online mode."
+        echo ""
+        touch "$CACHE_DIR/.welcomed"
+    fi
+    
+    # Handle cached mode query
+    if [[ "${#ARGS[@]}" -eq 0 ]]; then
+        # No query provided
+        echo -e "\033[1;34m[CACHED MODE]\033[0m Enter your query. Remember:"
+        echo "  • Use \033[1m--query\033[0m or \033[1m-q\033[0m before your query to make a one-time online request"
+        echo "  • Use \033[1m!default\033[0m to switch to online mode permanently"
+        echo "  • Use \033[1m!status\033[0m to see current mode and available commands"
+    else
+        # Process the query using our cached data
+        QUERY="${ARGS[*]}"
+        echo -e "\033[1;34m[CACHED MODE]\033[0m Query: $QUERY"
+        
+        # Load cache module and process query
+        node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Load cache module
+            const cacheModulePath = '$INSTALL_DIR/claude-cache-module.js';
+            const cacheModule = require(cacheModulePath);
+            
+            // Initialize file cache
+            const fileCache = new cacheModule.FileCache({
+                debug: false
+            });
+            
+            // Load cache data
+            fileCache.loadCache().then(() => {
+                // Process the query to extract file references and respond
+                const response = cacheModule.processCachedQuery('$QUERY', fileCache.cache);
+                console.log(response);
+            }).catch(err => {
+                console.error('\033[1;31m[ERROR]\033[0m Error processing query:', err.message);
+                console.log('\033[1;34m[HELP]\033[0m To make an online query, use: \033[1m--query \"$QUERY\"\033[0m or switch to online mode with \033[1m!default\033[0m');
+            });
+        "
+    fi
+fi

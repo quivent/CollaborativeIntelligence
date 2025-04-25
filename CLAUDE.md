@@ -6,7 +6,7 @@ This file serves as the primary configuration and initialization point for the E
 
 | Type this in terminal | To get this |
 |----------------------|-------------|
-| `Athena` | Your memory & learning systems expert (✦ PRIMARY AGENT) |
+| `athena` | Your memory & learning systems expert (✦ PRIMARY AGENT) |
 | `Recommend an agent` | Find the perfect agent for your specific task |
 | `Project Overview` | See what's in this repository right now |
 | `Detailed Analysis` | Get comprehensive codebase documentation |
@@ -21,7 +21,7 @@ When starting a new session without specifying an agent, display this welcome me
 Welcome to the Collaborative Intelligence System!
 
 Available commands:
-- Athena - Memory & learning systems expert
+- athena - Memory & learning systems expert
 - Recommend an agent - Find the right specialist
 - Project Overview - See what's in this repository
 - Detailed Analysis - Get comprehensive documentation
