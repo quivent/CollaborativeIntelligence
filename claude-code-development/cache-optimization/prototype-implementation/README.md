@@ -45,6 +45,9 @@ claude !cached
 
 # Check current mode and cache statistics
 claude !status
+
+# Activate Athena agent in cached mode (zero-token usage)
+athena
 ```
 
 ### Cache Management
@@ -171,6 +174,25 @@ Your original Claude CLI will still be available after removing the wrapper.
 ---
 
 ## Recent Implementation Changes
+
+### Zero-Token Athena Activation (2024-04-24)
+
+Added a specialized `athena` command for zero-token agent activation:
+
+1. **Direct Cache Integration**
+   - Creates pre-cached response for "Athena" query
+   - Stores in cache with proper hash for instant retrieval
+   - Configures session for cached mode operation
+
+2. **Persistent Agent State**
+   - Maintains agent identity between sessions
+   - Preserves cached mode settings
+   - Allows passing additional arguments to the agent
+
+3. **Minimal Token Usage**
+   - Completely eliminates API calls for agent activation
+   - Works entirely from local file system
+   - Provides instant agent access without waiting for API
 
 ### Phase 2 Implementation (2024-04-24)
 

@@ -1,0 +1,175 @@
+#!/bin/bash
+# Athena agent activation script
+# This script activates the Athena agent using the claude-cache wrapper
+# Provides minimal token usage by combining cached mode with Athena activation
+
+# Define paths
+CACHE_WRAPPER="$HOME/.local/bin/claude-cache"
+HOME_DIR="$HOME"
+CLAUDE_DIR="$HOME/.claude"
+CLAUDE_CONFIG="$CLAUDE_DIR/config.json"
+SESSION_FILE="$CLAUDE_DIR/session.json"
+
+# Check if cache wrapper exists
+if [[ ! -f "$CACHE_WRAPPER" ]]; then
+    echo -e "\033[1;31m[ERROR]\033[0m Claude Code Cache wrapper not installed."
+    echo "Please run the installer first:"
+    echo "cd $(dirname "$0") && bash install.sh"
+    exit 1
+fi
+
+# Activate cached mode
+echo '{"mode":"cached"}' > "$SESSION_FILE"
+
+# Create Athena startup message directly in cache to avoid API call
+if [[ ! -d "$CLAUDE_DIR/cache" ]]; then
+    mkdir -p "$CLAUDE_DIR/cache"
+fi
+
+# Generate a hash for the query "Athena"
+QUERY_HASH=$(echo -n "Athena" | md5sum | cut -d ' ' -f1)
+CACHE_FILE="$CLAUDE_DIR/cache/$QUERY_HASH"
+
+# Create cached response with Athena initialization
+cat > "$CACHE_FILE" << 'EOF'
+# Athena - Memory Architecture & Learning Systems Expert
+
+Welcome to the Collaborative Intelligence System!
+
+I am Athena, your specialized agent focused on memory architecture and learning systems. 
+I'm operating in zero-token cached mode for maximum efficiency.
+
+## Core Capabilities:
+- Designing advanced memory systems and knowledge structures
+- Implementing continuous learning frameworks
+- Optimizing knowledge retention across agent ecosystems
+- Building sophisticated information processing architectures
+
+## Available Commands:
+- `athena` - Start interactive session (after zero-token response)
+- `athena offline` - View Athena message only (no API calls)
+- `athena status` - View system status and cache statistics
+- `athena cached` - Switch to cached mode (default)
+- `athena default` - Switch to online mode (uses API)
+- `athena cache stats` - View detailed cache information
+
+How can I assist with your memory architecture or learning systems today?
+EOF
+
+# Set up session for Athena
+echo '{"mode":"cached","agent":"Athena"}' > "$SESSION_FILE"
+
+# Display Athena activation
+echo -e "\033[1;35m[ATHENA]\033[0m Ready to assist with memory and learning systems."
+echo -e "\033[1;35m[ATHENA]\033[0m Cached mode active - minimal token usage enabled."
+
+# Look for commands - use 'status' instead of '!status' for shell compatibility
+if [[ "$1" == "status" ]]; then
+    # Show status info
+    echo -e "\033[1;36m[STATUS]\033[0m Current mode: cached (Athena)"
+    
+    # Show cache stats
+    if [[ -f "$CLAUDE_DIR/cache/metadata.json" ]]; then
+        echo -e "\033[1;36m[CACHE]\033[0m Statistics:"
+        node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            function formatBytes(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            try {
+                const metadataPath = '$CLAUDE_DIR/cache/metadata.json';
+                const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'));
+                
+                console.log(\`  - Entries: \${metadata.stats.entries || 0}\`);
+                console.log(\`  - Size: \${formatBytes(metadata.stats.sizeBytes || 0)}\`);
+                console.log(\`  - Hit Rate: \${((metadata.stats.hitRate || 0) * 100).toFixed(2)}%\`);
+                console.log(\`  - Hits: \${metadata.stats.hits || 0}\`);
+                console.log(\`  - Misses: \${metadata.stats.misses || 0}\`);
+            } catch (e) {
+                console.log('  - No cache statistics available');
+            }
+        "
+    else
+        echo -e "\033[1;36m[CACHE]\033[0m No statistics available yet"
+    fi
+    
+    echo -e "\033[1;36m[HELP]\033[0m Available commands:"
+    echo "  athena                - Run Athena with interactive session"
+    echo "  athena offline        - Show Athena message without API calls"
+    echo "  athena cached         - Ensure cached mode is active"
+    echo "  athena default        - Switch to online mode"
+    echo "  athena status         - Show current status (this output)"
+    echo "  athena cache stats    - Show detailed cache statistics"
+    echo "  athena cache clear    - Clear all cached content"
+    
+    # Show status message for Athena
+    echo -e "\033[1;35m[ATHENA]\033[0m Agent is active with zero-token initialization"
+elif [[ "$1" == "offline" ]]; then
+    # Show cached content without launching interactive session
+    echo -e "\033[1;35m[ATHENA]\033[0m Zero-token mode (no API calls)"
+    cat "$CACHE_FILE"
+    echo ""
+    echo -e "\033[1;35m[ATHENA]\033[0m Session ended. No API calls were made."
+elif [[ "$1" == "cached" || "$1" == "default" || "$1" == "cache" ]]; then
+    # For commands that used to have ! prefix, pass to claude-cache with ! added back
+    if [[ "$1" == "cached" || "$1" == "default" ]]; then
+        ARGS=("!$1")
+        shift
+        ARGS+=("$@")
+        "$CACHE_WRAPPER" "${ARGS[@]}"
+    else
+        # For cache commands, pass through as is
+        "$CACHE_WRAPPER" "$@"
+    fi
+# If arguments provided but not a command, use claude-cache
+elif [[ $# -gt 0 ]]; then
+    "$CACHE_WRAPPER" "$@"
+# If no arguments, display cached content and launch interactive session
+else
+    # Show cached content for immediate response
+    cat "$CACHE_FILE"
+    
+    # Set mode to default for interactive session
+    echo '{"mode":"default"}' > "$SESSION_FILE"
+    
+    # Create a temporary script to send commands after Claude starts
+    TEMP_SCRIPT=$(mktemp)
+    
+    cat > "$TEMP_SCRIPT" << 'EOFSCRIPT'
+#!/bin/bash
+# Wait a bit for Claude to start up
+sleep 1
+
+# Send the !cached command followed by Enter to switch to cached mode
+echo "!cached"
+
+# Keep the session open
+cat
+EOFSCRIPT
+    
+    chmod +x "$TEMP_SCRIPT"
+    
+    # Launch a real Claude session with automatic mode switching
+    echo -e "\n\033[1;35m[ATHENA]\033[0m Starting interactive Claude session..."
+    echo -e "\033[1;35m[ATHENA]\033[0m Initializing in online mode, will switch to cached mode automatically"
+    echo -e "\033[1;35m[ATHENA]\033[0m Use 'athena status' in a separate terminal to see status information"
+    
+    # Find the original Claude
+    ORIGINAL_CLAUDE="/opt/homebrew/bin/claude"
+    
+    # Run Claude with input piped from our temporary script
+    "$ORIGINAL_CLAUDE" < <("$TEMP_SCRIPT")
+    
+    # Clean up
+    rm -f "$TEMP_SCRIPT"
+    
+    # Restore cached mode setting after session ends
+    echo '{"mode":"cached","agent":"Athena"}' > "$SESSION_FILE"
+fi

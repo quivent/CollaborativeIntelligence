@@ -312,3 +312,48 @@ fi
 3. **Command history caching** - Cache command results for similar queries
 4. **Cache preloading** - Option to preload commonly accessed files
 5. **Advanced query parsing** - Better understand natural language queries
+
+## Zero-Token Agent Activation (Implemented in Phase 2+)
+
+A new approach to minimize token usage with specialized agents:
+
+```bash
+# Direct cache creation for Athena agent
+QUERY_HASH=$(echo -n "Athena" | md5sum | cut -d ' ' -f1)
+CACHE_FILE="$CLAUDE_DIR/cache/$QUERY_HASH"
+
+# Create cached response with agent initialization
+cat > "$CACHE_FILE" << 'EOF'
+# Athena - Memory & Learning Systems Expert
+
+I am Athena, your specialized collaborative intelligence focused on memory architecture 
+and learning systems. I'm operating in cached mode to minimize token usage.
+
+## How I can help you:
+- Design and manage memory systems
+- Implement learning frameworks
+- Optimize knowledge retention
+- Develop continuous improvement systems
+
+What would you like assistance with today?
+EOF
+
+# Set up session for the agent
+echo '{"mode":"cached","agent":"Athena"}' > "$SESSION_FILE"
+```
+
+This approach bypasses the API entirely, creating a pre-cached response for agent activation and allowing for fully offline operation with specialized agents.
+
+---
+
+Implementation changes (Phase 2+, 2024-04-24):
+
+1. Added zero-token agent activation system:
+   - Created direct cache manipulation for agent initialization
+   - Implemented hash-based response storage for immediate retrieval
+   - Added session state preservation for agent continuity
+
+2. Enhanced agent functionality:
+   - Developed persistent agent state between sessions
+   - Added cached mode support for all agent operations
+   - Created specialized startup messages without API usage

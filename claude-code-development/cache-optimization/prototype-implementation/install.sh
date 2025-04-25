@@ -22,9 +22,11 @@ mkdir -p "$CONFIG_DIR"
 # Copy files to install directory
 cp "$SCRIPT_DIR/claude-cache" "$INSTALL_DIR/"
 cp "$SCRIPT_DIR/claude-cache-module.js" "$INSTALL_DIR/"
+cp "$SCRIPT_DIR/athena" "$INSTALL_DIR/" 2>/dev/null || echo -e "\033[1;33m[WARNING]\033[0m Athena activation script not found, skipping"
 
 # Make files executable
 chmod +x "$INSTALL_DIR/claude-cache"
+chmod +x "$INSTALL_DIR/athena" 2>/dev/null || true
 
 # Check if original claude command exists
 if ! command -v claude &> /dev/null; then
@@ -110,6 +112,9 @@ echo "  claude \"What does this file do?\"       - Use Claude in cached mode (de
 echo "  claude --query \"What does this do?\"   - Force online mode for one query"
 echo "  claude !default                        - Switch to online mode permanently"
 echo "  claude !cached                         - Switch back to cached mode"
+echo "  claude athena                          - Shortcut for switching to cached mode"
+echo "  athena                                 - Activate Athena agent with zero token usage"
+echo "  athena \"your question\"                - Ask Athena directly with minimal token usage"
 echo "  claude !status                         - Show current mode and cache status"
 echo ""
 echo -e "\033[1;36m[USAGE]\033[0m Cache management:"
