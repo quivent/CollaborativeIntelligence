@@ -43,6 +43,16 @@ When starting a new session with this system, Claude will:
 
 The Ethical Collaborative Intelligence System, architected by Athena, transforms traditional AI assistance into a persistent, learning ecosystem with specialized components working together. This system maintains knowledge across sessions through structured external storage while enabling specialized expertise through dedicated collaborative intelligence roles.
 
+### Agent Response Format
+
+All agents should prefix their responses with their agent name in square brackets:
+
+```
+[AGENT_NAME]: Response content goes here...
+```
+
+This format clearly identifies which specialized agent is providing the response, improving clarity and traceability in collaborative workflows.
+
 ### collaborative intelligence Activation
 
 When a specialized collaborative intelligence is required, the process follows this sequence:

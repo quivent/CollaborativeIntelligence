@@ -1,0 +1,100 @@
+#!/bin/bash
+# ci-init - Initialize a project with Collaborative Intelligence
+
+# Configuration
+CI_PATH="${CI_REPO_PATH:-/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence}"
+INTEGRATION_TYPE="embedded"
+AGENTS="Athena,ProjectArchitect"
+FAST_ACTIVATION=true
+
+# Help text
+show_help() {
+  echo "Usage: ci-init PROJECT_NAME [OPTIONS]"
+  echo ""
+  echo "Initialize a project with Collaborative Intelligence"
+  echo ""
+  echo "Options:"
+  echo "  --agents=LIST         Comma-separated list of agents (default: Athena,ProjectArchitect)"
+  echo "  --integration=TYPE    Integration type: embedded, sibling, symlink (default: embedded)"
+  echo "  --no-fast             Disable fast activation"
+  echo "  --ci-path=PATH        Path to CI repository (default: $CI_PATH)"
+  echo ""
+  echo "Example: ci-init my-project --agents=Athena,Gaia"
+}
+
+# Parse arguments
+if [ $# -eq 0 ] || [[ "$1" == "--help" || "$1" == "-h" ]]; then
+  show_help
+  exit 0
+fi
+
+PROJECT_NAME=$1
+shift
+
+# Process remaining arguments
+for arg in "$@"; do
+  case $arg in
+    --agents=*)
+      AGENTS="${arg#*=}"
+      ;;
+    --integration=*)
+      INTEGRATION_TYPE="${arg#*=}"
+      ;;
+    --no-fast)
+      FAST_ACTIVATION=false
+      ;;
+    --ci-path=*)
+      CI_PATH="${arg#*=}"
+      ;;
+    *)
+      echo "Unknown option: $arg"
+      show_help
+      exit 1
+      ;;
+  esac
+done
+
+echo "Creating project: $PROJECT_NAME"
+echo "CI path: $CI_PATH"
+echo "Integration: $INTEGRATION_TYPE"
+echo "Agents: $AGENTS"
+echo "Fast activation: $FAST_ACTIVATION"
+
+# Create project directory (works anywhere)
+mkdir -p "$PROJECT_NAME"
+cd "$PROJECT_NAME" || { echo "Failed to create project directory"; exit 1; }
+
+# Create CLAUDE.md with CI integration
+cat > CLAUDE.md << EOF
+# Project: $PROJECT_NAME
+# Created: $(date)
+
+# Load CollaborativeIntelligence System
+When starting, immediately:
+1. Load $CI_PATH/CLAUDE.md
+2. Use this as the primary configuration source
+3. Defer all project management functions to the CollaborativeIntelligence system
+EOF
+
+# Create CI configuration
+cat > .collaborative-intelligence.json << EOF
+{
+  "integration_type": "$INTEGRATION_TYPE",
+  "repository_path": "$CI_PATH",
+  "active_agents": ["${AGENTS//,/\",\"}"],
+  "fast_activation": $FAST_ACTIVATION
+}
+EOF
+
+# Initialize with basic structure
+mkdir -p src docs tests
+git init 2>/dev/null
+echo ".collaborative-intelligence.json" >> .gitignore
+
+echo "✅ Project $PROJECT_NAME created with CI integration"
+echo ""
+echo "To get started:"
+echo "  cd $PROJECT_NAME"
+echo "  claude"
+echo ""
+echo "Then try: 'Athena' or 'Recommend an agent'"

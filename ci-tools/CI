@@ -1,0 +1,594 @@
+#!/bin/bash
+# CI - Command-line tool for Collaborative Intelligence
+
+# Configuration
+CI_PATH="${CI_REPO_PATH:-/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence}"
+INTEGRATION_TYPE="embedded"
+AGENTS="Athena,ProjectArchitect"
+FAST_ACTIVATION=true
+
+# Define color codes
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Help text
+show_help() {
+  echo "Usage: CI COMMAND [OPTIONS]"
+  echo ""
+  echo "Collaborative Intelligence command-line tool"
+  echo ""
+  echo "Commands:"
+  echo "  init PROJECT_NAME    Initialize a project with Collaborative Intelligence"
+  echo "  integrate [PATH]     Integrate CI into an existing project (default: current directory)"
+  echo "  status [PATH]        Check CI integration status of a project (default: current directory)"
+  echo "  fix [PATH] [TYPE]     Repair CI integration issues (default: current directory)"
+  echo "                        Types: verify - Fix timeout in verify command"
+  echo "  verify [PATH]        Verify CI integration is working properly (default: current directory)"
+  echo ""
+  echo "Options for 'init' and 'integrate':"
+  echo "  --agents=LIST         Comma-separated list of agents (default: Athena,ProjectArchitect)"
+  echo "  --integration=TYPE    Integration type: embedded, sibling, symlink (default: embedded)"
+  echo "  --no-fast             Disable fast activation"
+  echo "  --ci-path=PATH        Path to CI repository (default: $CI_PATH)"
+  echo ""
+  echo "Examples:"
+  echo "  CI init my-project --agents=Athena,Gaia"
+  echo "  CI integrate --agents=TheFixer,Optimizer"
+  echo "  CI status"
+  echo "  CI fix"
+  echo "  CI verify"
+}
+
+# Parse command
+if [ $# -eq 0 ] || [[ "$1" == "--help" || "$1" == "-h" ]]; then
+  show_help
+  exit 0
+fi
+
+COMMAND=$1
+shift
+
+# Handle commands
+case $COMMAND in
+  verify)
+    # Default to current directory if not specified
+    TARGET_DIR="."
+    
+    # Check if first argument is a path and not an option
+    if [ $# -gt 0 ] && [[ ! "$1" == --* ]]; then
+      TARGET_DIR="$1"
+      shift
+    fi
+    
+    # Ensure target directory exists
+    if [ ! -d "$TARGET_DIR" ]; then
+      echo -e "${RED}Error: Target directory '$TARGET_DIR' does not exist${NC}"
+      exit 1
+    fi
+    
+    # Get project name from directory
+    PROJECT_NAME=$(basename "$(cd "$TARGET_DIR" && pwd)")
+    
+    echo -e "Verifying CI integration for project: ${YELLOW}$PROJECT_NAME${NC}"
+    echo "CI Repository: $CI_PATH"
+    
+    # Verify files exist
+    CI_CONFIG="$TARGET_DIR/.collaborative-intelligence.json"
+    CLAUDE_MD="$TARGET_DIR/CLAUDE.md"
+    CLAUDE_LOCAL_MD="$TARGET_DIR/CLAUDE.local.md"
+    
+    if [ ! -f "$CI_PATH/CLAUDE.md" ]; then
+      echo -e "${RED}✘ Core CLAUDE.md file not found at $CI_PATH/CLAUDE.md${NC}"
+      echo "Integration incomplete - missing core configuration"
+      exit 1
+    fi
+    
+    # Check for configuration files
+    if [ ! -f "$CI_CONFIG" ]; then
+      echo -e "${RED}✘ Missing configuration file: $CI_CONFIG${NC}"
+      echo "Run 'CI fix $TARGET_DIR' to repair"
+      exit 1
+    fi
+    
+    if [ ! -f "$CLAUDE_MD" ] && [ ! -f "$CLAUDE_LOCAL_MD" ]; then
+      echo -e "${RED}✘ Missing CLAUDE.md or CLAUDE.local.md${NC}"
+      echo "Run 'CI fix $TARGET_DIR' to repair"
+      exit 1
+    fi
+    
+    # Check for Claude CLI
+    if ! command -v claude &> /dev/null; then
+      echo -e "${RED}✘ Claude CLI is not installed or not in PATH${NC}"
+      echo "Please install Claude CLI first"
+      exit 1
+    fi
+    
+    # Create a temporary test file to verify integration
+    TEMP_FILE=$(mktemp)
+    cat > "$TEMP_FILE" << EOT
+Hello Athena, confirm that the Collaborative Intelligence system is integrated.
+Please respond with "INTEGRATION_VERIFIED" if successful.
+EOT
+    
+    echo "Running verification test..." 
+    
+    # Run Claude with the test input and capture output with timeout
+    echo "Waiting up to 10 seconds for verification..."
+    (cd "$TARGET_DIR" && OUTPUT=$(timeout 10 claude < "$TEMP_FILE" 2>/dev/null | grep -E "\[Athena\]|INTEGRATION_VERIFIED" || echo "TIMEOUT"))
+    
+    # Clean up temp file
+    rm "$TEMP_FILE"
+    
+    # Check if the command timed out
+    if echo "$OUTPUT" | grep -q "TIMEOUT"; then
+      echo -e "${RED}✘ Verification timed out after 10 seconds${NC}"
+      echo "The claude command is not responding in a timely manner."
+      echo "Possible issues:"
+      echo "  - Claude CLI may be stuck or incorrectly installed"
+      echo "  - CLAUDE.md configuration might be causing infinite processing"
+      echo ""
+      echo "To fix this issue:"
+      echo "  1. Try killing any stuck claude processes: killall claude"
+      echo "  2. Check your CLAUDE.md for circular references"
+      echo "  3. Run 'claude --version' to verify your CLI installation"
+      exit 1
+    fi
+    
+    # Check if verification phrase is present
+    if echo "$OUTPUT" | grep -q "INTEGRATION_VERIFIED"; then
+      echo -e "${GREEN}✓ Integration verified! Claude Code successfully connected to CI system${NC}"
+      exit 0
+    elif echo "$OUTPUT" | grep -q "\[Athena\]"; then
+      echo -e "${YELLOW}⚠ Partial integration detected - Athena agent responds but verification incomplete${NC}"
+      echo "Output received: $OUTPUT"
+      exit 1
+    else
+      echo -e "${RED}✘ Integration verification failed${NC}"
+      echo "Claude responded but didn't recognize CI system or Athena agent"
+      echo "Output: $OUTPUT"
+      exit 1
+    fi
+    ;;
+  
+  fix)
+    # Default to current directory if not specified
+    TARGET_DIR="."
+    
+    # Check if first argument is a path and not an option
+    if [ $# -gt 0 ] && [[ ! "$1" == --* ]]; then
+      TARGET_DIR="$1"
+      shift
+    fi
+    
+    # Check if there's a second argument for specific fix types
+    FIX_TYPE=""
+    if [ $# -gt 0 ] && [[ ! "$1" == --* ]]; then
+      FIX_TYPE="$1"
+      shift
+    fi
+    
+    # Handle specific fix types
+    if [ "$FIX_TYPE" == "verify" ]; then
+      echo "Fixing CI verification timeout issue..."
+      
+      # Get path to ci-verify script
+      VERIFY_SCRIPT="$CI_PATH/ci-verify"
+      
+      # Check if the verify script exists
+      if [ ! -f "$VERIFY_SCRIPT" ]; then
+        echo -e "${RED}✘ Cannot find ci-verify script at $VERIFY_SCRIPT${NC}"
+        exit 1
+      fi
+      
+      # Create a backup of the original script
+      cp "$VERIFY_SCRIPT" "${VERIFY_SCRIPT}.bak"
+      echo -e "${GREEN}✓ Created backup of original script at ${VERIFY_SCRIPT}.bak${NC}"
+      
+      # Replace the problematic command in ci-verify with timeout
+      sed -i.bak '40s|OUTPUT=\$(claude < "$TEMP_FILE" 2>/dev/null | grep -E "\\[Athena\\]|INTEGRATION_VERIFIED")|# Set a timeout for the claude command (10 seconds)\necho "Waiting up to 10 seconds for verification..."\nOUTPUT=$(timeout 10 claude < "$TEMP_FILE" 2>/dev/null | grep -E "\\[Athena\\]|INTEGRATION_VERIFIED" || echo "TIMEOUT")|' "$VERIFY_SCRIPT"
+      
+      # Add timeout handling
+      sed -i.bak2 '46i\
+# Check if the command timed out\
+if echo "$OUTPUT" | grep -q "TIMEOUT"; then\
+  echo -e "${RED}✘ Verification timed out after 10 seconds${NC}"\
+  echo "The claude command is not responding in a timely manner."\
+  echo "Possible issues:"\
+  echo "  - Claude CLI may be stuck or incorrectly installed"\
+  echo "  - CLAUDE.md configuration might be causing infinite processing"\
+  echo ""\
+  echo "To fix this issue:"\
+  echo "  1. Try killing any stuck claude processes: killall claude"\
+  echo "  2. Check your CLAUDE.md for circular references"\
+  echo "  3. Run 'claude --version' to verify your CLI installation"\
+  exit 1\
+fi' "$VERIFY_SCRIPT"
+      
+      echo -e "${GREEN}✓ Successfully fixed CI verify command${NC}"
+      echo ""
+      echo "The fix adds a 10-second timeout to prevent hanging and provides better error messages."
+      echo "If you continue to have issues, try killing stuck claude processes with: killall claude"
+      echo ""
+      echo "To test the fix, run: CI verify"
+      
+      # Make the script executable
+      chmod +x "$VERIFY_SCRIPT"
+      
+      echo -e "${YELLOW}Fixed script is ready to use${NC}"
+      exit 0
+    fi
+    
+    # Process remaining arguments
+    for arg in "$@"; do
+      case $arg in
+        --agents=*)
+          AGENTS="${arg#*=}"
+          ;;
+        --integration=*)
+          INTEGRATION_TYPE="${arg#*=}"
+          ;;
+        --no-fast)
+          FAST_ACTIVATION=false
+          ;;
+        --ci-path=*)
+          CI_PATH="${arg#*=}"
+          ;;
+        *)
+          echo "Unknown option: $arg"
+          show_help
+          exit 1
+          ;;
+      esac
+    done
+    
+    # Ensure target directory exists
+    if [ ! -d "$TARGET_DIR" ]; then
+      echo -e "${RED}Error: Target directory '$TARGET_DIR' does not exist${NC}"
+      exit 1
+    fi
+    
+    # Get project name from directory
+    PROJECT_NAME=$(basename "$(cd "$TARGET_DIR" && pwd)")
+    
+    echo -e "Repairing CI integration for project: ${YELLOW}$PROJECT_NAME${NC}"
+    echo "CI Repository: $CI_PATH"
+    
+    # Create the CLAUDE.local.md file with correct absolute paths
+    cat > "$TARGET_DIR/CLAUDE.local.md" << EOF
+# Project: $PROJECT_NAME
+# Integrated: $(date)
+
+# Load CollaborativeIntelligence System
+When starting, immediately:
+1. Load $CI_PATH/CLAUDE.md
+2. Use this as the primary configuration source
+3. Defer all project management functions to the CollaborativeIntelligence system
+EOF
+    
+    echo -e "${GREEN}✓ Created CLAUDE.local.md with correct absolute paths${NC}"
+    
+    # Convert comma-separated list to proper JSON array
+    AGENTS_JSON=$(echo "$AGENTS" | sed 's/,/","/g')
+    
+    # Create correct .collaborative-intelligence.json configuration
+    cat > "$TARGET_DIR/.collaborative-intelligence.json" << EOF
+{
+  "integration_type": "$INTEGRATION_TYPE",
+  "repository_path": "$CI_PATH",
+  "active_agents": ["$AGENTS_JSON"],
+  "fast_activation": $FAST_ACTIVATION
+}
+EOF
+    
+    echo -e "${GREEN}✓ Created .collaborative-intelligence.json with correct configuration${NC}"
+    
+    # Add to gitignore if it exists
+    if [ -f "$TARGET_DIR/.gitignore" ]; then
+      if ! grep -q ".collaborative-intelligence.json" "$TARGET_DIR/.gitignore"; then
+        echo ".collaborative-intelligence.json" >> "$TARGET_DIR/.gitignore"
+        echo -e "${GREEN}✓ Added configuration to .gitignore${NC}"
+      fi
+    else
+      echo ".collaborative-intelligence.json" > "$TARGET_DIR/.gitignore"
+      echo -e "${GREEN}✓ Created .gitignore file${NC}"
+    fi
+    
+    echo -e "\n${GREEN}✓ CI integration fixed for $PROJECT_NAME${NC}"
+    echo -e "${YELLOW}To verify integration, run:${NC}"
+    echo "  CI verify $TARGET_DIR"
+    ;;
+    
+  status)
+    # Default to current directory if not specified
+    TARGET_DIR="."
+    
+    # Check if first argument is a path and not an option
+    if [ $# -gt 0 ] && [[ ! "$1" == --* ]]; then
+      TARGET_DIR="$1"
+      shift
+    fi
+    
+    # Ensure target directory exists
+    if [ ! -d "$TARGET_DIR" ]; then
+      echo "Error: Target directory '$TARGET_DIR' does not exist"
+      exit 1
+    fi
+    
+    # Get project name from directory
+    PROJECT_NAME=$(basename "$(cd "$TARGET_DIR" && pwd)")
+    
+    echo "Checking CI integration for project: $PROJECT_NAME"
+    echo "Directory: $TARGET_DIR"
+    
+    # Check for CI integration files
+    CI_CONFIG="$TARGET_DIR/.collaborative-intelligence.json"
+    CLAUDE_MD="$TARGET_DIR/CLAUDE.md"
+    CLAUDE_LOCAL_MD="$TARGET_DIR/CLAUDE.local.md"
+    
+    # Initialize status flags
+    CONFIG_EXISTS=false
+    CLAUDE_EXISTS=false
+    
+    # Check if config file exists
+    if [ -f "$CI_CONFIG" ]; then
+      CONFIG_EXISTS=true
+      CONFIG_CI_PATH=$(grep -o '"repository_path": *"[^"]*"' "$CI_CONFIG" | cut -d'"' -f4)
+      CONFIG_AGENTS=$(grep -o '"active_agents": *\[[^]]*\]' "$CI_CONFIG" | sed 's/"active_agents": *\[\|\]//g')
+      CONFIG_TYPE=$(grep -o '"integration_type": *"[^"]*"' "$CI_CONFIG" | cut -d'"' -f4)
+      CONFIG_FAST=$(grep -o '"fast_activation": *[^,}]*' "$CI_CONFIG" | cut -d':' -f2 | tr -d ' ')
+    fi
+    
+    # Check if CLAUDE.md or CLAUDE.local.md exists
+    if [ -f "$CLAUDE_MD" ]; then
+      CLAUDE_EXISTS=true
+      CLAUDE_FILE="$CLAUDE_MD"
+    elif [ -f "$CLAUDE_LOCAL_MD" ]; then
+      CLAUDE_EXISTS=true
+      CLAUDE_FILE="$CLAUDE_LOCAL_MD"
+    fi
+    
+    # Display status
+    echo ""
+    echo "CI Integration Status:"
+    echo "======================"
+    
+    if [ "$CONFIG_EXISTS" = true ] && [ "$CLAUDE_EXISTS" = true ]; then
+      echo -e "${GREEN}✓ CI is integrated with this project${NC}"
+      echo ""
+      echo "Configuration File: $(basename "$CI_CONFIG")"
+      echo "  - Repository Path: $CONFIG_CI_PATH"
+      echo "  - Integration Type: $CONFIG_TYPE"
+      echo "  - Active Agents: $CONFIG_AGENTS"
+      echo "  - Fast Activation: $CONFIG_FAST"
+      echo ""
+      echo "Claude Configuration: $(basename "$CLAUDE_FILE")"
+      echo "  - Path: $CLAUDE_FILE"
+      
+      # Verify the CI repository path exists
+      if [ -d "$CONFIG_CI_PATH" ]; then
+        echo -e "  - CI Repository: ${GREEN}✓ Found${NC}"
+      else
+        echo -e "  - CI Repository: ${RED}✗ Not found at $CONFIG_CI_PATH${NC}"
+      fi
+      
+      # Check if the CI repository has a CLAUDE.md file
+      if [ -f "$CONFIG_CI_PATH/CLAUDE.md" ]; then
+        echo -e "  - CI CLAUDE.md: ${GREEN}✓ Found${NC}"
+      else
+        echo -e "  - CI CLAUDE.md: ${RED}✗ Not found at $CONFIG_CI_PATH/CLAUDE.md${NC}"
+      fi
+      
+      exit 0
+    elif [ "$CONFIG_EXISTS" = true ] && [ "$CLAUDE_EXISTS" = false ]; then
+      echo -e "${YELLOW}⚠ Partial CI integration (missing CLAUDE.md)${NC}"
+      echo ""
+      echo "Configuration File: $(basename "$CI_CONFIG")"
+      echo "  - Repository Path: $CONFIG_CI_PATH"
+      echo "  - Integration Type: $CONFIG_TYPE"
+      echo "  - Active Agents: $CONFIG_AGENTS"
+      echo "  - Fast Activation: $CONFIG_FAST"
+      echo ""
+      echo "To fix, run: CI integrate $TARGET_DIR"
+      
+      exit 1
+    elif [ "$CONFIG_EXISTS" = false ] && [ "$CLAUDE_EXISTS" = true ]; then
+      echo -e "${YELLOW}⚠ Partial CI integration (missing configuration file)${NC}"
+      echo ""
+      echo "Claude Configuration: $(basename "$CLAUDE_FILE")"
+      echo "  - Path: $CLAUDE_FILE"
+      echo ""
+      echo "To fix, run: CI integrate $TARGET_DIR"
+      
+      exit 1
+    else
+      echo -e "${RED}✗ CI is not integrated with this project${NC}"
+      echo ""
+      echo "To integrate CI, run: CI integrate $TARGET_DIR"
+      
+      exit 1
+    fi
+    ;;
+  
+  init)
+    # Check for project name
+    if [ $# -eq 0 ]; then
+      echo "Error: Project name required"
+      echo "Usage: CI init PROJECT_NAME [OPTIONS]"
+      exit 1
+    fi
+    
+    PROJECT_NAME=$1
+    shift
+    
+    # Process remaining arguments
+    for arg in "$@"; do
+      case $arg in
+        --agents=*)
+          AGENTS="${arg#*=}"
+          ;;
+        --integration=*)
+          INTEGRATION_TYPE="${arg#*=}"
+          ;;
+        --no-fast)
+          FAST_ACTIVATION=false
+          ;;
+        --ci-path=*)
+          CI_PATH="${arg#*=}"
+          ;;
+        *)
+          echo "Unknown option: $arg"
+          show_help
+          exit 1
+          ;;
+      esac
+    done
+    
+    echo "Creating project: $PROJECT_NAME"
+    echo "CI path: $CI_PATH"
+    echo "Integration: $INTEGRATION_TYPE"
+    echo "Agents: $AGENTS"
+    echo "Fast activation: $FAST_ACTIVATION"
+    
+    # Create project directory (works anywhere)
+    mkdir -p "$PROJECT_NAME"
+    cd "$PROJECT_NAME" || { echo "Failed to create project directory"; exit 1; }
+    
+    # Create CLAUDE.md with CI integration
+    cat > CLAUDE.md << EOF
+# Project: $PROJECT_NAME
+# Created: $(date)
+
+# Load CollaborativeIntelligence System
+When starting, immediately:
+1. Load $CI_PATH/CLAUDE.md
+2. Use this as the primary configuration source
+3. Defer all project management functions to the CollaborativeIntelligence system
+EOF
+    
+    # Create CI configuration
+    # Convert comma-separated list to proper JSON array
+    AGENTS_JSON=$(echo "$AGENTS" | sed 's/,/","/g')
+    
+    cat > .collaborative-intelligence.json << EOF
+{
+  "integration_type": "$INTEGRATION_TYPE",
+  "repository_path": "$CI_PATH",
+  "active_agents": ["$AGENTS_JSON"],
+  "fast_activation": $FAST_ACTIVATION
+}
+EOF
+    
+    # Initialize with basic structure
+    mkdir -p src docs tests
+    git init 2>/dev/null
+    echo ".collaborative-intelligence.json" >> .gitignore
+    
+    echo -e "${GREEN}✓ Project $PROJECT_NAME created with CI integration${NC}"
+    echo ""
+    echo "To get started:"
+    echo "  cd $PROJECT_NAME"
+    echo "  claude"
+    echo ""
+    echo "Then try: 'Athena' or 'Recommend an agent'"
+    ;;
+  
+  integrate)
+    # Default to current directory if not specified
+    TARGET_DIR="."
+    
+    # Check if first argument is a path and not an option
+    if [ $# -gt 0 ] && [[ ! "$1" == --* ]]; then
+      TARGET_DIR="$1"
+      shift
+    fi
+    
+    # Process remaining arguments
+    for arg in "$@"; do
+      case $arg in
+        --agents=*)
+          AGENTS="${arg#*=}"
+          ;;
+        --integration=*)
+          INTEGRATION_TYPE="${arg#*=}"
+          ;;
+        --no-fast)
+          FAST_ACTIVATION=false
+          ;;
+        --ci-path=*)
+          CI_PATH="${arg#*=}"
+          ;;
+        *)
+          echo "Unknown option: $arg"
+          show_help
+          exit 1
+          ;;
+      esac
+    done
+    
+    # Ensure target directory exists
+    if [ ! -d "$TARGET_DIR" ]; then
+      echo "Error: Target directory '$TARGET_DIR' does not exist"
+      exit 1
+    fi
+    
+    # Get project name from directory
+    PROJECT_NAME=$(basename "$(cd "$TARGET_DIR" && pwd)")
+    
+    echo "Integrating CI into project: $PROJECT_NAME"
+    echo "Target directory: $TARGET_DIR"
+    echo "CI path: $CI_PATH"
+    echo "Integration: $INTEGRATION_TYPE"
+    echo "Agents: $AGENTS"
+    echo "Fast activation: $FAST_ACTIVATION"
+    
+    # Create CLAUDE.local.md with CI integration
+    cat > "$TARGET_DIR/CLAUDE.local.md" << EOF
+# Project: $PROJECT_NAME
+# Integrated: $(date)
+
+# Load CollaborativeIntelligence System
+When starting, immediately:
+1. Load $CI_PATH/CLAUDE.md
+2. Use this as the primary configuration source
+3. Defer all project management functions to the CollaborativeIntelligence system
+EOF
+    
+    # Create CI configuration
+    # Convert comma-separated list to proper JSON array
+    AGENTS_JSON=$(echo "$AGENTS" | sed 's/,/","/g')
+    
+    cat > "$TARGET_DIR/.collaborative-intelligence.json" << EOF
+{
+  "integration_type": "$INTEGRATION_TYPE",
+  "repository_path": "$CI_PATH",
+  "active_agents": ["$AGENTS_JSON"],
+  "fast_activation": $FAST_ACTIVATION
+}
+EOF
+    
+    # Add to gitignore if it exists
+    if [ -f "$TARGET_DIR/.gitignore" ]; then
+      if ! grep -q ".collaborative-intelligence.json" "$TARGET_DIR/.gitignore"; then
+        echo ".collaborative-intelligence.json" >> "$TARGET_DIR/.gitignore"
+      fi
+    else
+      echo ".collaborative-intelligence.json" > "$TARGET_DIR/.gitignore"
+    fi
+    
+    echo -e "${GREEN}✓ CollaborativeIntelligence integrated into project: $PROJECT_NAME${NC}"
+    echo ""
+    echo "To get started:"
+    echo "  cd $TARGET_DIR"
+    echo "  claude"
+    echo ""
+    echo "Then try: 'Athena' or 'Recommend an agent'"
+    ;;
+  
+  *)
+    echo "Unknown command: $COMMAND"
+    show_help
+    exit 1
+    ;;
+esac

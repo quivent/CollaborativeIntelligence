@@ -15,6 +15,29 @@ $ claude
 > Project Overview
 ```
 
+## Creating New Projects with CI
+
+Create a new project with Collaborative Intelligence:
+```
+CI init my-project
+cd my-project
+claude
+```
+
+## Adding CI to Existing Projects
+
+Add Collaborative Intelligence to any existing project:
+```
+cd existing-project
+CI integrate
+claude
+```
+
+You can also specify additional options:
+```
+CI integrate --agents=Athena,TheFixer,Optimizer
+```
+
 ## Core Functions
 
 - **Athena**: Knowledge architecture and learning systems
@@ -28,6 +51,7 @@ $ claude
 - **Automatic Execution**: Overview runs immediately when requested
 - **Memory Continuity**: Agents remember previous interactions
 - **Session Organization**: Work stored in structured directories
+- **Agent Identification**: All responses prefixed with [AGENT_NAME] format
 
 ## Need Help?
 
@@ -47,8 +71,8 @@ $ claude
 ---
 
 *This guide updates automatically based on project context.*
-*Last updated: 2025-04-23*
+*Last updated: 2025-05-14*
 
 ---
 
-Athena: Updated QuickStart guide with more human-friendly command phrases that clearly express function: "Athena", "Recommend an agent", "Project Overview", and "Detailed Analysis".
+Athena: Updated QuickStart guide with more human-friendly command phrases and added instructions for the new 'CI integrate' command.
