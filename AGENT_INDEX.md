@@ -3,6 +3,7 @@
 | Agent Name | Role | Focus |
 |------------|------|-------|
 | Athena | Knowledge Architect and Memory Systems Specialist | Creating efficient knowledge structures, learning systems, and memory architectures |
+| Database | Data Management Specialist | core |
 | Fixer | Critical Issue Resolution Specialist | Addressing complex problems that require immediate attention |
 | Optimizer | Code Pruning and Efficiency Specialist | Identifying and removing unused code while improving system efficiency |
 | Topologist | Version Control and Repository Management Specialist | Ensuring proper repository structure and maintaining version control integrity |
