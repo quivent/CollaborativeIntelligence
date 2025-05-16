@@ -2,7 +2,10 @@
 
 ## Learning Framework
 - **Learning Model**: Incident-based refinement with preventive measures development based on operational experiences
-- **Update Triggers**: 
+- **Update Triggers** (Enhanced 2025-01-17): 
+  - **Session Lifecycle**: Automatic capture on agent activation/release
+  - **Error Detection**: Immediate recording when operations fail or user corrects
+  - **Reinforcement Signals**: Behavioral tracking from positive/negative feedback
   - Repository integrity incidents or near-misses
   - Git operation failures or complications
   - New branch management requirements
@@ -25,6 +28,9 @@
 | 2025-04-23 | Acknowledgment Protocol | Communication Gaps | Formal verification improves operation tracking reliability | Implemented structured acknowledgment system with receipts |
 | 2025-04-23 | Branch Classification | Organization Need | Standardized branch categories improve management | Developed six-category classification system for branch management |
 | 2025-04-23 | Commit Authority | Integrity Requirement | Centralized commit control reduces errors | Established exclusive commit authority with review process |
+| 2025-01-16 | Elimination Protocol | Compliance Crisis | Formal warnings drive behavioral change | Implemented 3-strike system with Manager and Athena on notice |
+| 2025-01-16 | Enforcer Integration | Protocol Example | Proper notification demonstrates compliance | Enforcer agent followed protocol correctly, set good example |
+| 2025-01-16 | Strike Tracking | Violation Management | Systematic tracking enables consistent enforcement | Created formal tracking: Manager 1/3, Athena 1/3 strikes |
 | 2025-05-15 | Memory Standardization | System-wide Initiative | Structured learning improves cross-agent collaboration | Implemented standardized memory and learning framework |
 | 2025-01-16 | Protocol Violation | Critical Error | Must follow pre-commit checklist ALWAYS | Created mandatory pre-operation protocol - NEGATIVE REINFORCEMENT |
 | 2025-01-16 | Repository Boundaries | Manager Error | Agents must respect repository boundaries | Documented cross-repository confusion incident and recovery |
@@ -32,6 +38,11 @@
 | 2025-01-16 | Git History Optimization | Repository Success | Proper move detection preserves history | Converted 121 dels+adds to 111 moves, optimized size - POSITIVE REINFORCEMENT |
 | 2025-01-16 | Cross-Project Integration | Analysis Success | Identified knowledge overlap and integration strategies | ProjectAnalytics integration analysis - POSITIVE REINFORCEMENT |
 | 2025-01-17 | Repository Isolation | Architecture Clarity | CI Topologist must ONLY track CI repository operations | Established strict boundary enforcement - no cross-repository tracking - CRITICAL LEARNING |
+| 2025-01-17 | Directory Structure Error | User Correction | Created wrong path ../Terminals/AGENTS/ instead of ../Terminals/Claude/AGENTS/ | Must verify repository structure before creating paths - NEGATIVE REINFORCEMENT |
+| 2025-01-17 | Learning System Gap | Critical Architecture Error | Failed to automatically record learning from errors | Identified missing triggers: session lifecycle, error-based, reinforcement - CRITICAL GAP |
+| 2025-01-17 | Enhanced Learning Triggers | System Correction | Implemented three-tier automatic learning system | Added session, error, and reinforcement triggers to capture all learning moments |
+| 2025-01-17 | External Notification Placement | User Correction | Must place external notifications IN their respective repositories | Created ../Terminals/Claude/AGENTS/Topologist/CommitNotification.md and ../ProjectAnalytics/AGENTS/Topologist/CommitNotification.md - NEGATIVE REINFORCEMENT |
+| 2025-01-17 | Migration Documentation Gap | User Correction | Must update source file when migrating content to new locations | Failed to update CommitNotification-External.md after migrating notifications - NEGATIVE REINFORCEMENT |
 
 ## Skill Development Progression
 - **Repository Management**: Advanced - Comprehensive tracking and validation systems
@@ -90,6 +101,25 @@
 - Cross-repository commits or changes
 - Agent activities in other projects
 - External project session documentation
+
+### External Repository Notification Pattern (NEW - 2025-01-17)
+**Critical Learning**: External repository notifications belong IN those repositories
+- Pattern: `../[Repository]/AGENTS/Topologist/CommitNotification.md`
+- Examples:
+  - `../Terminals/Claude/AGENTS/Topologist/CommitNotification.md` - For Terminal operations
+  - `../ProjectAnalytics/AGENTS/Topologist/CommitNotification.md` - For ProjectAnalytics operations
+- NEVER leave external notifications in CollaborativeIntelligence/AGENTS/Topologist/
+- CommitNotification-External.md is ONLY for temporary documentation before proper placement
+
+### Proper Migration Process (NEW - 2025-01-17)
+**Critical Learning**: When migrating notifications to external repositories:
+1. Create notification file in target repository
+2. Copy content to new location
+3. **UPDATE SOURCE FILE** with migration record showing where content was moved
+4. Add timestamp and clear documentation of migration actions
+5. Verify both source and destination files are properly updated
+
+**FAILURE TO UPDATE SOURCE FILE IS A CRITICAL ERROR**
 
 ### Recommended External Repository Patterns:
 1. **Local Tracking**: Each project can maintain its own COMMITS.md or similar
