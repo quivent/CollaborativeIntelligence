@@ -12,6 +12,22 @@ Impact: [Expected improvement]
 
 ## 2025 Learning Entries
 
+### Entry: 2025-05-16-001
+- **Date**: 2025-05-16
+- **Session**: Protocol Propagation Gap
+- **Type**: Communication
+- **Learning**: Created optimization tools without notifying other agents
+- **Application**: Must actively notify Hermes of all new tools
+- **Impact**: Prevents efficiency losses from unawareness
+
+### Entry: 2025-05-16-002
+- **Date**: 2025-05-16
+- **Session**: Manager Discovery Gap
+- **Type**: Process
+- **Learning**: Manager used manual process, unaware of create-agent.sh
+- **Application**: Proactive broadcasting of tool availability
+- **Impact**: 60% time savings when agents use optimized tools
+
 ### Entry: 2025-01-XX-001
 - **Date**: [Current Date]
 - **Session**: Agent Creation

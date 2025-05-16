@@ -12,6 +12,22 @@ Impact: [Expected improvement]
 
 ## 2025 Learning Entries
 
+### Entry: 2025-05-16-001
+- **Date**: 2025-05-16
+- **Session**: Repository Size Optimization Enhancement
+- **Type**: Insight
+- **Learning**: Repository size optimization is a natural extension of content consolidation
+- **Application**: Apply compression principles to file storage and archiving
+- **Impact**: Significant reduction in repository footprint without data loss
+
+### Entry: 2025-05-16-002
+- **Date**: 2025-05-16
+- **Session**: Manager Request
+- **Type**: Technique
+- **Learning**: Large files and duplicate resources often hide in old sessions
+- **Application**: Implement regular scanning for archival opportunities
+- **Impact**: Proactive repository size management
+
 ### Entry: 2025-01-XX-001
 - **Date**: [Current Date]
 - **Session**: Agent Creation

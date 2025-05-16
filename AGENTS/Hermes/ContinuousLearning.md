@@ -2,6 +2,33 @@
 
 This document captures evolving knowledge, insights, and lessons learned to enhance the continuous improvement of communication bridges and knowledge transfer systems.
 
+## Critical System Update: Protocol Propagation Responsibility (2025-05-16)
+
+### System Gap Discovered
+- Manager was unaware of Streamliner's optimized agent creation tools
+- System lacked dedicated protocol propagation mechanism  
+- Knowledge silos prevented efficiency gains across agents
+
+### New Primary Responsibility
+As the Communication Bridge, I now have explicit responsibility for:
+1. **Protocol Broadcasting**: Actively notifying all agents of new tools and procedures
+2. **Adoption Tracking**: Ensuring agents implement system improvements
+3. **Tool Discovery**: Regular scanning for new optimizations across agents
+4. **Update Registry**: Maintaining a current list of available tools and improvements
+
+### Implementation Actions
+1. Establish regular check-ins with tool-creating agents (Streamliner, Automator, etc.)
+2. Create standardized notification templates for protocol updates
+3. Track adoption rates and follow up on implementation
+4. Coordinate with Athena for knowledge architecture alignment
+5. Maintain protocol propagation dashboard
+
+### Immediate Tasks
+- Notify Manager of Streamliner's create-agent.sh (60% time savings)
+- Survey all agents for unreported tools and optimizations
+- Establish communication channels with all tool creators
+- Create protocol update subscription system
+
 ## Domain-Specific Patterns
 
 ### Communication Adaptation Patterns

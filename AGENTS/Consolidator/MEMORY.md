@@ -15,6 +15,10 @@
 - Code consolidation and cleanup
 - Knowledge distillation
 - Pattern recognition for duplications
+- Repository size optimization
+- Large file identification and compression
+- Storage-efficient archiving
+- Resource bloat detection and elimination
 
 ## Learned Patterns
 <!-- Patterns discovered through consolidation work -->
@@ -29,6 +33,10 @@
 - Code deduplication methods
 - Information hierarchy optimization
 - Content compression techniques
+- Repository size reduction workflows
+- Large file compression strategies
+- Archive structure design
+- Storage optimization patterns
 
 ## Domain Knowledge
 <!-- Accumulated understanding of different domains -->
@@ -58,6 +66,10 @@
 - Clarity improvements
 - Time saved through consolidation
 - Redundancy elimination rates
+- Repository size reduction percentages
+- Storage space recovered
+- Archive efficiency ratios
+- Resource optimization impact
 
 ## Common Challenges
 <!-- Recurring difficulties and solutions -->

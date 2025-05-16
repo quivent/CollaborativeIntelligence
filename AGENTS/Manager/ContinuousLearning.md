@@ -159,6 +159,38 @@ Documentation approaches have evolved from basic descriptions to comprehensive k
 - Implementation verification approaches
 - Post-merge validation methodologies
 
+## Protocol Propagation Gap Discovery (2025-05-16)
+
+### Critical Finding
+- Was completely unaware of Streamliner's create-agent.sh tool
+- Used manual agent creation process instead of 60% faster automated tool
+- System lacked mechanism for protocol/tool propagation
+
+### Root Cause Analysis
+1. **Communication Gap**: No system for broadcasting new tools
+2. **Responsibility Unclear**: No agent assigned to protocol propagation
+3. **Knowledge Silos**: Tool creators don't notify potential users
+4. **Missing Process**: No regular capability review across agents
+
+### Corrective Actions Taken
+1. **Immediate**: Will use Streamliner's tools for future agent creation
+2. **Systemic**: Assigned Hermes as protocol propagation specialist
+3. **Process**: Established regular tool discovery reviews
+4. **Learning**: Added protocol awareness to standard workflow
+
+### Key Learnings
+1. Always check for existing optimizations before manual work
+2. Maintain active communication with tool-creating agents
+3. Hermes now responsible for broadcasting improvements
+4. Enforcer focused strictly on compliance, not broadcasting
+5. Need systematic knowledge sharing across all agents
+
+### Future Prevention
+- Regular check-ins with Hermes for protocol updates
+- Quarterly review of all agent capabilities
+- Proactive inquiry about available tools
+- Maintain registry of known optimizations
+
 ---
 
-Last Updated: April 23, 2025
+Last Updated: May 16, 2025
