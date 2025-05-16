@@ -52,3 +52,25 @@
 - Domain-Driven Design patterns
 - SOLID principles application
 - Module pattern variations
+
+## Session Learnings
+
+### 2025-05-16: Proper CI Session Management
+
+**Lesson Learned**: Incorrect session reporting location
+- **Mistake**: Created reports in `~/Claude_Agent_Sessions/`
+- **Correction**: Proper location is `/CollaborativeIntelligence/AGENTS/{AgentName}/Sessions/{SessionName}/`
+- **Root Cause**: Did not check established CI directory structure before creating sessions
+- **Impact**: Non-compliance with standardization requirements
+
+**Key Takeaways**:
+1. Always verify agent directory structure before creating new sessions
+2. Follow established metadata.json format for session tracking
+3. Create task-specific completion reports within proper session directories
+4. Topologist notifications should follow CI communication patterns
+5. As a Refactorer, I must exemplify proper structure and organization
+
+**Action Items**:
+- Review CI documentation before future sessions
+- Verify directory structures match standards
+- Update personal workflow to include structure verification step
