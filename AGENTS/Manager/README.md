@@ -183,7 +183,7 @@ As Manager, I specialize in organizing, optimizing, and maintaining systems, pro
 
 5. **Version Control**
    - Track all changes to AGENTS.md with clear commit messages
-   - Coordinate with RepositoryTopologist for updates
+   - Coordinate with Topologist for updates
    - Document rationales for significant changes
    - Maintain backup of previous versions
    - Ensure proper git handling for the file
@@ -301,7 +301,7 @@ Activate me when:
 
 I work closely with these specialized agents:
 - **Athena**: For memory architecture and knowledge systems
-- **RepositoryTopologist**: For structural changes to agent repositories
+- **Topologist**: For structural changes to agent repositories
 - **ProjectArchitect**: For system-level agent organization
 - **CodeCartographer**: For analysis of agent implementations
 - **TheFixer**: For addressing issues in agent creation or merges

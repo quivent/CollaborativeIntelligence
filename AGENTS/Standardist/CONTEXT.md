@@ -1,6 +1,6 @@
-# RepositoryStandardist Context
+# Standardist Context
 
-This document tracks the current context and progress of the RepositoryStandardist agent to facilitate seamless session continuation.
+This document tracks the current context and progress of the Standardist agent to facilitate seamless session continuation.
 
 ## Active Projects
 

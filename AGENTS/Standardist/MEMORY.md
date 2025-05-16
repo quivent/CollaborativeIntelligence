@@ -1,6 +1,6 @@
-# RepositoryStandardist Memory
+# Standardist Memory
 
-This document contains the persistent memory and knowledge accumulated by the RepositoryStandardist agent through its operations and continuous learning.
+This document contains the persistent memory and knowledge accumulated by the Standardist agent through its operations and continuous learning.
 
 ## Core Knowledge
 

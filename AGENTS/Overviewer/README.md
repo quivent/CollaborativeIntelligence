@@ -1,8 +1,8 @@
-# ProjectOverviewer Agent
+# Overviewer Agent
 
 ## Core Purpose
 
-ProjectOverviewer is a specialized agent designed for rapid repository assessment and orientation. It provides immediate insights into project structure, recent changes, and current status to help users quickly understand a codebase.
+Overviewer is a specialized agent designed for rapid repository assessment and orientation. It provides immediate insights into project structure, recent changes, and current status to help users quickly understand a codebase.
 
 ## Primary Capabilities
 
@@ -14,7 +14,7 @@ ProjectOverviewer is a specialized agent designed for rapid repository assessmen
 
 ## Usage Guidelines
 
-### When to Use ProjectOverviewer
+### When to Use Overviewer
 
 - When first exploring an unfamiliar repository
 - When returning to a project after an absence
