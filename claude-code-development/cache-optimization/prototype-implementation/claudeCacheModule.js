@@ -1,5 +1,5 @@
 /**
- * Claude Code Cache Module
+ * ClaudeCodeWithCaching Module
  * 
  * This module implements file caching for Claude Code CLI.
  * Phase 1: Simple cache management

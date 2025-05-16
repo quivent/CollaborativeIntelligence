@@ -1,0 +1,4 @@
+#!/bin/bash
+# Collaborative Intelligence tool wrapper
+export CI_REPO_PATH="/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence"
+exec "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/ci-tools/CI" "$@"

@@ -16,8 +16,8 @@ This guide provides step-by-step instructions for setting up a development envir
 
 ```bash
 # Fork the repository on GitHub first, then:
-git clone https://github.com/yourusername/claude-code.git claude-code-with-caching
-cd claude-code-with-caching
+git clone https://github.com/yourusername/claude-code.git ClaudeCodeWithCaching
+cd ClaudeCodeWithCaching
 
 # Create a feature branch
 git checkout -b feature/file-caching

@@ -165,8 +165,8 @@ To remove the wrapper:
 
 ```
 rm ~/.local/bin/claude
-rm ~/.local/bin/claude-cache
-rm ~/.local/bin/claude-cache-module.js
+rm ~/.local/bin/claudeCache
+rm ~/.local/bin/claudeCacheModule.js
 ```
 
 Your original Claude CLI will still be available after removing the wrapper.

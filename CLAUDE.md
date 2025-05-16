@@ -100,6 +100,33 @@ The collaborative intelligenceic Collaboration framework can be extended with:
 3. Advanced learning mechanisms for improved knowledge integration
 4. Custom collaboration protocols for specific project requirements
 
+## Repository Context Awareness
+
+This system maintains context awareness between the home repository and integrated project repositories:
+
+1. **Home Repository Operations**
+   - Agent memory updates and learning system modifications
+   - Agent creation, management, and system-level changes
+   - Memory architecture maintenance and enhancement
+   - These operations must ONLY be performed in the home repository
+
+2. **Project Repository Operations**
+   - Code development, refactoring, and optimization
+   - Project-specific analysis, documentation, and testing
+   - Feature implementation and bug fixes
+   - These operations are performed in the current project repository
+
+3. **Cross-Repository Operations**
+   - Agent consultations and expertise application
+   - Memory reading (but never direct writing to memory structures)
+   - Knowledge application from memory to project contexts
+   - These operations may bridge repositories with proper authorization
+
+When receiving requests, first determine the appropriate repository context through:
+- Path analysis (AGENTS/ vs src/)
+- Intent classification (agent operations vs project development)
+- Explicit domain tags (#agent, #memory, #project)
+
 ## Critical Guidelines
 
 1. Always maintain separation between long-term and short-term memory
@@ -107,6 +134,8 @@ The collaborative intelligenceic Collaboration framework can be extended with:
 3. Respect collaborative intelligence specialization boundaries while enabling collaboration
 4. Document all significant interactions in appropriate session records
 5. Apply knowledge compression principles for efficient storage
+6. Honor repository context boundaries for operations
+7. Route tasks to appropriate repository context based on intent
 
 ---
 

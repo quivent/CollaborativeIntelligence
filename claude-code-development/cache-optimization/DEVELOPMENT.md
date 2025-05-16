@@ -6,7 +6,7 @@ This document tracks the development process for the Claude Code file caching sy
 
 **Goal**: Implement a file caching system for Claude Code to reduce token usage by 50-70% in typical workflows.
 
-**Project Repository**: `/Users/joshkornreich/Documents/Projects/claude-code-with-caching`  
+**Project Repository**: `/Users/joshkornreich/Documents/Projects/ClaudeCodeWithCaching`  
 **Documentation**: `/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/claude-code-development/cache-optimization/Documentation`
 
 **Expected Benefits**:
@@ -247,8 +247,8 @@ The implementation will be considered successful when:
 
 ```bash
 # Clone repository
-git clone https://github.com/anthropics/claude-code.git claude-code-with-caching
-cd claude-code-with-caching
+git clone https://github.com/anthropics/claude-code.git ClaudeCodeWithCaching
+cd ClaudeCodeWithCaching
 
 # Create feature branch
 git checkout -b feature/file-caching

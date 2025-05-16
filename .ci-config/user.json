@@ -1,0 +1,11 @@
+{
+  "user": {
+    "name": "",
+    "email": ""
+  },
+  "preferences": {
+    "default_agent": "Athena",
+    "verbose": false,
+    "color": true
+  }
+}

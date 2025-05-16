@@ -1,0 +1,11 @@
+{
+  "project": {
+    "name": "CollaborativeIntelligence",
+    "version": "1.0.0",
+    "description": "Collaborative Intelligence System"
+  },
+  "agents": {
+    "enabled": [],
+    "disabled": []
+  }
+}

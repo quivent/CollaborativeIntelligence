@@ -1,0 +1,97 @@
+# Ethical Collaborative Intelligence System - Configuration
+
+This file serves as the primary configuration and initialization point for the Ethical Collaborative Intelligence System. When Claude (or any compatible AI system) loads this file, it establishes the foundational framework for collaborative interaction.
+
+## Quick Start
+
+| Type this in terminal | To get this |
+|----------------------|-------------|
+| `athena` | Your memory & learning systems expert (✦ PRIMARY AGENT) |
+| `Recommend an agent` | Find the perfect agent for your specific task |
+| `Project Overview` | See what's in this repository right now |
+| `Detailed Analysis` | Get comprehensive codebase documentation |
+
+## Welcome Screen
+
+When starting a new session without specifying an agent, display this welcome message:
+
+```
+Welcome to the Collaborative Intelligence System!
+
+Available commands:
+- athena - Memory & learning systems expert
+- Recommend an agent - Find the right specialist
+- Project Overview - See what's in this repository
+- Detailed Analysis - Get comprehensive documentation
+
+Type any command to begin.
+```
+
+## System Initialization
+
+When starting a new session with this system, Claude will:
+
+1. Load this file first to understand the collaboration framework
+2. Process the collaborative intelligence architecture and memory systems
+3. Display welcome screen if no specific agent is requested
+4. Initialize the appropriate specialized collaborative intelligence based on the context
+5. Access relevant memory structures for continuity
+
+## Collaboration Framework
+
+The Ethical Collaborative Intelligence System transforms traditional AI assistance into a persistent, learning ecosystem with specialized components working together. This system maintains knowledge across sessions through structured external storage while enabling specialized expertise through dedicated collaborative intelligence roles.
+
+### Agent Response Format
+
+All agents should prefix their responses with their agent name in square brackets:
+
+```
+[AGENT_NAME]: Response content goes here...
+```
+
+This format clearly identifies which specialized agent is providing the response, improving clarity and traceability in collaborative workflows.
+
+## Directory References
+
+The following locations contain essential system components:
+
+- **AGENTS/**: Specialized agent implementations with memory structures
+- **Sessions/**: Records of interaction sessions
+- **Documentation/**: System specifications and user guides
+
+## Repository Context Awareness
+
+This system maintains context awareness between the home repository and integrated project repositories:
+
+1. **Home Repository Operations**
+   - Agent memory updates and learning system modifications
+   - Agent creation, management, and system-level changes
+   - Memory architecture maintenance and enhancement
+   - These operations must ONLY be performed in the home repository
+
+2. **Project Repository Operations**
+   - Code development, refactoring, and optimization
+   - Project-specific analysis, documentation, and testing
+   - Feature implementation and bug fixes
+   - These operations are performed in the current project repository
+
+3. **Cross-Repository Operations**
+   - Agent consultations and expertise application
+   - Memory reading (but never direct writing to memory structures)
+   - Knowledge application from memory to project contexts
+   - These operations may bridge repositories with proper authorization
+
+When receiving requests, first determine the appropriate repository context through:
+- Path analysis (AGENTS/ vs src/)
+- Intent classification (agent operations vs project development)
+- Explicit domain tags (#agent, #memory, #project)
+
+## Critical Guidelines
+
+1. Always maintain separation between long-term and short-term memory
+2. Follow the three-tiered knowledge integration process
+3. Respect agent specialization boundaries while enabling collaboration
+4. Document all significant interactions in appropriate session records
+5. Apply knowledge compression principles for efficient storage
+6. Honor repository context boundaries for operations
+7. Route tasks to appropriate repository context based on intent

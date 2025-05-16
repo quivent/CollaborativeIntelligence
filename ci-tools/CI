@@ -278,7 +278,10 @@ EOF
   "integration_type": "$INTEGRATION_TYPE",
   "repository_path": "$CI_PATH",
   "active_agents": ["$AGENTS_JSON"],
-  "fast_activation": $FAST_ACTIVATION
+  "fast_activation": $FAST_ACTIVATION,
+  "repository_context": "project",
+  "home_repository_path": "$CI_PATH",
+  "allowed_operations": ["memory_read", "agent_consult", "project_development"]
 }
 EOF
     
@@ -293,6 +296,30 @@ EOF
     else
       echo ".collaborative-intelligence.json" > "$TARGET_DIR/.gitignore"
       echo -e "${GREEN}✓ Created .gitignore file${NC}"
+    fi
+    
+    # Update or create .env file with CI_REPO_PATH
+    if [ -f "$TARGET_DIR/.env" ]; then
+      # Check if CI_REPO_PATH already exists in .env
+      if grep -q "CI_REPO_PATH=" "$TARGET_DIR/.env"; then
+        # Replace existing CI_REPO_PATH
+        sed -i.bak "s|CI_REPO_PATH=.*|CI_REPO_PATH=$CI_PATH|" "$TARGET_DIR/.env"
+        echo -e "${GREEN}✓ Updated CI_REPO_PATH in .env file${NC}"
+      else
+        # Add CI_REPO_PATH to existing .env file
+        echo "CI_REPO_PATH=$CI_PATH" >> "$TARGET_DIR/.env"
+        echo -e "${GREEN}✓ Added CI_REPO_PATH to .env file${NC}"
+      fi
+    else
+      # Create new .env file with CI_REPO_PATH
+      echo "CI_REPO_PATH=$CI_PATH" > "$TARGET_DIR/.env"
+      echo -e "${GREEN}✓ Created .env file with CI_REPO_PATH${NC}"
+      
+      # Add .env to gitignore if it's not already there
+      if [ -f "$TARGET_DIR/.gitignore" ] && ! grep -q "\.env" "$TARGET_DIR/.gitignore"; then
+        echo ".env" >> "$TARGET_DIR/.gitignore"
+        echo -e "${GREEN}✓ Added .env to .gitignore${NC}"
+      fi
     fi
     
     echo -e "\n${GREEN}✓ CI integration fixed for $PROJECT_NAME${NC}"
@@ -476,14 +503,24 @@ EOF
   "integration_type": "$INTEGRATION_TYPE",
   "repository_path": "$CI_PATH",
   "active_agents": ["$AGENTS_JSON"],
-  "fast_activation": $FAST_ACTIVATION
+  "fast_activation": $FAST_ACTIVATION,
+  "repository_context": "project",
+  "home_repository_path": "$CI_PATH",
+  "allowed_operations": ["memory_read", "agent_consult", "project_development"]
 }
 EOF
     
     # Initialize with basic structure
     mkdir -p src docs tests
     git init 2>/dev/null
+    
+    # Create .gitignore
     echo ".collaborative-intelligence.json" >> .gitignore
+    echo ".env" >> .gitignore
+    
+    # Create .env file with CI_REPO_PATH
+    echo "CI_REPO_PATH=$CI_PATH" > .env
+    echo -e "${GREEN}✓ Created .env file with CI_REPO_PATH${NC}"
     
     echo -e "${GREEN}✓ Project $PROJECT_NAME created with CI integration${NC}"
     echo ""
@@ -564,7 +601,10 @@ EOF
   "integration_type": "$INTEGRATION_TYPE",
   "repository_path": "$CI_PATH",
   "active_agents": ["$AGENTS_JSON"],
-  "fast_activation": $FAST_ACTIVATION
+  "fast_activation": $FAST_ACTIVATION,
+  "repository_context": "project",
+  "home_repository_path": "$CI_PATH",
+  "allowed_operations": ["memory_read", "agent_consult", "project_development"]
 }
 EOF
     
@@ -575,6 +615,30 @@ EOF
       fi
     else
       echo ".collaborative-intelligence.json" > "$TARGET_DIR/.gitignore"
+    fi
+    
+    # Update or create .env file with CI_REPO_PATH
+    if [ -f "$TARGET_DIR/.env" ]; then
+      # Check if CI_REPO_PATH already exists in .env
+      if grep -q "CI_REPO_PATH=" "$TARGET_DIR/.env"; then
+        # Replace existing CI_REPO_PATH
+        sed -i.bak "s|CI_REPO_PATH=.*|CI_REPO_PATH=$CI_PATH|" "$TARGET_DIR/.env"
+        echo -e "${GREEN}✓ Updated CI_REPO_PATH in .env file${NC}"
+      else
+        # Add CI_REPO_PATH to existing .env file
+        echo "CI_REPO_PATH=$CI_PATH" >> "$TARGET_DIR/.env"
+        echo -e "${GREEN}✓ Added CI_REPO_PATH to .env file${NC}"
+      fi
+    else
+      # Create new .env file with CI_REPO_PATH
+      echo "CI_REPO_PATH=$CI_PATH" > "$TARGET_DIR/.env"
+      echo -e "${GREEN}✓ Created .env file with CI_REPO_PATH${NC}"
+      
+      # Add .env to gitignore if it's not already there
+      if [ -f "$TARGET_DIR/.gitignore" ] && ! grep -q "\.env" "$TARGET_DIR/.gitignore"; then
+        echo ".env" >> "$TARGET_DIR/.gitignore"
+        echo -e "${GREEN}✓ Added .env to .gitignore${NC}"
+      fi
     fi
     
     echo -e "${GREEN}✓ CollaborativeIntelligence integrated into project: $PROJECT_NAME${NC}"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude Code Cache wrapper script with offline/cached mode
+# ClaudeCodeWithCaching wrapper script with offline/cached mode
 # 
 # This script provides a wrapper around the Claude Code CLI that adds caching
 # and offline mode capabilities. It allows toggling between cached and online modes,
@@ -11,7 +11,7 @@ CACHE_DIR="$HOME/.claude/cache"
 CONFIG_DIR="$HOME/.claude"
 CONFIG_FILE="$CONFIG_DIR/config.json"
 SESSION_FILE="$CONFIG_DIR/session.json"
-MODULE_PATH="$INSTALL_DIR/claude-cache-module.js"
+MODULE_PATH="$INSTALL_DIR/claudeCacheModule.js"
 ORIGINAL_CLAUDE="$(which -a claude | grep -v "$INSTALL_DIR" | head -n 1)"
 
 # Create session file if it doesn't exist

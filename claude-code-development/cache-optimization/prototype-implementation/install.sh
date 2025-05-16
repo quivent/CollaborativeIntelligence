@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Claude Code Cache System Installer
-# This script installs the Claude Code cache wrapper with offline/cached mode
+# ClaudeCodeWithCaching System Installer
+# This script installs the ClaudeCodeWithCaching wrapper with offline/cached mode
 
 set -e
 
-echo -e "\033[1;36m[INSTALLER]\033[0m Installing Claude Code Cache System..."
+echo -e "\033[1;36m[INSTALLER]\033[0m Installing ClaudeCodeWithCaching System..."
 
 # Define paths
 INSTALL_DIR="$HOME/.local/bin"
@@ -20,12 +20,12 @@ mkdir -p "$CACHE_DIR"
 mkdir -p "$CONFIG_DIR"
 
 # Copy files to install directory
-cp "$SCRIPT_DIR/claude-cache" "$INSTALL_DIR/"
-cp "$SCRIPT_DIR/claude-cache-module.js" "$INSTALL_DIR/"
+cp "$SCRIPT_DIR/claudeCache" "$INSTALL_DIR/"
+cp "$SCRIPT_DIR/claudeCacheModule.js" "$INSTALL_DIR/"
 cp "$SCRIPT_DIR/athena" "$INSTALL_DIR/" 2>/dev/null || echo -e "\033[1;33m[WARNING]\033[0m Athena activation script not found, skipping"
 
 # Make files executable
-chmod +x "$INSTALL_DIR/claude-cache"
+chmod +x "$INSTALL_DIR/claudeCache"
 chmod +x "$INSTALL_DIR/athena" 2>/dev/null || true
 
 # Check if original claude command exists
@@ -43,8 +43,8 @@ echo -e "\033[1;36m[INSTALLER]\033[0m Found original Claude CLI at: $ORIGINAL_CL
 echo -e "\033[1;36m[INSTALLER]\033[0m Creating 'claude' wrapper..."
 cat > "$INSTALL_DIR/claude" <<EOF
 #!/bin/bash
-# Claude wrapper that redirects to claude-cache
-"$INSTALL_DIR/claude-cache" "\$@"
+# Claude wrapper that redirects to claudeCache
+"$INSTALL_DIR/claudeCache" "\$@"
 EOF
 chmod +x "$INSTALL_DIR/claude"
 

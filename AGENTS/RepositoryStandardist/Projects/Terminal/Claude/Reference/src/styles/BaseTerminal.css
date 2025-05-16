@@ -1,0 +1,100 @@
+/**
+ * Base styles for the Terminal component
+ * 
+ * These styles provide minimal functional styling without imposing
+ * visual design choices. They can be extended or overridden by
+ * theme-specific styles or component wrappers.
+ */
+
+.base-terminal {
+  /* Core layout */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+  
+  /* Default font settings */
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  
+  /* Base colors (can be overridden by themes) */
+  background-color: transparent;
+  color: inherit;
+}
+
+.terminal-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.terminal-entry {
+  white-space: pre-wrap;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.terminal-entry-command {
+  /* Command styling */
+}
+
+.terminal-entry-output {
+  /* Output styling */
+}
+
+.terminal-entry-error {
+  /* Error styling - just functional indication, not visual design */
+  opacity: 0.9;
+}
+
+.terminal-entry-system {
+  /* System message styling */
+  opacity: 0.7;
+}
+
+.terminal-entry-markdown {
+  /* Base markdown container */
+}
+
+.terminal-entry-code {
+  /* Code block styling */
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.terminal-entry-image {
+  /* Image container styling */
+  max-width: 100%;
+}
+
+.terminal-prompt {
+  user-select: none;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.terminal-input-container {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+.terminal-processing {
+  padding: 8px;
+  opacity: 0.7;
+  font-style: italic;
+}

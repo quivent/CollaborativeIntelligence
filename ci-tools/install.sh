@@ -1,60 +1,149 @@
-#!/bin/bash
-# Install Collaborative Intelligence tools
+#!/usr/bin/env bash
+# install.sh - Installation script for the refactored CI system
+# Part of the Collaborative Intelligence Refactoring Plan
 
-# Determine paths
-CI_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
+# Strict mode
+set -euo pipefail
 
-# Create install directory if it doesn't exist
-mkdir -p "$INSTALL_DIR"
+# Determine script and project directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-# Make script executable
-chmod +x "$CI_DIR/ci-tools/ci-init"
+# Print banner
+echo "============================================="
+echo "Installing Collaborative Intelligence System"
+echo "============================================="
 
-# Create wrapper script with environment variable
-cat > "$INSTALL_DIR/ci-init" << EOF
-#!/bin/bash
-# Wrapper for ci-init with pre-configured CI repository path
-
-export CI_REPO_PATH="$CI_DIR"
-exec "$CI_DIR/ci-tools/ci-init" "\$@"
-EOF
-
-# Make wrapper executable
-chmod +x "$INSTALL_DIR/ci-init"
-
-# Check if install directory is in PATH
-if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
-  echo "Adding $INSTALL_DIR to PATH in your shell configuration"
-  
-  # Determine shell
-  if [[ "$SHELL" == */zsh ]]; then
-    SHELL_CONFIG="$HOME/.zshrc"
-  elif [[ "$SHELL" == */bash ]]; then
-    SHELL_CONFIG="$HOME/.bashrc"
-    # Check for macOS
-    if [[ "$(uname)" == "Darwin" ]]; then
-      SHELL_CONFIG="$HOME/.bash_profile"
-    fi
-  else
-    SHELL_CONFIG=""
-  fi
-  
-  # Add to PATH if we identified the shell config
-  if [[ -n "$SHELL_CONFIG" ]]; then
-    echo 'export PATH="$PATH:'"$INSTALL_DIR"'"' >> "$SHELL_CONFIG"
-    echo "Added $INSTALL_DIR to PATH in $SHELL_CONFIG"
-    echo "Please restart your terminal or run: source $SHELL_CONFIG"
-  else
-    echo "Could not identify shell configuration file"
-    echo "Please manually add $INSTALL_DIR to your PATH"
-  fi
+# Check prerequisites
+echo "Checking prerequisites..."
+if ! command -v jq &> /dev/null; then
+    echo "Error: jq is required but not found"
+    echo "Please install jq: https://stedolan.github.io/jq/download/"
+    exit 1
 fi
 
-echo "✅ Collaborative Intelligence tools installed successfully"
-echo ""
-echo "You can now use: ci-init my-project [options]"
-echo ""
-echo "To verify installation:"
-echo "  which ci-init  # Should show path to the installed script"
-echo "  ci-init --help # Should show help text"
+# Make scripts executable
+echo "Making scripts executable..."
+chmod +x "$SCRIPT_DIR/CI.new"
+chmod +x "$SCRIPT_DIR/cmd"/*.sh
+
+# Create wrapper script
+echo "Creating wrapper script..."
+cat > "$PROJECT_DIR/CI" << EOF
+#!/usr/bin/env bash
+# This file is auto-generated. Do not edit directly.
+# Use the refactored CI system in ci-tools/
+
+exec "\$(cd "\$(dirname "\${BASH_SOURCE[0]}")" && pwd)/ci-tools/CI.new" "\$@"
+EOF
+
+chmod +x "$PROJECT_DIR/CI"
+
+# Create compatibility links
+echo "Creating compatibility links..."
+
+# ci-init
+cat > "$PROJECT_DIR/ci-init" << EOF
+#!/usr/bin/env bash
+# This file is auto-generated. Do not edit directly.
+# Use the refactored CI system in ci-tools/
+
+exec "\$(cd "\$(dirname "\${BASH_SOURCE[0]}")" && pwd)/ci-tools/CI.new" init "\$@"
+EOF
+
+chmod +x "$PROJECT_DIR/ci-init"
+
+# ci-verify
+cat > "$PROJECT_DIR/ci-verify" << EOF
+#!/usr/bin/env bash
+# This file is auto-generated. Do not edit directly.
+# Use the refactored CI system in ci-tools/
+
+exec "\$(cd "\$(dirname "\${BASH_SOURCE[0]}")" && pwd)/ci-tools/CI.new" verify "\$@"
+EOF
+
+chmod +x "$PROJECT_DIR/ci-verify"
+
+# ci-fix
+cat > "$PROJECT_DIR/ci-fix" << EOF
+#!/usr/bin/env bash
+# This file is auto-generated. Do not edit directly.
+# Use the refactored CI system in ci-tools/
+
+exec "\$(cd "\$(dirname "\${BASH_SOURCE[0]}")" && pwd)/ci-tools/CI.new" fix "\$@"
+EOF
+
+chmod +x "$PROJECT_DIR/ci-fix"
+
+# Initialize configuration
+echo "Initializing configuration..."
+mkdir -p "$PROJECT_DIR/.ci-config"
+
+if [[ ! -f "$PROJECT_DIR/.ci-config/config.json" ]]; then
+    cat > "$PROJECT_DIR/.ci-config/config.json" << EOF
+{
+  "version": "1.0.0",
+  "agents": {
+    "paths": {
+      "base": "$PROJECT_DIR/AGENTS"
+    }
+  },
+  "sessions": {
+    "paths": {
+      "base": "$PROJECT_DIR/Sessions"
+    }
+  }
+}
+EOF
+fi
+
+if [[ ! -f "$PROJECT_DIR/.ci-config/user.json" ]]; then
+    cat > "$PROJECT_DIR/.ci-config/user.json" << EOF
+{
+  "user": {
+    "name": "",
+    "email": ""
+  },
+  "preferences": {
+    "default_agent": "Athena",
+    "verbose": false,
+    "color": true
+  }
+}
+EOF
+fi
+
+if [[ ! -f "$PROJECT_DIR/.ci-config/project.json" ]]; then
+    cat > "$PROJECT_DIR/.ci-config/project.json" << EOF
+{
+  "project": {
+    "name": "CollaborativeIntelligence",
+    "version": "1.0.0",
+    "description": "Collaborative Intelligence System"
+  },
+  "agents": {
+    "enabled": [],
+    "disabled": []
+  }
+}
+EOF
+fi
+
+# Verify installation
+echo "Verifying installation..."
+"$PROJECT_DIR/CI" verify
+
+echo "============================================="
+echo "Installation complete!"
+echo "============================================="
+echo "To use the CI system, run:"
+echo "  ./CI <command> [options]"
+echo
+echo "Available commands:"
+echo "  init                Initialize a new project"
+echo "  verify              Verify system installation"
+echo "  fix                 Fix common issues"
+echo
+echo "For more information, run:"
+echo "  ./CI --help"
+echo "============================================="

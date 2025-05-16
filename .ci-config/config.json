@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "agents": {
+    "paths": {
+      "base": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS"
+    }
+  },
+  "sessions": {
+    "paths": {
+      "base": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/Sessions"
+    }
+  }
+}

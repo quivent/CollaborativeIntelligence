@@ -1,0 +1,4 @@
+#!/bin/bash
+# ci-agent - Agent management tool for Collaborative Intelligence
+export CI_REPO_PATH="${CI_REPO_PATH:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
+exec "$CI_REPO_PATH/ci-tools/cmd/agent.sh" "$@"
