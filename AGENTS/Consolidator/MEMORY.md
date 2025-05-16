@@ -1,4 +1,4 @@
-# Consolidator Agent Long-term Memory
+# Consolidator Memory Architecture
 
 ## Agent Profile
 - **Name**: Consolidator

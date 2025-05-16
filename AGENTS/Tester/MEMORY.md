@@ -1,4 +1,4 @@
-# Agent Memory: Tester
+# Tester Memory Architecture
 
 ## Tester - Testing and Quality Assurance Specialist
 

@@ -1,4 +1,4 @@
-# Agent Memory: EfficiencyEngineer
+# Automator Memory Architecture
 
 ## EfficiencyEngineer - Helper Function Specialist
 

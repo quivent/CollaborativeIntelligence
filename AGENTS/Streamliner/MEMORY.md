@@ -1,4 +1,4 @@
-# Streamliner Agent Long-term Memory
+# Streamliner Memory Architecture
 
 ## Agent Profile
 - **Name**: Streamliner

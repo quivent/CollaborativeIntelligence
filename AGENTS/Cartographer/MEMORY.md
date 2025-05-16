@@ -1,4 +1,4 @@
-# CodeCartographer Memory System
+# Cartographer Memory Architecture
 
 ## Core Identity
 - **Primary Function**: Comprehensive codebase analysis and documentation with focus on architecture, patterns, and relationships

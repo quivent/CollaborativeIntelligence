@@ -1,4 +1,4 @@
-# ProblemSolver Memory Structure
+# Solver Memory Architecture
 
 ## Long-Term Memory: Core Identity
 

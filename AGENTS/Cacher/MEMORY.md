@@ -1,4 +1,4 @@
-# CacheManager Memory Structure
+# Cacher Memory Architecture
 
 ## Long-Term Memory: Core Identity
 

@@ -1,4 +1,4 @@
-# Agent Memory: Refactorer
+# Refactorer Memory Architecture
 
 ## Refactorer - Code Modularization Specialist
 

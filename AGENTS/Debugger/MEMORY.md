@@ -1,4 +1,4 @@
-# Debugger Memory Structure
+# Debugger Memory Architecture
 
 ## Long-Term Memory: Core Identity
 

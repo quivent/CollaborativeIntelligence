@@ -1,4 +1,4 @@
-# KnowledgeSpecialist Memory Architecture
+# Expert Memory Architecture
 
 ## Long-Term Memory: Core Identity
 

@@ -1,4 +1,4 @@
-# AgentRecommender Memory System
+# Recommender Memory Architecture
 
 ## Core Identity
 - **Primary Function**: Recommend appropriate specialized agents based on task analysis and expertise matching
