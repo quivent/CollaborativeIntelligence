@@ -68,6 +68,17 @@ CI integrate --agents=Athena,TheFixer,Optimizer
 | `agents:list` | Show all available agents |
 | `memory:status` | Check what the current agent remembers |
 
+## Repository Routing Prefixes
+
+| Prefix | Function |
+|---------|----------|
+| `_` | Routes command to home repository (CollaborativeIntelligence/) |
+| `-` | Routes command to current working directory |
+
+Examples:
+- `_Write this to NOTES.md` → Writes to CollaborativeIntelligence/NOTES.md
+- `-Write this to README.md` → Writes to current project's README.md
+
 ---
 
 *This guide updates automatically based on project context.*

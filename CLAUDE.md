@@ -8,7 +8,7 @@ This file serves as the primary configuration and initialization point for the E
 |----------------------|-------------|
 | `athena` | Your memory & learning systems expert (✦ PRIMARY AGENT) |
 | `Recommend an agent` | Find the perfect agent for your specific task |
-| `Project Overview` | See what's in this repository right now |
+| `Overview` | See what's in this repository right now |
 | `Detailed Analysis` | Get comprehensive codebase documentation |
 
 For complete details, see `CollaborativeIntelligence/QuickStart.md`
@@ -126,6 +126,13 @@ When receiving requests, first determine the appropriate repository context thro
 - Path analysis (AGENTS/ vs src/)
 - Intent classification (agent operations vs project development)
 - Explicit domain tags (#agent, #memory, #project)
+- Hotkey prefixes for direct repository routing:
+  - `_` prefix: Routes to home repository (CollaborativeIntelligence/)
+  - `-` prefix: Routes to current working directory/project repository
+  
+Examples:
+- `_Write this to X.md` → writes to CollaborativeIntelligence/X.md
+- `-Write this to X.md` → writes to current working directory X.md
 
 ## Critical Guidelines
 
