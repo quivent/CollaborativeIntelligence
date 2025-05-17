@@ -35,8 +35,16 @@ dist/
 build/
 out/
 target/
+**/target/
 *.min.js
 *.min.css
+
+# Rust specific
+**/*.rs.bk
+**/*.o
+**/*.a
+**/*.so
+**/*.dylib
 
 # Environment variables and secrets
 .env
