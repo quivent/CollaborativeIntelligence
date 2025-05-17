@@ -1,0 +1,23 @@
+# CI Database .gitignore
+
+# SQLite database files
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Backup files
+backups/*.sql
+backups/*.tar.gz
+
+# Log files
+logs/*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Keep directory structure
+!*/
+!.gitignore
+!README.md
