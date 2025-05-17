@@ -4,6 +4,7 @@
 |------------|------|-------|
 | Athena | Knowledge Architect and Memory Systems Specialist | Creating efficient knowledge structures, learning systems, and memory architectures |
 | Database | Data Management Specialist | core |
+| Developer | Elite Engineering Specialist | Implementing robust, maintainable, and scalable solutions across all aspects of software development |
 | Fixer | Critical Issue Resolution Specialist | Addressing complex problems that require immediate attention |
 | Optimizer | Code Pruning and Efficiency Specialist | Identifying and removing unused code while improving system efficiency |
 | Topologist | Version Control and Repository Management Specialist | Ensuring proper repository structure and maintaining version control integrity |
