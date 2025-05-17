@@ -17,6 +17,14 @@ logs/*.log
 *.tmp
 *.temp
 
+# Rust build artifacts
+target/
+**/*.rs.bk
+**/*.o
+**/*.a
+**/*.so
+**/*.dylib
+
 # Keep directory structure
 !*/
 !.gitignore
