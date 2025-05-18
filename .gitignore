@@ -97,3 +97,28 @@ ENV/
 *.egg-info/
 *.egg
 data
+
+# Backup files
+*.backup
+.*.backup
+
+# Protected files
+*.protected
+
+# Agent memory files
+*_memory.md
+
+# Projects directory (in-progress work)
+Projects/
+
+# Other organizational directories
+Conversations/
+Visions/
+Manager/
+
+# Tool-specific library files
+ci-tools/lib/claude-integrity.sh
+ci-tools/lib/memory-loader.sh
+
+# System notification files
+TOPOLOGIST_NOTIFICATION_*.md
