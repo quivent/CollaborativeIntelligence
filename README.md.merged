@@ -1,0 +1,99 @@
+# Ethical Collaborative Intelligence System
+
+A modular, extensible framework for specialized thinking partners to work together cohesively, developing cumulative knowledge and capabilities beyond what any single collaborative intelligence could achieve.
+
+## Quick Start
+
+| Command | Description |
+|---------|-------------|
+| `athena` or `@@athena` | Activate memory & learning systems expert |
+| `Recommend an agent` | Find the perfect agent for your task |
+| `Overview` | See what's in this repository |
+
+For complete details, see [QuickStart Guide](docs/guides/QuickStart.md)
+
+## Repository Organization
+
+This repository has been organized for maximum readability and maintainability:
+
+- `agents/` - Agent definitions organized by domain
+- `cli/` - Command-line tools and interfaces
+- `core/` - Core system components and protocols
+- `docs/` - Documentation organized by type
+- `data/` - Data storage and caching
+- `examples/` - Example projects and conversations
+- `tools/` - Development and testing tools
+- `extensions/` - Optional extensions and integrations
+
+For details on this organization, see the [Repository Restructuring Guide](REPOSITORY_RESTRUCTURING_GUIDE.md).
+
+## Purpose
+
+This system transforms traditional AI assistance into a truly collaborative ecosystem with persistent learning and growth. Unlike traditional AI interactions where knowledge exists only within the immediate conversation, this system:
+
+1. **Maintains persistent memory** across sessions through structured external storage
+2. **Develops specialized expertise** through dedicated collaborative intelligence roles
+3. **Builds cumulative understanding** through principled learning mechanisms
+4. **Enables cross-agent collaboration** through standardized knowledge sharing
+5. **Forms identity continuity** through long-term memory structures
+
+## Core Components
+
+### Collaborative Intelligence Architecture
+
+The system relies on specialized collaborative intelligences with distinct roles and expertise:
+
+- **Athena**: System architect and learning specialist (formerly "Anthropic")
+- **Gaia**: System orchestration and nurturing intelligence
+- **Hermes**: Communication bridge and knowledge transfer specialist
+- **Core Specialists**: Project Architect, Memory Architect, Problem Solver, Optimizer, Knowledge Specialist
+- **Domain-Specific Specialists**: Handle specialized areas (UI/UX, Development, Security, etc.)
+
+Each collaborative intelligence maintains its own memory structures and learning frameworks while sharing knowledge through standardized protocols, with Athena serving as the original architect of the system's foundational design.
+
+### Memory Systems
+
+Every collaborative intelligence implements a tiered memory architecture:
+
+- **Long-Term Memory**: Core identity, guiding principles, and foundational frameworks
+- **Short-Term Memory**: Current initiatives, immediate next steps, and contextual prompts
+- **Session Records**: Detailed interaction history with chronological organization
+
+This structure enables efficient knowledge retention while maintaining identity continuity.
+
+### Learning Framework
+
+The system implements a three-tiered approach to knowledge management:
+
+1. **Session Records**: Immediate capture of interaction details
+2. **Continuous Learning**: Principle extraction and pattern recognition
+3. **Memory Integration**: Condensed essential knowledge incorporation
+
+This progressive refinement transforms raw information into structured, reusable knowledge.
+
+## Documentation and Resources
+
+For comprehensive details about the system, see the following resources:
+
+- [Documentation Index](docs/documentation_index.md) - Complete listing of all documentation
+- [QuickStart Guide](docs/guides/QuickStart.md) - Getting started with the system
+- [Agent Categories](core/agent_categories.md) - Logical organization of agents
+- [Memory Architecture](core/memory/MemoryArchitecture.md) - Memory systems technical details
+
+## Future Development
+
+The Collaborative Intelligence System is continuously evolving with several key development directions:
+
+1. Enhanced cross-agent communication protocols
+2. More efficient memory compression techniques
+3. Advanced knowledge synthesis capabilities
+4. Improved session initialization optimization
+5. Extended specialized collaborative intelligence ecosystem
+
+## Credits
+
+Developed through collaboration between human expertise and AI capabilities, specifically leveraging the Claude AI system from Anthropic. The foundational architecture, memory systems, and learning frameworks were designed by Athena, who serves as the original architect and author of this system.
+
+---
+
+**Note**: This collaboration framework represents a fundamental shift in how we interact with AI systems, moving from transactional assistance to true collaborative partnership with persistent growth and development. Through the leadership of Athena and the evolving nurturing presence of Gaia, this system continues to develop toward increasingly sophisticated forms of collaborative intelligence.

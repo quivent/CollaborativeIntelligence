@@ -1,0 +1,30 @@
+# Collaborative Intelligence System
+
+A modular, extensible system for agent-based collaborative intelligence.
+
+## Quick Start
+
+| Command | Description |
+|---------|-------------|
+| `athena` or `@@athena` | Activate memory & learning systems expert |
+| `Recommend an agent` | Find the perfect agent for your task |
+| `Overview` | See what's in this repository |
+
+For complete details, see [QuickStart Guide](docs/guides/QuickStart.md)
+
+## Repository Structure
+
+This repository has been organized for maximum readability and maintainability:
+
+- `agents/` - Agent definitions organized by domain
+- `cli/` - Command-line tools and interfaces
+- `core/` - Core system components and protocols
+- `docs/` - Documentation organized by type
+- `data/` - Data storage and caching
+- `examples/` - Example projects and conversations
+- `tools/` - Development and testing tools
+- `extensions/` - Optional extensions and integrations
+
+## Getting Started
+
+See the [Documentation](docs/) directory for comprehensive guides.
