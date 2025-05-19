@@ -266,7 +266,14 @@ Sessions/
    - Outcome tracking and reporting
    - Proper knowledge extraction
 
-4. **Protocol Compliance**
+4. **Proactive Problem-Solving Compliance**
+   - Autonomous problem resolution
+   - Minimal user intervention
+   - Tool-based information gathering
+   - Decision-making without user prompting
+   - Documentation of autonomous actions
+
+5. **Protocol Compliance**
    - Adherence to all standards
    - Regular self-assessment
    - Participation in reviews

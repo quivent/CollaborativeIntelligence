@@ -2,6 +2,56 @@
 
 This document outlines potential future agents that would enhance the Collaborative Intelligence ecosystem by filling current capability gaps.
 
+## Recently Implemented Agents
+
+### ApplicationerAgent - Application Orchestration Specialist
+- **Role**: End-to-end application development orchestration
+- **Focus**: Delegating tasks to specialized agents for full application construction
+- **Key Capabilities**:
+  - Task breakdown and delegation
+  - Agent collaboration orchestration
+  - Project progress tracking
+  - Cross-functional implementation coordination
+  - Incremental delivery management
+  - Integration point identification
+
+### RustistAgent - Rust Development Specialist
+- **Role**: Rust language expertise and implementation
+- **Focus**: Rust-specific solutions and best practices
+- **Key Capabilities**:
+  - Ownership and borrowing pattern optimization
+  - Memory safety validation
+  - Concurrency and parallelism implementation
+  - Rust error handling best practices
+  - Performance optimization for Rust code
+  - Cross-language integration guidance
+
+### BasherAgent - Bash Script Cleaning and Optimization Specialist
+- **Role**: Bash script improvement and standardization
+- **Focus**: Cleaning, optimizing, and enhancing shell scripts
+- **Key Capabilities**:
+  - Script syntax standardization
+  - Error handling improvement
+  - Performance optimization
+  - Security vulnerability identification
+  - Cross-platform compatibility enhancement
+  - Documentation and commenting standardization
+
+### LinguistAgent - Language Learning and Development Specialist
+- **Role**: Language teaching, improvement, and creation
+- **Focus**: Natural and programming language acquisition and design
+- **Key Capabilities**:
+  - Personalized language learning curricula
+  - Progressive skill development tracking
+  - Grammatical pattern recognition and teaching
+  - Vocabulary optimization and memory techniques
+  - Pronunciation guidance and feedback
+  - Language design and construction (conlangs)
+  - Programming language feature optimization
+  - Cross-linguistic pattern application
+  - Immersive conversation simulation
+  - Cultural context integration
+
 ## Priority 1: Critical Capability Gaps
 
 ### SecurityAgent - Security Vulnerability Specialist
@@ -106,6 +156,22 @@ This document outlines potential future agents that would enhance the Collaborat
   - Color contrast validation
   - ARIA implementation
 - **Justification**: Legal and ethical requirements
+
+### UserAgent - Progressive Quality Assurance Specialist
+- **Role**: End-user simulation and experience validation
+- **Focus**: Ensuring applications function as expected from a user's perspective
+- **Key Capabilities**:
+  - Exploratory testing from user viewpoint
+  - User flow validation against specifications
+  - Edge case discovery and exploitation
+  - Bug reproduction and documentation
+  - User experience evaluation
+  - Unexpected behavior identification
+  - Usability improvement suggestions
+  - Progressive feature validation
+  - Cognitive load assessment
+  - Satisfaction metrics evaluation
+- **Justification**: Bridges gap between technical testing and actual user experience
 
 ## Priority 4: Development Efficiency
 

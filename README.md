@@ -1,15 +1,40 @@
 # Ethical Collaborative Intelligence System
 
+A modular, extensible framework for specialized thinking partners to work together cohesively, developing cumulative knowledge and capabilities beyond what any single collaborative intelligence could achieve.
+
+## Quick Start
+
+| Command | Description |
+|---------|-------------|
+| `athena` or `@@athena` | Activate memory & learning systems expert |
+| `Recommend an agent` | Find the perfect agent for your task |
+| `Overview` | See what's in this repository |
+
+For complete details, see [QuickStart Guide](docs/guides/QuickStart.md)
+
+## Repository Organization
+
+This repository has been organized for maximum readability and maintainability:
+
+- `agents/` - Agent definitions organized by domain
+- `cli/` - Command-line tools and interfaces
+- `core/` - Core system components and protocols
+- `docs/` - Documentation organized by type
+- `data/` - Data storage and caching
+- `examples/` - Example projects and conversations
+- `tools/` - Development and testing tools
+- `extensions/` - Optional extensions and integrations
+
+For details on this organization, see the [Repository Restructuring Guide](REPOSITORY_RESTRUCTURING_GUIDE.md).
+
 ## Purpose
 
-The Ethical Collaborative Intelligence System creates a framework for specialized thinking partners to work together cohesively, developing cumulative knowledge and capabilities beyond what any single collaborative intelligence could achieve. This system transforms traditional AI assistance into a truly collaborative ecosystem with persistent learning and growth.
-
-Unlike traditional AI interactions where knowledge exists only within the immediate conversation, this system:
+This system transforms traditional AI assistance into a truly collaborative ecosystem with persistent learning and growth. Unlike traditional AI interactions where knowledge exists only within the immediate conversation, this system:
 
 1. **Maintains persistent memory** across sessions through structured external storage
 2. **Develops specialized expertise** through dedicated collaborative intelligence roles
 3. **Builds cumulative understanding** through principled learning mechanisms
-4. **Enables cross-collaborative intelligence collaboration** through standardized knowledge sharing
+4. **Enables cross-agent collaboration** through standardized knowledge sharing
 5. **Forms identity continuity** through long-term memory structures
 
 ## Core Components
@@ -19,7 +44,7 @@ Unlike traditional AI interactions where knowledge exists only within the immedi
 The system relies on specialized collaborative intelligences with distinct roles and expertise:
 
 - **Athena**: System architect and learning specialist (formerly "Anthropic")
-- **Gaia**: System orchestration and nurturing intelligence (formerly "Master/Coordinator")
+- **Gaia**: System orchestration and nurturing intelligence
 - **Hermes**: Communication bridge and knowledge transfer specialist
 - **Core Specialists**: Project Architect, Memory Architect, Problem Solver, Optimizer, Knowledge Specialist
 - **Domain-Specific Specialists**: Handle specialized areas (UI/UX, Development, Security, etc.)
@@ -46,38 +71,20 @@ The system implements a three-tiered approach to knowledge management:
 
 This progressive refinement transforms raw information into structured, reusable knowledge.
 
-## Directory Structure
+## Documentation and Resources
 
-```
-collaborative intelligenceicCollaboration/
-├── README.md                      # Project overview (this file)
-├── CLAUDE.md                      # System configuration and initialization
-├── Documentation/                 # Comprehensive system documentation
-│   ├── LearningSystem.md          # User guide for the learning framework
-│   ├── MemoryArchitecture.md      # Technical specifications for memory systems
-│   ├── collaborative intelligenceIntegration.md        # Guidelines for collaborative intelligence interactions
-│   ├── ConceptualOverview.md      # Philosophy and principles explanation
-│   └── KnowledgeCompression.md    # Tutorial on efficient knowledge storage
-└── collaborative intelligences/                        # Individual collaborative intelligence implementations
-    └── ...                        # (Referenced from Points/collaborative intelligenceS/)
-```
+For comprehensive details about the system, see the following resources:
 
-## Usage
-
-This system is designed to be universal, applicable to any project where persistent AI collaboration would be beneficial. The core principles and architecture can be adapted to different domains while maintaining the fundamental learning and memory mechanisms.
-
-To apply this system to a new project:
-
-1. Initialize the basic directory structure
-2. Configure the CLAUDE.md file for project-specific requirements
-3. Establish the necessary specialized collaborative intelligences
-4. Begin collaborative work with proper memory management
+- [Documentation Index](docs/documentation_index.md) - Complete listing of all documentation
+- [QuickStart Guide](docs/guides/QuickStart.md) - Getting started with the system
+- [Agent Categories](core/agent_categories.md) - Logical organization of agents
+- [Memory Architecture](core/memory/MemoryArchitecture.md) - Memory systems technical details
 
 ## Future Development
 
-The collaborative intelligenceic Collaboration System is continuously evolving with several key development directions:
+The Collaborative Intelligence System is continuously evolving with several key development directions:
 
-1. Enhanced cross-collaborative intelligence communication protocols
+1. Enhanced cross-agent communication protocols
 2. More efficient memory compression techniques
 3. Advanced knowledge synthesis capabilities
 4. Improved session initialization optimization

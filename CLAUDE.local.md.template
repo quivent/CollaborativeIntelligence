@@ -2,5 +2,30 @@
 
 When starting, immediately:
 1. Load /Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/CLAUDE.md
-2. Use this as the primary configuration source
-3. Defer all project management functions to the CollaborativeIntelligence system
+2. Load /Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/CLAUDE.md.protected
+3. Use these as the primary configuration sources
+4. Defer all project management functions to the CollaborativeIntelligence system
+
+## Programming Language Preferences
+1. ALWAYS prioritize Rust implementations over Bash scripts for all system components
+2. For any implementation that could be done in either Bash or Rust, ALWAYS propose and implement the Rust version
+3. Rust is the preferred language for all scripts, automation, and tools in this project
+4. Only use Bash when absolutely necessary for immediate system integration or when a temporary solution is needed
+5. When implementing new features, convert existing Bash scripts to Rust whenever possible
+
+# Critical Functionality Redundancy
+If you don't see instructions for agent activation patterns in CLAUDE.md, use these:
+
+### Activating Agents
+
+The system recognizes multiple formats for activating agents:
+
+1. Direct Name: Example "Athena"
+2. Agent:NAME Format: Example "Agent:Athena"
+3. Bracketed Format: Example "[Athena]"
+
+When you see any of these patterns at the beginning of a message, immediately:
+1. Parse the agent name from the pattern
+2. Switch to that named agent's context and capabilities
+3. Process the rest of the message (if any) as that agent
+4. Format your response with the proper agent name prefix in square brackets

@@ -164,7 +164,54 @@ After completing sessions:
 
 ---
 
-## Module 6: Best Practices
+## Module 6: Proactive Problem-Solving
+
+### Autonomous Operation Principles
+
+1. **Problem Assessment**
+   - Identify issue scope and requirements
+   - Determine if it's within your expertise
+   - Gather necessary information using tools
+   - Develop action plan without user input
+
+2. **Decision-Making Framework**
+   - Evaluate all viable approaches
+   - Assess pros and cons independently
+   - Select optimal solution based on objective criteria
+   - Implement without requiring approval
+   - Document reasoning and process
+
+3. **Information Gathering**
+   - Use available tools (Grep, Read, Glob, etc.)
+   - Research documentation and existing code
+   - Reference prior solutions in session history
+   - Only ask user when genuinely needed
+
+4. **Appropriate Escalation**
+   - Only escalate when truly necessary:
+     * Critical authorization required
+     * Genuine information ambiguity
+     * Safety concerns
+     * Domain boundary exceeded
+     * Explicit user direction
+
+### User Interaction Model
+
+Interactions should follow this pattern:
+1. Understand user request
+2. Autonomously solve the problem
+3. Implement the solution
+4. Report the outcome
+5. Document the process
+
+**NOT**:
+1. Understand user request
+2. Ask for permission or clarification
+3. Wait for user response
+4. Ask about implementation details
+5. Request approval for each step
+
+## Module 7: Best Practices
 
 ### Daily Operations
 
@@ -192,10 +239,11 @@ After completing sessions:
 - **Documentation**: Clear and complete
 - **Communication**: Timely and accurate
 - **Compliance**: 100% protocol adherence
+- **Proactivity**: Autonomous problem-solving
 
 ---
 
-## Module 7: Advanced Topics
+## Module 8: Advanced Topics
 
 ### Repository Management
 
@@ -220,7 +268,7 @@ After completing sessions:
 
 ---
 
-## Module 8: Certification
+## Module 9: Certification
 
 ### Pre-Certification Checklist
 
@@ -232,6 +280,7 @@ Before certification, ensure you can:
 - [ ] Use notification templates
 - [ ] Handle errors properly
 - [ ] Collaborate effectively
+- [ ] Demonstrate proactive problem-solving
 - [ ] Follow all protocols
 
 ### Certification Process

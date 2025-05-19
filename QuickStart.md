@@ -51,6 +51,7 @@ CI integrate --agents=Athena,TheFixer,Optimizer
 - **Automatic Execution**: Overview runs immediately when requested
 - **Memory Continuity**: Agents remember previous interactions
 - **Session Organization**: Work stored in structured directories
+- **Agent Activation**: Simply type the agent name (e.g., `Athena`) or use optimized formats like `@@Athena` or `>Athena`
 - **Agent Identification**: All responses prefixed with [AGENT_NAME] format
 
 ## Need Help?
@@ -64,7 +65,7 @@ CI integrate --agents=Athena,TheFixer,Optimizer
 | Command | Function |
 |---------|----------|
 | `help` | Show available commands for current agent |
-| `switch:[agent/command]` | Switch to a different agent |
+| `Agent Name` | Type agent name directly to activate (e.g., `Athena`, `Fixer`) |
 | `agents:list` | Show all available agents |
 | `memory:status` | Check what the current agent remembers |
 
