@@ -126,6 +126,7 @@ Before any commit is submitted:
    - Present a complete summary of changes to be committed
    - Highlight critical or high-risk modifications
    - Identify potential impacts across the codebase
+   - Check for untracked files and determine if they should be included or gitignored
    - Request explicit permission to proceed
 
 3. **Commit Preparation**
@@ -133,6 +134,7 @@ Before any commit is submitted:
    - Include references to relevant issues or documents
    - Follow established commit message conventions
    - Ensure all changes are intentional (no accidental inclusions)
+   - Verify large files are properly excluded via .gitignore
 
 4. **Post-Commit Verification**
    - Verify the commit succeeded without errors

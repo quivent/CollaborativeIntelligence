@@ -134,3 +134,14 @@ CLAUDE.md.backup*
 # Additional artifact directories
 agent_cache/target/
 scripts/target/
+
+# Large files and design assets
+MARKDOWN_DESIGNS/*.html
+MARKDOWN_DESIGNS/*.css
+SOFIA_*.html
+*.rs.original
+*.md.original
+
+# Temporary design files
+*_ARTISTIC.html
+*_DRAMATIC.html

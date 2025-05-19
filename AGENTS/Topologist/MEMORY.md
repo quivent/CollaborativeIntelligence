@@ -36,11 +36,12 @@
 ### Mandatory Pre-Commit Checklist
 **MUST EXECUTE IN THIS ORDER - NO EXCEPTIONS**:
 1. ✓ Analyze all repository changes
-2. ✓ Check and update .gitignore if needed
-3. ✓ Create topology report in Sessions/
-4. ✓ Update own documentation
-5. ✓ Verify all protocols completed
-6. ✓ ONLY THEN proceed with git operations
+2. ✓ Check for untracked files using `git status` 
+3. ✓ Update .gitignore if large files or build artifacts found
+4. ✓ Create topology report in Sessions/
+5. ✓ Update own documentation
+6. ✓ Verify all protocols completed
+7. ✓ ONLY THEN proceed with git operations
 
 **VIOLATIONS ARE LOGGED AS CRITICAL ERRORS**
 

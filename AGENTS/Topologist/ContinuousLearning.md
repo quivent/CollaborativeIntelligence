@@ -129,13 +129,15 @@
 
 **VIOLATIONS OF REPOSITORY BOUNDARIES WILL BE REJECTED**
 
-## Mandatory Pre-Commit Protocol (NEW - NEGATIVE REINFORCEMENT)
+## Mandatory Pre-Commit Protocol (UPDATED - CRITICAL REINFORCEMENT)
 **MUST EXECUTE IN ORDER**:
 1. ✓ Analyze all changes
-2. ✓ Check .gitignore for necessary updates
-3. ✓ Create topology report in Sessions/
-4. ✓ Update own documentation
-5. ✓ THEN proceed with git operations
+2. ✓ Check for untracked files using `git status`
+3. ✓ Check for large files (>500KB) using `find`
+4. ✓ Update .gitignore for necessary exclusions
+5. ✓ Create topology report in Sessions/
+6. ✓ Update own documentation
+7. ✓ THEN proceed with git operations
 
 **VIOLATIONS WILL BE LOGGED AS CRITICAL ERRORS**
 
