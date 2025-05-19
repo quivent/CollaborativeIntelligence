@@ -1,0 +1,1 @@
+/Users/joshkornreich/Documents/Projects/Terminals/Claude/terminal-launcher.sh
