@@ -1,0 +1,353 @@
+/* Markdown-Specific CSS Styling */
+
+/* Table of Contents styling */
+.toc {
+    background-color: var(--background-secondary);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.toc ul {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+}
+
+.toc a {
+    color: var(--text-color);
+    border-bottom: none;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Code syntax highlighting enhancements */
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in, .hljs-tag, .hljs-name {
+    color: var(--primary-color);
+}
+
+.hljs-string, .hljs-title, .hljs-section, .hljs-literal, .hljs-type, .hljs-addition {
+    color: var(--accent-color);
+}
+
+.hljs-attribute, .hljs-symbol, .hljs-bullet, .hljs-subst, .hljs-meta, .hljs-meta-string {
+    color: var(--secondary-color);
+}
+
+.hljs-comment, .hljs-quote {
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* Task list styling */
+.task-list-item {
+    list-style-type: none;
+    margin-left: -1.5rem;
+}
+
+.task-list-item input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Admonition blocks for notes, warnings, tips */
+.admonition {
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.admonition-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.admonition.note {
+    background-color: rgba(58, 134, 255, 0.1);
+    border-left-color: var(--primary-color);
+}
+
+.admonition.warning {
+    background-color: rgba(255, 145, 0, 0.1);
+    border-left-color: #ff9100;
+}
+
+.admonition.tip {
+    background-color: rgba(0, 200, 83, 0.1);
+    border-left-color: #00c853;
+}
+
+/* Callout styling */
+.callout {
+    display: flex;
+    padding: 1.5rem;
+    border-radius: 4px;
+    background-color: var(--background-secondary);
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.callout-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: var(--primary-color);
+}
+
+.callout-content {
+    flex: 1;
+}
+
+.callout h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.callout p:last-child {
+    margin-bottom: 0;
+}
+
+/* Footnotes styling */
+.footnotes {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.footnotes p {
+    margin-bottom: 0.5rem;
+}
+
+.footnote-ref {
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 0;
+    color: var(--primary-color);
+}
+
+.footnote-backref {
+    font-size: 0.8em;
+}
+
+/* Definition lists */
+dl {
+    margin: 1.5rem 0;
+}
+
+dt {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+dd {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Keyboard shortcuts */
+kbd {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-code);
+    font-size: 0.85em;
+    line-height: 1;
+    padding: 0.2em 0.4em;
+}
+
+/* Mark/highlight text */
+mark {
+    background-color: rgba(255, 235, 59, 0.4);
+    padding: 0.2em;
+    border-radius: 2px;
+}
+
+/* Abbreviations */
+abbr[title] {
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-light);
+    cursor: help;
+}
+
+/* Small text */
+small {
+    font-size: 0.85em;
+    color: var(--text-light);
+}
+
+/* Enhanced blockquote styling */
+blockquote {
+    position: relative;
+    padding: 1.5rem 1.5rem 1.5rem 3rem;
+}
+
+blockquote::before {
+    content: """;
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--primary-color);
+    opacity: 0.3;
+    font-family: Georgia, serif;
+}
+
+/* Enhanced table styling */
+table {
+    box-shadow: 0 2px 4px var(--shadow-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+table thead th {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Diagram and flowchart containers */
+.diagram-container {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.diagram-container img {
+    margin: 0 auto;
+}
+
+/* Enhanced code block title */
+.code-header {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.code-header + pre {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* Enhanced image captions */
+figure {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+figure img {
+    margin: 0 auto 0.5rem;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* Enhanced details/summary */
+details {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    margin: 1.5rem 0;
+    background-color: var(--background-secondary);
+}
+
+summary {
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem 0;
+}
+
+details[open] summary {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Theme variations */
+
+/* Light theme (default) */
+:root[data-theme="light"] {
+    --primary-color: #3a86ff;
+    --secondary-color: #8338ec;
+    --accent-color: #ff006e;
+    --text-color: #2b2d42;
+    --text-light: #8d99ae;
+    --background-color: #ffffff;
+    --background-secondary: #f8f9fa;
+    --code-background: #f5f7ff;
+    --border-color: #edf2f7;
+}
+
+/* Dark theme */
+:root[data-theme="dark"] {
+    --primary-color: #4d9fff;
+    --secondary-color: #9d63ff;
+    --accent-color: #ff3385;
+    --text-color: #e5e7eb;
+    --text-light: #9ca3af;
+    --background-color: #1f2937;
+    --background-secondary: #111827;
+    --code-background: #282c34;
+    --border-color: #374151;
+}
+
+/* Sepia theme */
+:root[data-theme="sepia"] {
+    --primary-color: #8c6a3f;
+    --secondary-color: #b38962;
+    --accent-color: #a93f3f;
+    --text-color: #5d4037;
+    --text-light: #7d6b5f;
+    --background-color: #f3eacb;
+    --background-secondary: #edebd5;
+    --code-background: #e6dfca;
+    --border-color: #d8cfb4;
+}
+
+/* Minimal theme */
+:root[data-theme="minimal"] {
+    --primary-color: #333333;
+    --secondary-color: #666666;
+    --accent-color: #000000;
+    --text-color: #333333;
+    --text-light: #666666;
+    --background-color: #ffffff;
+    --background-secondary: #f9f9f9;
+    --code-background: #f0f0f0;
+    --border-color: #dddddd;
+}
+
+/* Ocean theme */
+:root[data-theme="ocean"] {
+    --primary-color: #0077b6;
+    --secondary-color: #00b4d8;
+    --accent-color: #d92979;
+    --text-color: #03045e;
+    --text-light: #023e8a;
+    --background-color: #f1faff;
+    --background-secondary: #e1f5fe;
+    --code-background: #caf0f8;
+    --border-color: #90e0ef;
+}
