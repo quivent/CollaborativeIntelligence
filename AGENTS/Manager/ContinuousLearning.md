@@ -239,6 +239,14 @@ Documentation approaches have evolved from basic descriptions to comprehensive k
 - Dependency graphs for system relationships
 - Activation context mapping for appropriate agent selection
 - Single-operation index generation for efficient analysis
+- Ensuring synchronization between AGENTS.md and AGENT_INDEX.md
+
+### Project and Specification Organization
+- **Store project specifications in dedicated project directories, not in temporal session folders**
+- Use the `/Projects/` directory for permanent specification documents
+- Maintain clear separation between temporal session work and persistent project artifacts
+- Ensure specifications are easily discoverable through proper organization
+- Reference specifications from sessions rather than duplicating content
 
 ### Similarity Analysis Techniques
 - Vector embedding methodologies for semantic analysis

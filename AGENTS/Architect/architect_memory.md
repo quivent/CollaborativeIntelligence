@@ -1,4 +1,4 @@
-# Agent Memory: architect
+# Agent Memory: Architect
 
 ## Architect - System Design Specialist
 
