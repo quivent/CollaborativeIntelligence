@@ -122,3 +122,15 @@ ci-tools/lib/memory-loader.sh
 
 # System notification files
 TOPOLOGIST_NOTIFICATION_*.md
+
+# Cache directories
+CACHE/
+CACHE/API_CACHE/
+**/ci-database/
+**/db-cli/
+Kanji/*.json
+CLAUDE.md.backup*
+
+# Additional artifact directories
+agent_cache/target/
+scripts/target/
