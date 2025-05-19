@@ -5,6 +5,11 @@
 # Strict mode
 set -euo pipefail
 
+# Import claude-integrity.sh if it exists
+if [[ -f "$(dirname "${BASH_SOURCE[0]}")/claude-integrity.sh" ]]; then
+  source "$(dirname "${BASH_SOURCE[0]}")/claude-integrity.sh"
+fi
+
 # Global variables
 CI_ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 CI_TOOLS_DIR="$CI_ROOT_DIR/ci-tools"
@@ -115,6 +120,17 @@ read_file() {
   return 1
 }
 
+# Set the terminal window title
+# Usage: set_terminal_title <title>
+set_terminal_title() {
+  local title="$1"
+  
+  # Only set the title if stdout is a terminal
+  if [[ -t 1 ]]; then
+    echo -ne "\033]0;${title}\007"
+  fi
+}
+
 # Add a line to a file if it doesn't exist
 # Usage: add_line_if_not_exists <file_path> <line>
 add_line_if_not_exists() {
@@ -160,6 +176,48 @@ import_lib() {
   return 1
 }
 
+# Load agent memory with optimizations
+# Usage: load_agent_memory <agent_name> [context] [task]
+load_agent_memory() {
+  local agent_name="$1"
+  local context="${2:-}"
+  local task="${3:-General Task}"
+  
+  # Update terminal window title with project, task, and agent
+  local project_name=$(basename "$(pwd)")
+  set_terminal_title "$project_name - $task - $agent_name"
+  
+  # Check if optimized memory loader exists and use it
+  if [[ -f "$CI_LIB_DIR/memory-loader.sh" ]]; then
+    source "$CI_LIB_DIR/memory-loader.sh"
+    verbose_info "Using optimized memory loader for agent: $agent_name"
+    load_agent_memory "$agent_name" "$context"
+    return $?
+  fi
+  
+  # Fall back to legacy memory loading if optimized loader is not available
+  local memory_path="$CI_ROOT_DIR/AGENTS/${agent_name}/MEMORY.md"
+  local continuous_learning_path="$CI_ROOT_DIR/AGENTS/${agent_name}/ContinuousLearning.md"
+  
+  verbose_info "Loading memory for agent: $agent_name (legacy method)"
+  
+  # Read memory file
+  if [[ -f "$memory_path" ]]; then
+    cat "$memory_path"
+  else
+    echo "Error: Memory file not found for agent: $agent_name" >&2
+    return 1
+  fi
+  
+  # Read continuous learning file if it exists
+  if [[ -f "$continuous_learning_path" ]]; then
+    echo -e "\n\n# Continuous Learning\n"
+    cat "$continuous_learning_path"
+  fi
+  
+  return 0
+}
+
 # Display debug information if debug mode is enabled
 # Usage: debug_info <message>
 debug_info() {
@@ -173,5 +231,44 @@ debug_info() {
 verbose_info() {
   if [[ "$CI_VERBOSE" == "true" ]]; then
     echo "[INFO] $*" >&2
+  fi
+}
+
+# Check CLAUDE.md integrity
+# Usage: ensure_claude_integrity [ci_path]
+ensure_claude_integrity() {
+  local ci_path="${1:-$CI_ROOT_DIR}"
+  
+  # Check if verify_claude_integrity function exists (from claude-integrity.sh)
+  if type verify_claude_integrity &>/dev/null; then
+    verify_claude_integrity "$ci_path"
+  else
+    # Basic integrity check if the full function is not available
+    local claude_md="$ci_path/CLAUDE.md"
+    local claude_backup="$ci_path/.CLAUDE.md.backup"
+    
+    # Create backup if it doesn't exist
+    if [[ -f "$claude_md" && ! -f "$claude_backup" ]]; then
+      cp "$claude_md" "$claude_backup"
+      chmod 444 "$claude_backup"
+      verbose_info "Created CLAUDE.md backup at $claude_backup"
+    fi
+    
+    # Basic verification
+    if [[ -f "$claude_md" ]]; then
+      if ! grep -q "Agent Activation and Response Format" "$claude_md"; then
+        echo "[WARNING] CLAUDE.md may be missing critical sections" >&2
+        
+        # Restore from backup if available
+        if [[ -f "$claude_backup" ]]; then
+          cp "$claude_backup" "$claude_md"
+          echo "[INFO] CLAUDE.md restored from backup" >&2
+        fi
+      fi
+    elif [[ -f "$claude_backup" ]]; then
+      # Restore CLAUDE.md from backup
+      cp "$claude_backup" "$claude_md"
+      echo "[INFO] CLAUDE.md restored from backup" >&2
+    fi
   fi
 }

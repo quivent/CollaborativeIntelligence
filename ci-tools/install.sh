@@ -26,6 +26,7 @@ fi
 echo "Making scripts executable..."
 chmod +x "$SCRIPT_DIR/CI.new"
 chmod +x "$SCRIPT_DIR/cmd"/*.sh
+chmod +x "$SCRIPT_DIR/lib"/*.sh
 
 # Create wrapper script
 echo "Creating wrapper script..."
@@ -133,6 +134,29 @@ fi
 echo "Verifying installation..."
 "$PROJECT_DIR/CI" verify
 
+# Install optimized agent activator shortcut links
+echo "Do you want to install optimized agent activation shortcuts (@@agent, >agent)? [y/N]"
+read -n 1 -r INSTALL_SHORTCUTS
+echo
+if [[ $INSTALL_SHORTCUTS =~ ^[Yy]$ ]]; then
+    echo "Installing agent activation shortcuts..."
+    
+    # Get sudo if needed
+    if [[ ! -w "/usr/local/bin" ]]; then
+        echo "Administrator privileges required to create symlinks in /usr/local/bin"
+        sudo ln -sf "$SCRIPT_DIR/lib/agent-activator.sh" "/usr/local/bin/@@" || true
+        sudo ln -sf "$SCRIPT_DIR/lib/agent-activator.sh" "/usr/local/bin/>" || true
+    else
+        ln -sf "$SCRIPT_DIR/lib/agent-activator.sh" "/usr/local/bin/@@" || true
+        ln -sf "$SCRIPT_DIR/lib/agent-activator.sh" "/usr/local/bin/>" || true
+    fi
+    
+    echo "Optimized agent activation shortcuts installed!"
+    echo "You can now use:"
+    echo "  @@agent_name - Activate an agent using @@ syntax"
+    echo "  >agent_name - Activate an agent using > syntax"
+fi
+
 echo "============================================="
 echo "Installation complete!"
 echo "============================================="
@@ -143,6 +167,12 @@ echo "Available commands:"
 echo "  init                Initialize a new project"
 echo "  verify              Verify system installation"
 echo "  fix                 Fix common issues"
+echo "  agent               Manage agents"
+echo "  session             Manage sessions"
+echo
+echo "For faster agent activation:"
+echo "  @@agent_name         Activate agent using optimized syntax"
+echo "  >agent_name          Activate agent using optimized syntax"
 echo
 echo "For more information, run:"
 echo "  ./CI --help"

@@ -67,6 +67,26 @@ Subcommands:
 - `enable <agent_name>` - Enable an agent in the current project
 - `disable <agent_name>` - Disable an agent in the current project
 - `template <template>` - Create an agent from a template
+- `activate <agent_name> [context]` - Activate an agent for the current session
+
+#### Optimized Agent Activation
+
+For faster agent activation, you can use the following shortcuts:
+
+```bash
+@<agent_name> [context]  # Activate agent with @ syntax
+#<agent_name> [context]  # Activate agent with # syntax
+```
+
+These commands use optimized memory loading with context-awareness to improve activation performance.
+
+To enable these shortcuts:
+
+```bash
+ln -s /path/to/CollaborativeIntelligence/ci-tools/lib/agent-activator.sh /usr/local/bin/\@
+ln -s /path/to/CollaborativeIntelligence/ci-tools/lib/agent-activator.sh /usr/local/bin/\#
+chmod +x /path/to/CollaborativeIntelligence/ci-tools/lib/agent-activator.sh
+```
 
 ### session.sh
 
@@ -108,6 +128,15 @@ To install the CI tools:
 
 ```bash
 ./install.sh
+```
+
+To enable optimized agent activation:
+
+```bash
+# Install the optimized agent activator shortcuts
+ln -s "$(pwd)/lib/agent-activator.sh" /usr/local/bin/\@
+ln -s "$(pwd)/lib/agent-activator.sh" /usr/local/bin/\#
+chmod +x "$(pwd)/lib/agent-activator.sh"
 ```
 
 ## Development

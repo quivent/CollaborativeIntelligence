@@ -7,6 +7,21 @@ INTEGRATION_TYPE="embedded"
 AGENTS="Athena,ProjectArchitect"
 FAST_ACTIVATION=true
 
+# Import common libraries if available
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "$SCRIPT_DIR/lib/common.sh" ]]; then
+  source "$SCRIPT_DIR/lib/common.sh"
+  
+  # Check and ensure CLAUDE.md integrity
+  ensure_claude_integrity "$CI_PATH"
+  
+  # Set initial terminal title
+  if type set_terminal_title &>/dev/null; then
+    local project_name=$(basename "$(pwd)")
+    set_terminal_title "$project_name - CI System"
+  fi
+fi
+
 # Define color codes
 GREEN='\033[0;32m'
 RED='\033[0;31m'

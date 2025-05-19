@@ -9,10 +9,19 @@ set -euo pipefail
 CI_CMD_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CI_TOOLS_DIR="$(cd "$CI_CMD_DIR/.." && pwd)"
 CI_LIB_DIR="$CI_TOOLS_DIR/lib"
+CI_ROOT_DIR="$(cd "$CI_TOOLS_DIR/.." && pwd)"
 
 source "$CI_LIB_DIR/common.sh"
 source "$CI_LIB_DIR/output.sh"
 source "$CI_LIB_DIR/config.sh"
+
+# Check for memory optimization system
+if [[ -f "$CI_LIB_DIR/rust-memory-bridge.sh" ]]; then
+  source "$CI_LIB_DIR/rust-memory-bridge.sh"
+  MEMORY_OPTIMIZATION_AVAILABLE=true
+else
+  MEMORY_OPTIMIZATION_AVAILABLE=false
+fi
 
 # Command metadata
 CMD_NAME="agent"
@@ -30,6 +39,7 @@ SUBCOMMANDS=(
   "enable:Enable an agent in the current project"
   "disable:Disable an agent in the current project"
   "template:Create an agent from a template"
+  "activate:Activate an agent for the current session"
 )
 
 # Show command-specific help
@@ -46,6 +56,7 @@ Subcommands:
   enable <agent_name>  Enable an agent in the current project
   disable <agent_name> Disable an agent in the current project
   template <template>  Create an agent from a template
+  activate <agent_name> [context] Activate an agent for the current session
 
 Options:$CMD_OPTIONS
 
@@ -56,6 +67,8 @@ Examples:
   ci agent enable Optimizer        Enable Optimizer agent in this project
   ci agent disable Debugger        Disable Debugger agent in this project
   ci agent template DataScientist  Create a new agent from DataScientist template
+  ci agent activate Athena         Activate Athena agent for the current session
+  ci agent activate Debugger code  Activate Debugger with 'code' context
   ci agent --help                  Show this help message
 EOF
 }
@@ -99,7 +112,7 @@ list_agents() {
   
   if [[ ${#agent_dirs[@]} -eq 0 ]]; then
     print_info "No agents found in $agents_dir"
-    print_info "Run 'ci agent create <name>' to create a new agent"
+    print_info "Run 'ci agent create <n>' to create a new agent"
     return 0
   fi
   
@@ -149,7 +162,7 @@ list_agents() {
   
   echo ""
   print_info "Total agents: ${#agent_dirs[@]}"
-  print_info "Use 'ci agent info <name>' for detailed information"
+  print_info "Use 'ci agent info <n>' for detailed information"
   
   return 0
 }
@@ -578,6 +591,121 @@ create_agent_from_template() {
   return 0
 }
 
+# Debug logging function
+debug_log() {
+  if [[ "${MEMORY_DEBUG:-false}" == "true" ]]; then
+    echo "[DEBUG] $1" >&2
+  fi
+}
+
+# Activate an agent for the current session with optimized memory loading
+activate_agent() {
+  local agent_name="$1"
+  local context="${2:-}"
+  local agents_dir=$(get_agents_dir)
+  local agent_dir="$agents_dir/$agent_name"
+  
+  # Check if agent exists
+  if [[ ! -d "$agent_dir" ]]; then
+    print_error "Agent not found: $agent_name"
+    print_info "Use 'ci agent list' to see available agents"
+    exit 1
+  fi
+  
+  print_box "Activating Agent: $agent_name"
+  
+  # Agent files
+  local readme="$agent_dir/README.md"
+  local memory="$agent_dir/MEMORY.md"
+  local learning="$agent_dir/ContinuousLearning.md"
+  
+  # Check if agent is enabled
+  local enabled_agents=($(get_config "agents.enabled" 2>/dev/null || echo "[]" | jq -r '.[]' 2>/dev/null || echo ""))
+  local is_enabled=false
+  
+  for agent in "${enabled_agents[@]}"; do
+    if [[ "$agent" == "$agent_name" ]]; then
+      is_enabled=true
+      break
+    fi
+  done
+  
+  if [[ "$is_enabled" != "true" ]]; then
+    print_warning "Agent $agent_name is not enabled in this project"
+    print_info "To enable this agent, run: ci agent enable $agent_name"
+    # Continue anyway since the user specifically asked to activate it
+  fi
+  
+  # Create agent cache entry (for all activation methods)
+  if [[ "$MEMORY_OPTIMIZATION_AVAILABLE" == "true" ]]; then
+    debug_log "Creating optimized agent cache entry"
+    create_optimized_agent_cache "$agent_name" "$(pwd)" "AgentCommand" "Activated via agent command"
+  fi
+  
+  # Load agent memory with optimizations
+  print_step 1 3 "Loading agent memory"
+  
+  # Try optimized memory loading first
+  local memory_loaded=false
+  if [[ "$MEMORY_OPTIMIZATION_AVAILABLE" == "true" ]] && type load_optimized_agent_memory &>/dev/null; then
+    debug_log "Using optimized memory loading for agent: $agent_name"
+    if [[ -n "$context" ]]; then
+      print_info "Context: $context"
+    fi
+    
+    # Output marker to indicate agent activation in Claude Code
+    echo "@[AGENT_ACTIVATION:$agent_name]"
+    
+    # Try to load memory with optimized loader
+    if load_optimized_agent_memory "$agent_name" "$context"; then
+      debug_log "Successfully loaded optimized memory for agent $agent_name"
+      memory_loaded=true
+    else
+      debug_log "Optimized memory loading failed, falling back to legacy"
+    fi
+  fi
+  
+  # Fall back to legacy memory loading if necessary
+  if [[ "$memory_loaded" == "false" ]]; then
+    if type load_agent_memory &>/dev/null; then
+      print_info "Using standard memory loading for agent: $agent_name"
+      if [[ -n "$context" ]]; then
+        print_info "Context: $context"
+      fi
+      
+      # Output marker to indicate agent activation in Claude Code
+      echo "@[AGENT_ACTIVATION:$agent_name]"
+      
+      # Load memory with context awareness
+      load_agent_memory "$agent_name" "$context"
+    else
+      print_warning "Memory loading function not available"
+      print_info "Using basic memory loading"
+      
+      # Output marker to indicate agent activation in Claude Code
+      echo "@[AGENT_ACTIVATION:$agent_name]"
+      
+      # Basic memory loading (fallback)
+      cat "$memory" 2>/dev/null || echo "# $agent_name Memory (Empty)"
+      echo -e "\n\n# Continuous Learning\n"
+      cat "$learning" 2>/dev/null || echo "# $agent_name Continuous Learning (Empty)"
+    fi
+  fi
+  
+  print_step 2 3 "Setting agent context"
+  # Output information about the activated agent
+  print_info "Agent activated: $agent_name"
+  if [[ -n "$context" ]]; then
+    print_info "Context: $context"
+  fi
+  
+  print_step 3 3 "Agent ready"
+  print_success "Agent $agent_name is now active"
+  print_info "You can interact with this agent directly in Claude Code"
+  
+  return 0
+}
+
 # Main function
 main() {
   # Parse command arguments
@@ -680,6 +808,14 @@ main() {
         exit 1
       fi
       create_agent_from_template "$agent_name" "$2"
+      ;;
+    activate)
+      if [[ -z "$agent_name" ]]; then
+        print_error "Agent name is required for 'activate' subcommand"
+        print_info "Usage: ci agent activate <agent_name> [context]"
+        exit 1
+      fi
+      activate_agent "$agent_name" "$2"
       ;;
     --help|-h)
       show_help
