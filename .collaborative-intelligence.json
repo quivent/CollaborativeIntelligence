@@ -1,9 +1,9 @@
 {
   "integration_type": "embedded",
   "repository_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence",
-  "active_agents": ["Athena","AgentRecommender","RepositoryTopologist"],
+  "active_agents": ["Athena","ProjectArchitect"],
   "fast_activation": true,
-  "repository_context": "home",
-  "is_home_repository": true,
-  "allowed_operations": ["memory_read", "memory_write", "agent_consult", "agent_create", "system_manage"]
+  "repository_context": "project",
+  "home_repository_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence",
+  "allowed_operations": ["memory_read", "agent_consult", "project_development"]
 }
