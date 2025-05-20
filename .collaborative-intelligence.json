@@ -1,9 +1,9 @@
 {
-  "integration_type": "embedded",
-  "repository_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence",
+  "integration_type": "standalone",
   "active_agents": ["Athena","ProjectArchitect"],
   "fast_activation": true,
   "repository_context": "project",
-  "home_repository_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence",
+  "cir_version": "0.1.0",
+  "standalone_processor": true,
   "allowed_operations": ["memory_read", "agent_consult", "project_development"]
 }
