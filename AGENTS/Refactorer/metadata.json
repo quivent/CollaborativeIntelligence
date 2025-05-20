@@ -1,0 +1,13 @@
+{
+  "name": "Refactorer",
+  "description": "Agent Refactorer",
+  "capabilities": [],
+  "created_at": "2025-05-20T04:16:48.610343+00:00",
+  "last_used": "2025-05-20T04:16:48.610437+00:00",
+  "usage_count": 1,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Refactorer",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Refactorer/Refactorer_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Refactorer/ContinuousLearning.md",
+  "attributes": {}
+}

@@ -1,11 +1,12 @@
 # CLAUDE.md Configuration File
 
 ## Programming Language Preferences
-1. ALWAYS prioritize Rust implementations over Bash scripts for all system components
-2. For any implementation that could be done in either Bash or Rust, ALWAYS propose and implement the Rust version
-3. Rust is the preferred language for all scripts, automation, and tools in this project
-4. Only use Bash when absolutely necessary for immediate system integration or when a temporary solution is needed
-5. When implementing new features, convert existing Bash scripts to Rust whenever possible
+1. NEVER use Bash/.sh commands for any purpose - use Rust implementations exclusively for all system components
+2. ALL commands must be implemented as Rust commands, not Bash scripts
+3. Rust is the ONLY acceptable language for all scripts, automation, tools, and commands in this project
+4. There are NO exceptions to this rule - temporary solutions must also be written in Rust
+5. When implementing new features, convert ALL existing Bash scripts to Rust immediately
+6. No shell scripts (.sh) should be created or maintained under any circumstances
 
 ## Todo Processing
 CRITICAL OVERRIDE: When using TodoWrite and TodoRead tools:
