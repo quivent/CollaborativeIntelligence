@@ -107,6 +107,8 @@ data
 
 # Agent memory files
 *_memory.md
+working_*.md
+**/working_*.md
 
 # Projects directory (in-progress work)
 Projects/
@@ -130,10 +132,12 @@ CACHE/API_CACHE/
 **/db-cli/
 Kanji/*.json
 CLAUDE.md.backup*
+CLAUDE.local.md
 
 # Additional artifact directories
 agent_cache/target/
 scripts/target/
+**/target/
 
 # Large files and design assets
 MARKDOWN_DESIGNS/*.html
@@ -145,3 +149,18 @@ SOFIA_*.html
 # Temporary design files
 *_ARTISTIC.html
 *_DRAMATIC.html
+*.temp
+*.tmp
+*.bak
+
+# Session and metadata files
+**/[0-9]*.json
+**/*-[0-9]*.json
+
+# Local config files
+.collaborative-intelligence.json
+**/.ci-config/**
+
+# Build artifacts
+**/.claude/
+**/*.lock
