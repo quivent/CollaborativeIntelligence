@@ -8,7 +8,7 @@ description = "Memory management system for Collaborative Intelligence"
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-chrono = { version = "0.4", features = ["serde"] }
+chrono = "0.4"
 regex = "1.5"
 lazy_static = "1.4"
 rayon = "1.5"
@@ -31,6 +31,11 @@ crossbeam = "0.8"
 directories = "4.0"
 glob = "0.3"
 tracing = "0.1"
+flate2 = "1.0"
+tempfile = "3.3"
+bzip2 = "0.4"
+zstd = "0.11"
+clap = { version = "3.2", features = ["derive"] }
 
 [lib]
 name = "memory_system"
@@ -91,6 +96,34 @@ path = "memory_streamer.rs"
 [[bin]]
 name = "memory_indexes"
 path = "memory_indexes.rs"
+
+[[bin]]
+name = "memory_migrator"
+path = "memory_migrator.rs"
+
+[[bin]]
+name = "memory_cli"
+path = "memory_cli.rs"
+
+[[bin]]
+name = "memory_bridge"
+path = "memory_bridge.rs"
+
+[[bin]]
+name = "memory_integration"
+path = "memory_integration.rs"
+
+[[bin]]
+name = "memory_cache"
+path = "memory_cache.rs"
+
+[[bin]]
+name = "unified_memory_cli"
+path = "unified_memory_cli.rs"
+
+[[bin]]
+name = "migration_plan"
+path = "migration_plan.rs"
 
 [profile.release]
 opt-level = 3
