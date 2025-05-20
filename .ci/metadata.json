@@ -1,0 +1,11 @@
+{
+  "active_agents": [
+    "Athena",
+    "ProjectArchitect"
+  ],
+  "ci_version": "0.1.0",
+  "created_at": "2025-05-20T08:31:49.075872+03:00",
+  "fast_activation": true,
+  "integration_type": "standalone",
+  "project_name": "project"
+}
