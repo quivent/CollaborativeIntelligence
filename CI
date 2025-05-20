@@ -1,4 +1,9 @@
 #!/bin/bash
+# DEPRECATED: This Bash implementation is deprecated in favor of the Rust version.
+# Use the Rust CI tool installed in ~/.cargo/bin/CI instead.
+#
 # Collaborative Intelligence tool wrapper
+echo "WARNING: This Bash-based CI tool is deprecated. Please use the Rust CI tool installed at ~/.cargo/bin/CI"
+echo "Running legacy Bash implementation..."
 export CI_REPO_PATH="/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence"
 exec "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/ci-tools/CI" "$@"
