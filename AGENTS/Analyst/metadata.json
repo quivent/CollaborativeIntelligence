@@ -1,0 +1,13 @@
+{
+  "name": "Analyst",
+  "description": "Agent Analyst",
+  "capabilities": [],
+  "created_at": "2025-05-20T05:56:32.762079+00:00",
+  "last_used": "2025-05-20T05:56:32.762099+00:00",
+  "usage_count": 1,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Analyst",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Analyst/Analyst_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Analyst/ContinuousLearning.md",
+  "attributes": {}
+}
