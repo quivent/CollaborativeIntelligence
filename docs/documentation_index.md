@@ -30,6 +30,7 @@ This index provides a comprehensive listing of all documentation in the Collabor
 
 - [QuickStart Guide](guides/QuickStart.md) - Getting started with the system
 - [CLI Guide](guides/CLI.md) - Command-line interface documentation
+- [External CI Architecture](cli/external-ci-architecture.md) - External CI utility architectural analysis
 
 ## Protocols
 
@@ -43,6 +44,10 @@ This index provides a comprehensive listing of all documentation in the Collabor
 ## Configuration
 
 - [CLAUDE.md](CLAUDE.md) - Core system configuration file
+
+## System Development
+
+- [System Development Index](SYSTEM_DEVELOPMENT_INDEX.md) - Major implementations and projects
 
 ## Development
 

@@ -6,6 +6,7 @@ This directory contains documentation related to the Command Line Interfaces (CL
 
 - [Usage Guide](./usage.md) - Guide on how to use the CLI tools
 - [Migration Guide](./migration.md) - Guide on migrating between different CLI versions
+- [External CI Architecture](./external-ci-architecture.md) - Architectural analysis and dependency model for the external CI utility
 
 ## CLI Tools
 
