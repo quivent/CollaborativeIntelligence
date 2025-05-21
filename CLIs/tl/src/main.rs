@@ -1,308 +1,218 @@
-use std::error::Error;
-use std::path::PathBuf;
+//! TL CLI - Teaching/Learning CLI for CollaborativeIntelligence repository maintenance
+//!
+//! This is the main entry point for the TL CLI tool.
+
 use clap::{Parser, Subcommand};
-use colored::Colorize;
+use colored::*;
 
 mod commands;
 mod utils;
+mod config;
+mod helpers;
+mod error;
 
 #[derive(Parser)]
-#[command(
-    name = "tl",
-    about = "Teaching/Learning CLI for CollaborativeIntelligence repository maintenance",
-    version,
-    author
-)]
+#[clap(name = "TL")]
+#[clap(about = "Teaching/Learning CLI for CollaborativeIntelligence repository maintenance", long_about = None)]
+#[clap(version)]
 struct Cli {
-    #[command(subcommand)]
+    #[clap(subcommand)]
     command: Commands,
 }
 
 #[derive(Subcommand)]
 enum Commands {
     /// Agent management commands
-    Agent {
-        #[command(subcommand)]
-        command: AgentCommands,
-    },
+    #[clap(subcommand)]
+    Agent(AgentCommands),
     
-    /// Memory operations commands
-    Memory {
-        #[command(subcommand)]
-        command: MemoryCommands,
-    },
+    /// Memory system commands
+    #[clap(subcommand)]
+    Memory(MemoryCommands),
     
-    /// Knowledge registry commands
-    Knowledge {
-        #[command(subcommand)]
-        command: KnowledgeCommands,
-    },
+    /// Knowledge management commands
+    #[clap(subcommand)]
+    Knowledge(KnowledgeCommands),
     
-    /// Debugging tools
-    Debug {
-        #[command(subcommand)]
-        command: DebugCommands,
-    },
+    /// Debug utilities for development
+    #[clap(subcommand)]
+    Debug(DebugCommands),
     
-    /// System operations
-    System {
-        #[command(subcommand)]
-        command: SystemCommands,
-    },
+    /// System maintenance commands
+    #[clap(subcommand)]
+    System(SystemCommands),
 }
 
 #[derive(Subcommand)]
 enum AgentCommands {
     /// Activate an agent
     Activate {
-        /// Agent name
+        /// Name of the agent to activate
+        #[clap(value_parser)]
         name: String,
-        
-        /// Working directory
-        #[arg(short, long)]
-        directory: Option<PathBuf>,
-        
-        /// Intent description
-        #[arg(short, long)]
-        intent: Option<String>,
     },
+    
+    /// List all available agents
+    List,
     
     /// Create a new agent
     Create {
-        /// Agent name
+        /// Name of the agent to create
+        #[clap(value_parser)]
         name: String,
         
-        /// Agent description
-        #[arg(short, long)]
-        description: String,
+        /// Category of the agent
+        #[clap(value_parser)]
+        category: Option<String>,
     },
-    
-    /// Validate agent structure
-    Validate {
-        /// Agent name
-        name: String,
-    },
-    
-    /// List available agents
-    List,
 }
 
 #[derive(Subcommand)]
 enum MemoryCommands {
     /// Load agent memory
     Load {
-        /// Agent name
-        name: String,
-        
-        /// Context for memory loading
-        #[arg(short, long)]
-        context: Option<String>,
+        /// Name of the agent to load memory for
+        #[clap(value_parser)]
+        agent: String,
     },
     
-    /// Validate memory files
-    Validate {
-        /// Agent name
-        name: String,
+    /// Optimize agent memory
+    Optimize {
+        /// Name of the agent to optimize memory for
+        #[clap(value_parser)]
+        agent: String,
     },
     
-    /// Manage memory cache
+    /// Cache agent memory
     Cache {
-        #[command(subcommand)]
-        command: CacheCommands,
+        /// Name of the agent to cache memory for
+        #[clap(value_parser)]
+        agent: String,
     },
-    
-    /// Display memory statistics
-    Stats {
-        /// Agent name
-        name: Option<String>,
-    },
-}
-
-#[derive(Subcommand)]
-enum CacheCommands {
-    /// Clear the cache
-    Clear,
-    
-    /// View cache status
-    Status,
 }
 
 #[derive(Subcommand)]
 enum KnowledgeCommands {
     /// Search the knowledge registry
     Search {
-        /// Search query
-        query: Option<String>,
+        /// Query to search for
+        #[clap(value_parser)]
+        query: String,
         
-        /// Category filter
-        #[arg(short, long)]
+        /// Optional category to limit search to
+        #[clap(value_parser)]
         category: Option<String>,
-        
-        /// Tag filter
-        #[arg(short, long)]
-        tag: Option<String>,
     },
     
-    /// Index knowledge content
+    /// Update knowledge registry indexes
     Index,
     
-    /// Distribute knowledge
-    Distribute,
+    /// Distribute knowledge to agents
+    Distribute {
+        /// Optional agent to distribute to, otherwise distributes to all
+        #[clap(value_parser)]
+        agent: Option<String>,
+    },
 }
 
 #[derive(Subcommand)]
 enum DebugCommands {
-    /// Trace command execution
-    Trace {
-        /// Command to trace
-        command: String,
-        
-        /// Arguments for the command
-        args: Vec<String>,
-    },
+    /// Print repo path information
+    Paths,
     
-    /// Inspect system state
-    Inspect {
-        /// Component to inspect
-        component: String,
-    },
+    /// Check system configuration
+    Config,
     
-    /// Profile performance
-    Profile {
-        /// Operation to profile
-        operation: String,
-    },
+    /// Test terminal formatting
+    Format,
+    
+    /// Display visual map of CLI commands
+    Map,
 }
 
 #[derive(Subcommand)]
 enum SystemCommands {
-    /// Optimize system performance
-    Optimize,
+    /// Clean temporary files
+    Clean {
+        /// Specify if agent cache should be cleaned
+        #[clap(long)]
+        cache: bool,
+    },
     
-    /// Generate system reports
-    Report {
-        /// Report type
-        #[arg(short, long, default_value = "summary")]
-        report_type: String,
+    /// Verify repository structure
+    Verify,
+    
+    /// Update terminal title
+    Title {
+        /// Custom title to set
+        #[clap(value_parser)]
+        title: Option<String>,
     },
 }
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() {
+    // Check for empty arguments to show custom help
+    if std::env::args().len() <= 1 {
+        // Set the terminal title
+        helpers::terminal::TerminalHelpers::set_terminal_title("TL CLI");
+        
+        // Show our custom styled help message
+        helpers::terminal::TerminalHelpers::print_help_message();
+        return;
+    }
+    
+    // Parse command line arguments
     let cli = Cli::parse();
     
-    match cli.command {
-        Commands::Agent { command } => {
-            match command {
-                AgentCommands::Activate { name, directory, intent } => {
-                    println!("{} Activating agent: {}", "TL:".green().bold(), name);
-                    // Implementation placeholder
-                    Ok(())
-                },
-                AgentCommands::Create { name, description } => {
-                    println!("{} Creating agent: {}", "TL:".green().bold(), name);
-                    // Implementation placeholder
-                    Ok(())
-                },
-                AgentCommands::Validate { name } => {
-                    println!("{} Validating agent: {}", "TL:".green().bold(), name);
-                    // Implementation placeholder
-                    Ok(())
-                },
-                AgentCommands::List => {
-                    println!("{} Listing available agents", "TL:".green().bold());
-                    // Implementation placeholder
-                    Ok(())
-                },
-            }
+    // Set the terminal title to indicate TL CLI is active
+    helpers::terminal::TerminalHelpers::set_terminal_title("TL CLI");
+    
+    // Load configuration
+    let config = match config::Config::load() {
+        Ok(config) => config,
+        Err(e) => {
+            eprintln!("{} {}", "Error:".red().bold(), e);
+            std::process::exit(1);
+        }
+    };
+    
+    // Process commands
+    let result = match &cli.command {
+        Commands::Agent(agent_cmd) => match agent_cmd {
+            AgentCommands::Activate { name } => commands::agent::activate(name, &config),
+            AgentCommands::List => commands::agent::list(&config),
+            AgentCommands::Create { name, category } => commands::agent::create(name, category, &config),
         },
-        Commands::Memory { command } => {
-            match command {
-                MemoryCommands::Load { name, context } => {
-                    println!("{} Loading memory for agent: {}", "TL:".green().bold(), name);
-                    // Implementation placeholder
-                    Ok(())
-                },
-                MemoryCommands::Validate { name } => {
-                    println!("{} Validating memory for agent: {}", "TL:".green().bold(), name);
-                    // Implementation placeholder
-                    Ok(())
-                },
-                MemoryCommands::Cache { command } => {
-                    match command {
-                        CacheCommands::Clear => {
-                            println!("{} Clearing memory cache", "TL:".green().bold());
-                            // Implementation placeholder
-                            Ok(())
-                        },
-                        CacheCommands::Status => {
-                            println!("{} Checking cache status", "TL:".green().bold());
-                            // Implementation placeholder
-                            Ok(())
-                        },
-                    }
-                },
-                MemoryCommands::Stats { name } => {
-                    if let Some(agent_name) = name {
-                        println!("{} Memory statistics for agent: {}", "TL:".green().bold(), agent_name);
-                    } else {
-                        println!("{} Memory statistics for all agents", "TL:".green().bold());
-                    }
-                    // Implementation placeholder
-                    Ok(())
-                },
-            }
+        
+        Commands::Memory(memory_cmd) => match memory_cmd {
+            MemoryCommands::Load { agent } => commands::memory::load(agent, &config),
+            MemoryCommands::Optimize { agent } => commands::memory::optimize(agent, &config),
+            MemoryCommands::Cache { agent } => commands::memory::cache(agent, &config),
         },
-        Commands::Knowledge { command } => {
-            match command {
-                KnowledgeCommands::Search { query, category, tag } => {
-                    println!("{} Searching knowledge registry", "TL:".green().bold());
-                    // Implementation placeholder
-                    Ok(())
-                },
-                KnowledgeCommands::Index => {
-                    println!("{} Indexing knowledge content", "TL:".green().bold());
-                    // Implementation placeholder
-                    Ok(())
-                },
-                KnowledgeCommands::Distribute => {
-                    println!("{} Distributing knowledge", "TL:".green().bold());
-                    // Implementation placeholder
-                    Ok(())
-                },
-            }
+        
+        Commands::Knowledge(knowledge_cmd) => match knowledge_cmd {
+            KnowledgeCommands::Search { query, category } => commands::knowledge::search(query, category, &config),
+            KnowledgeCommands::Index => commands::knowledge::index(&config),
+            KnowledgeCommands::Distribute { agent } => commands::knowledge::distribute(agent, &config),
         },
-        Commands::Debug { command } => {
-            match command {
-                DebugCommands::Trace { command, args } => {
-                    println!("{} Tracing command: {}", "TL:".green().bold(), command);
-                    // Implementation placeholder
-                    Ok(())
-                },
-                DebugCommands::Inspect { component } => {
-                    println!("{} Inspecting component: {}", "TL:".green().bold(), component);
-                    // Implementation placeholder
-                    Ok(())
-                },
-                DebugCommands::Profile { operation } => {
-                    println!("{} Profiling operation: {}", "TL:".green().bold(), operation);
-                    // Implementation placeholder
-                    Ok(())
-                },
-            }
+        
+        Commands::Debug(debug_cmd) => match debug_cmd {
+            DebugCommands::Paths => commands::debug::paths(&config),
+            DebugCommands::Config => commands::debug::config(&config),
+            DebugCommands::Format => commands::debug::format(&config),
+            DebugCommands::Map => commands::debug::map(&config),
         },
-        Commands::System { command } => {
-            match command {
-                SystemCommands::Optimize => {
-                    println!("{} Optimizing system performance", "TL:".green().bold());
-                    // Implementation placeholder
-                    Ok(())
-                },
-                SystemCommands::Report { report_type } => {
-                    println!("{} Generating report: {}", "TL:".green().bold(), report_type);
-                    // Implementation placeholder
-                    Ok(())
-                },
-            }
+        
+        Commands::System(system_cmd) => match system_cmd {
+            SystemCommands::Clean { cache } => commands::system::clean(*cache, &config),
+            SystemCommands::Verify => commands::system::verify(&config),
+            SystemCommands::Title { title } => commands::system::title(title, &config),
         },
+    };
+    
+    // Handle any errors
+    if let Err(e) = result {
+        eprintln!("{} {}", "Error:".red().bold(), e);
+        std::process::exit(1);
     }
 }

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This directory contains a centralized organization of all Command Line Interface (CLI) tools used throughout the Collaborative Intelligence system. The goal of this refactoring is to improve maintainability, streamline development, and provide a clear structure for developers working with these tools.
+This directory contains a centralized organization of all Command Line Interface (CLI) tools used throughout the Collaborative Intelligence system. The goal of this reorganization is to improve maintainability, streamline development, and provide a clear structure for developers working with these tools.
 
 ## Structure
 
@@ -10,9 +10,24 @@ The CLI system is organized into the following components:
 
 ```
 CLIs/
-├── ci/                    # Main CI CLI system
+├── ci/                    # Main CI CLI system (external repository integration)
 │   ├── bash/              # Original Bash implementation
-│   └── rust/              # Rust implementation
+│   └── rust/              # Rust implementation with modular commands
+│       ├── src/
+│       │   ├── commands/  # Command modules (init, verify, etc.)
+│       │   ├── config/    # Configuration management
+│       │   └── helpers/   # Shared utility functions
+├── tl/                    # Topologist CLI (internal repository management)
+│   ├── src/
+│   │   ├── commands/      # Command modules organized by domain
+│   │   │   ├── agent.rs   # Agent management commands
+│   │   │   ├── memory.rs  # Memory operations
+│   │   │   ├── knowledge.rs # Knowledge management
+│   │   │   ├── system.rs  # System operations
+│   │   │   └── debug.rs   # Debugging utilities
+│   │   ├── config/        # Configuration management
+│   │   ├── helpers/       # Shared utility functions
+│   │   └── main.rs        # Entry point with command delegation
 ├── memory/                # Memory management CLI
 │   ├── src/               # Rust source code
 │   └── schemas/           # JSON schemas
@@ -32,7 +47,7 @@ CLIs/
 
 ### 1. CI Command Line Interface (ci/)
 
-The main Collaborative Intelligence command-line tool with two implementations:
+The main Collaborative Intelligence command-line tool for external repository integration:
 
 #### Bash Implementation (ci/bash/)
 - Original shell-based implementation
@@ -42,10 +57,41 @@ The main Collaborative Intelligence command-line tool with two implementations:
 #### Rust Implementation (ci/rust/)
 - Modern, type-safe implementation 
 - Enhanced error handling and improved performance
-- Maintains feature parity with the Bash implementation
-- Currently being phased in as the primary implementation
+- Modular command architecture with clear separation of concerns
+- Commands organized into discrete modules with focused responsibilities:
+  - `init.rs`: Project initialization
+  - `fix.rs`: Error correction and integration repair
+  - `integrate.rs`: CI system integration
+  - `load.rs`: Loading CI resources
+  - `map.rs`: Repository mapping and analysis
+  - `status.rs`: Integration status reporting
+  - `verify.rs`: Validation of integration
+- Shared utility modules in `helpers/` for terminal display, path operations, and execution
 
-### 2. Memory CLI System (memory/)
+### 2. Topologist CLI (tl/)
+
+A specialized internal CLI for repository management and topological operations:
+
+#### Features
+- Agent-focused command structure with domain-specific modules
+- Role-based permissions and operation verification
+- High-performance Rust implementation
+- Comprehensive error handling with detailed diagnostics
+
+#### Command Structure
+- **agent.rs**: Agent lifecycle and metadata management
+- **memory.rs**: Memory operations and optimization
+- **knowledge.rs**: Knowledge management and distribution
+- **system.rs**: Repository and system-level operations
+- **debug.rs**: Diagnostics and troubleshooting utilities
+
+Each command module follows a consistent pattern with:
+- Command registration and argument parsing
+- Operation execution with proper validation
+- Structured error handling and reporting
+- Terminal-friendly output formatting
+
+### 3. Memory CLI System (memory/)
 
 A Rust-based CLI system for managing agent memory:
 
@@ -58,21 +104,21 @@ Features include:
 - Memory validation and checksum caching
 - Status reporting and diagnostics
 
-### 3. Agent Cache CLI (agent-cache/)
+### 4. Agent Cache CLI (agent-cache/)
 
 CLI for managing agent caching operations:
 
 - `main.rs`: Command-line interface with subcommands
 - Supports activation, deactivation, status reporting, and cache cleanup
 
-### 4. Knowledge Registry CLI (knowledge/)
+### 5. Knowledge Registry CLI (knowledge/)
 
 A Bash-based tool for searching and managing the knowledge registry:
 
 - `search_cli.sh`: Simple interface to query and retrieve information
 - Supports category-based, tag-based, and full-text search
 
-### 5. Claude CLI Plugin (plugins/claude/)
+### 6. Claude CLI Plugin (plugins/claude/)
 
 A plugin extending the Claude CLI with CI integration:
 
@@ -129,9 +175,65 @@ When developing or extending CLI functionality:
    - anyhow/thiserror: For error handling
    - serde: For serialization/deserialization
 
+## Usage Examples
+
+### CI & Topologist CLI
+```bash
+# External repository integration
+ci init my-project
+ci verify
+
+# Internal repository management
+tl agent activate Athena
+tl system analyze --report
+tl debug trace --command ci-verify
+```
+
+### Memory & Cache CLI
+```bash
+# Memory operations
+memory-cli load --agent Athena
+memory-cli status
+
+# Agent cache operations
+agent-cache activate Athena --directory /current/path --initializer User
+agent-cache list
+```
+
+## Development Guidelines
+
+When developing or extending CLI functionality:
+
+1. Choose the appropriate CLI component to extend
+2. Maintain backward compatibility with existing commands
+3. Follow the modular architecture pattern
+4. Place code in the appropriate module based on responsibility
+5. Follow language-specific conventions (Bash or Rust)
+6. Add appropriate documentation in the docs/ directory
+7. For Rust implementations, use these standard crates:
+   - clap: For command-line argument parsing
+   - anyhow/thiserror: For error handling
+   - serde: For serialization/deserialization
+   - colored: For terminal output formatting
+
+## Configuration
+
+CLIs support local configuration files that should be excluded from version control:
+
+```
+CLIs/
+├── tl/
+│   ├── config.local.json     # Local configuration (gitignored)
+│   └── settings.local.toml   # Local settings (gitignored)
+├── ci/
+    └── rust/
+        └── .cache/           # Local cache (gitignored)
+```
+
 ## Future Directions
 
-1. **Rust Migration**: Continuing the migration from Bash to Rust for improved reliability and maintainability
-2. **CLI Consolidation**: Further consolidation of overlapping functionality
-3. **Enhanced Documentation**: Expanding usage examples and integration guides
-4. **Plugin System**: Developing a more robust plugin architecture for extensions
+1. **Rust Migration**: Complete migration from Bash to Rust for improved reliability and maintainability
+2. **CLI Integration**: Standardize interfaces between CLI components
+3. **Enhanced Documentation**: Expand usage examples and integration guides
+4. **Plugin System**: Develop a more robust plugin architecture for extensions
+5. **Testing Framework**: Add comprehensive test coverage for all CLI components

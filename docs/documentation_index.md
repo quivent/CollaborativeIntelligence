@@ -7,18 +7,23 @@ This index provides a comprehensive listing of all documentation in the Collabor
 - [System Philosophy](core-concepts/system-philosophy.md) - Fundamental principles
 - [Memory Architecture](core-concepts/memory-architecture.md) - Memory system design
 - [Learning Framework](core-concepts/learning-framework.md) - Knowledge acquisition and refinement
+- [Positive Reinforcement System](core-concepts/positive-reinforcement-system.md) - Feedback and success pattern system
 
 ## System Design
 
 - [Memory Systems](system-design/memory-systems.md) - Tiered memory implementation
 - [Learning Systems](system-design/learning-systems.md) - Knowledge processing framework
 - [Knowledge Management](system-design/knowledge-management.md) - Information organization
+- [Repository Structure](system-design/repository-structure.md) - Standardized repository organization
+- [Documentation Linting System](system-design/documentation-linting-system.md) - Automated documentation organization
+- [Documentation Linting Report](system-design/documentation-linting-report.md) - Analysis of document relocation needs
 
 ## Agent System
 
 - [Agent Index](agent-system/agent-index.md) - Complete list of all agents
 - [Agent Categories](agent-system/agent-categories.md) - Logical organization of agents
 - [Agent Creation](agent-system/agent-creation.md) - Standards for creating new agents
+- [Agent Onboarding Guide](agent-system/agent-onboarding-guide.md) - Comprehensive guide for new agents
 
 ## User Guides
 
@@ -31,11 +36,12 @@ This index provides a comprehensive listing of all documentation in the Collabor
 - [Learning Update Protocol](protocols/learning-update-protocol.md) - Knowledge updates
 - [Protocol Propagation Standards](protocols/protocol-propagation-standards.md) - Protocol distribution
 - [Response Format Protocol](protocols/response-format-protocol.md) - Output formatting
+- [Task Management Protocol](protocols/task-management-protocol.md) - Trust-based task system
+- [Core Document Centralization Protocol](/Protocols/core-document-centralization-protocol.md) - Document location standards
 
 ## Configuration
 
 - [CLAUDE.md](CLAUDE.md) - Core system configuration file
-- [Repository Restructuring Guide](../REPOSITORY_RESTRUCTURING_GUIDE.md) - Repository organization
 
 ## Development
 

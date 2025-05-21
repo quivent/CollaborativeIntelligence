@@ -160,9 +160,21 @@ SOFIA_*.html
 # Local config files
 .collaborative-intelligence.json
 **/.ci-config/**
+CLIs/**/config.local.json
+CLIs/**/settings.local.toml
+CLIs/**/local.config.json
+CLIs/**/.cache/
+
+# CLI-specific files
+CLIs/**/debug_logs/
+CLIs/**/target-temp/
+CLIs/**/.rustfmt.toml
+CLIs/**/.clippy.toml
 
 # Build artifacts
 **/.claude/
 **/*.lock
 .ci-config.json
 .cir/
+build_temp/
+.build_cache/

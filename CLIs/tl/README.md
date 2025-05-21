@@ -1,127 +1,108 @@
-# TL CLI: Teaching/Learning Command Line Interface
+# TL CLI
 
-The TL CLI is the internal command-line tool for the CollaborativeIntelligence repository, focused on repository maintenance and development tasks.
+Teaching/Learning CLI for CollaborativeIntelligence repository maintenance.
 
-## Purpose
+## Overview
 
-Unlike the external CI CLI which is designed for project integration, the TL CLI provides specialized commands for internal repository maintenance:
+The TL CLI is an internal tool designed specifically for managing and maintaining the CollaborativeIntelligence repository. Unlike the external CI tool, TL focuses solely on repository-related tasks such as agent management, memory operations, and knowledge distribution.
 
-- Agent management
-- Memory operations
-- Knowledge registry
-- Debugging tools
-- System optimization
+## Features
+
+- **Agent Management**: Create, list, and activate agents
+- **Memory Operations**: Load, optimize, and cache agent memory
+- **Knowledge Management**: Search, index, and distribute knowledge
+- **Debug Utilities**: Path information, configuration checks, and formatting tests
+- **System Maintenance**: Clean temporary files, verify repository structure, and update terminal title
 
 ## Installation
 
-Build from source:
+To build and install the TL CLI:
 
 ```bash
-cd /path/to/CollaborativeIntelligence/CLIs/tl
+cd CLIs/TL
 cargo build --release
+cargo install --path .
 ```
+
+The binary will be available as `TL` in your cargo bin directory.
 
 ## Usage
 
-### Agent Commands
-
-```bash
-# Activate an agent
-tl agent activate Athena --directory /path/to/working/dir --intent "Task description"
-
-# Create a new agent
-tl agent create Analyzer --description "Code analysis specialist"
-
-# Validate agent structure
-tl agent validate Athena
-
-# List available agents
-tl agent list
+```
+TL [COMMAND]
 ```
 
-### Memory Commands
+### Available Commands
 
-```bash
-# Load agent memory
-tl memory load Athena --context "Optional context"
+- `TL agent activate <n>`: Activate an agent
+- `TL agent list`: List all available agents
+- `TL agent create <n> [category]`: Create a new agent
 
-# Validate memory files
-tl memory validate Athena
+- `TL memory load <agent>`: Load agent memory
+- `TL memory optimize <agent>`: Optimize agent memory
+- `TL memory cache <agent>`: Cache agent memory
 
-# Manage memory cache
-tl memory cache clear
-tl memory cache status
+- `TL knowledge search <query> [category]`: Search the knowledge registry
+- `TL knowledge index`: Update knowledge registry indexes
+- `TL knowledge distribute [agent]`: Distribute knowledge to agents
 
-# Display memory statistics
-tl memory stats
-tl memory stats Athena
-```
+- `TL debug paths`: Print repo path information
+- `TL debug config`: Check system configuration
+- `TL debug format`: Test terminal formatting
+- `TL debug map`: Display visual map of CLI commands
 
-### Knowledge Commands
+- `TL system clean [--cache]`: Clean temporary files
+- `TL system verify`: Verify repository structure
+- `TL system title [title]`: Update terminal title
 
-```bash
-# Search the knowledge registry
-tl knowledge search "query"
-tl knowledge search --category "Architecture"
-tl knowledge search --tag "optimization"
+## Design Principles
 
-# Index knowledge content
-tl knowledge index
+1. **Repository-Focused**: TL is designed specifically for maintenance of the CollaborativeIntelligence repository
+2. **Self-Contained**: All functionality is self-contained without external dependencies
+3. **Consistent Styling**: Uses consistent ANSI terminal styling for all output
+4. **Intuitive Commands**: Command structure follows intuitive patterns for ease of use
+5. **Proper Error Handling**: Robust error handling with descriptive error messages
 
-# Distribute knowledge
-tl knowledge distribute
-```
+## Architecture
 
-### Debug Commands
+The TL CLI has been designed with a modular architecture:
 
-```bash
-# Trace command execution
-tl debug trace "command" arg1 arg2
-
-# Inspect system state
-tl debug inspect component_name
-
-# Profile performance
-tl debug profile operation_name
-```
-
-### System Commands
-
-```bash
-# Optimize system performance
-tl system optimize
-
-# Generate system reports
-tl system report
-tl system report --report-type detailed
-```
-
-## Styling
-
-The TL CLI uses consistent styling elements:
-
-- Color-coded output (success, error, warning, info)
-- Progress indicators
-- Standardized formatting
-- Agent response formatting
+- **Configuration**: Central configuration system with repository path detection
+- **Error Handling**: Custom error types for reliable error handling and propagation
+- **Helper Modules**:
+  - `terminal`: Terminal output formatting and styling
+  - `path`: Path resolution and repository structure helpers
+  - `repository`: Git repository interaction and status checking
+  - `execution`: Command execution and process management
+- **Utils**: Legacy compatibility wrappers around helper modules
+- **Command Modules**: Each command category is implemented in its own module
 
 ## Development
 
-To extend the TL CLI, add new commands in the appropriate modules:
+The TL CLI is implemented in Rust using:
+- `clap`: Command-line argument parsing 
+- `colored`: Terminal output styling
+- `anyhow`: Error handling and propagation
+- `thiserror`: Custom error type definitions
+- `glob`: Pattern-based file searching
+- `dirs`: Home directory detection
 
-1. Define the command in the main command enum
-2. Implement the command handler in the commands module
-3. Update documentation
-
-## Integration with CI CLI
-
-The TL CLI is separate from the external CI CLI but shares common styling and utility libraries. This separation allows for independent development while maintaining a consistent user experience.
-
-## Future Development
-
-As repository needs evolve, the TL CLI will expand to include:
-
-- Automated testing commands
-- Performance benchmarking
-- Advanced debugging tools
-- Enhanced knowledge management
+Key components:
+- `main.rs`: Entry point and command structure definition
+- `config/mod.rs`: Configuration management
+- `error.rs`: Custom error types
+- `helpers/`: Helper modules for common functionality
+  - `terminal.rs`: Terminal output formatting and styling
+  - `path.rs`: Path resolution and repository structure helpers
+  - `repository.rs`: Git repository interaction
+  - `execution.rs`: Command execution utilities
+  - `command.rs`: Legacy command helpers (deprecated)
+- `utils/`: Compatibility layer for legacy code
+  - `terminal.rs`: Terminal output wrappers
+  - `path.rs`: Path utility wrappers
+- `commands/`: Implementation of all command functionality
+  - `agent.rs`: Agent management commands
+  - `memory.rs`: Memory system commands
+  - `knowledge.rs`: Knowledge management commands
+  - `debug.rs`: Debugging utilities
+  - `system.rs`: System maintenance commands
