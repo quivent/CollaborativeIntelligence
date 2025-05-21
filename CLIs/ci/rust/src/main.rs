@@ -12,6 +12,7 @@ mod helpers;
 
 use commands::{Cli, Commands};
 use helpers::terminal::TerminalHelpers;
+use helpers::{is_external_ci_available, execute_external_ci, show_deprecation_notice};
 
 fn main() -> anyhow::Result<()> {
     // Parse command line arguments
@@ -25,7 +26,7 @@ fn main() -> anyhow::Result<()> {
         TerminalHelpers::print_help_message();
         return Ok(());
     }
-    
+
     // Load configuration
     let config = match config::Config::load() {
         Ok(config) => config,
@@ -35,6 +36,26 @@ fn main() -> anyhow::Result<()> {
         }
     };
     
+    // Check for external CI repository
+    if is_external_ci_available() {
+        // Extract command and arguments for external CI
+        let command_name = match cli.command.as_ref().unwrap() {
+            Commands::Init { .. } => "init",
+            Commands::Integrate { .. } => "integrate",
+            Commands::Status { .. } => "status",
+            Commands::Fix { .. } => "fix",
+            Commands::Verify { .. } => "verify",
+            Commands::Load { .. } => "load",
+            Commands::Map => "map",
+        };
+        
+        // Get all args except the program name
+        let args: Vec<String> = std::env::args().skip(1).collect();
+        
+        // Execute external CI tool
+        execute_external_ci(command_name, &args, &config)?;
+    }
+
     // Process commands
     let result = match cli.command.unwrap() {
         Commands::Init { name, agents, integration, no_fast, ci_path } => {
@@ -65,6 +86,9 @@ fn main() -> anyhow::Result<()> {
             commands::map(&config)
         }
     };
+    
+    // Show deprecation notice after command execution
+    show_deprecation_notice();
     
     // Handle any errors
     if let Err(e) = result {
