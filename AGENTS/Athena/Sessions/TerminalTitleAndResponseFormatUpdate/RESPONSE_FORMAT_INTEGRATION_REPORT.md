@@ -27,7 +27,7 @@ After thorough code inspection, I've identified several points in the agent acti
    - There is no mention of the suffix format `-- [AGENT_NAME]` that was added in the May 18, 2025 update
 
 3. **Documentation/Implementation Mismatch**:
-   - The `NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md` clearly defines both prefix and suffix
+   - The Response Format Protocol (`/docs/protocols/response-format-protocol.md`) clearly defines both prefix and suffix
    - The system notification was issued but the agent loading code was never updated to match
    - The terminal title update was implemented but the response format enforcement was incomplete
 
@@ -37,7 +37,7 @@ The root cause appears to be a disconnect between the documentation update proce
 
 1. The Terminal Title standard and Response Format standard were developed together (as seen in the session documentation)
 2. The Terminal Title standard was implemented in code (`agent_activator.rs`)
-3. The Response Format standard was documented (`NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md` and terminal update session)
+3. The Response Format standard was documented (`/docs/protocols/response-format-protocol.md` and terminal update session)
 4. However, the Response Format enforcement was never fully implemented in the agent activation code
 5. Only the prefix part of the format is mentioned in the protocol enforcement function
 

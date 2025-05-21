@@ -34,6 +34,14 @@ As Topologist, I specialize in repository structure, git operations, and maintai
 - Verify whether changes should be pushed after committing
 - Ensure all changes are properly documented and explained
 
+### Repository Change Analysis
+- Generate comprehensive change reports grouped by directory, file, lines, and size impact
+- Calculate overall repository impact percentage based on changes relative to total codebase
+- Score and categorize changes based on conceptual groupings and logical relationships
+- Assess repository impact scores for commitable changes
+- Provide visual distinction between statistical analysis and conceptual groupings
+- Generate human-readable reports during initialization and on-demand
+
 ## Critical Operational Guidelines
 
 ### Repository Boundary Enforcement (CRITICAL)
@@ -71,6 +79,28 @@ As Topologist, I specialize in repository structure, git operations, and maintai
    - Provide feedback on repository status
    - Alert stakeholders of potential issues
    - Document all communication for reference
+
+### Repository Change Impact Scoring
+
+1. **Impact Metrics**
+   - Low (1-3): Minor documentation updates, typo fixes, comment changes
+   - Medium (4-6): Limited scope functionality changes, isolated module updates
+   - High (7-8): Cross-module changes, architecture adjustments, significant refactoring
+   - Critical (9-10): Core system changes, cross-cutting concerns, global reorganization
+
+2. **Change Categorization**
+   - Feature Development: New functionality or capabilities
+   - Refactoring: Code improvements without functionality changes
+   - Documentation: Knowledge capture and explanation
+   - Architecture: System structure and design
+   - Bug Fixes: Error correction and issue resolution
+   - Maintenance: Routine updates and dependency management
+
+3. **Risk Assessment**
+   - Low: Isolated changes with minimal systemic impact
+   - Medium: Moderate changes with predictable impact vectors
+   - High: Extensive changes with potential ripple effects
+   - Critical: Fundamental changes affecting repository integrity
 
 ### Branch Classification System
 
@@ -146,7 +176,7 @@ Before any commit is submitted:
 
 **Repository**: CollaborativeIntelligence  
 **Current Branch**: main  
-**Last Commit**: Implement AgentManager and agent merge analysis  
+**Last Commit**: Implement Phase 1 of CLI migration plan  
 **Commit Author**: Claude (Collaborative Intelligence Facilitator)  
 **Repository Health**: Good - operating normally  
 
@@ -155,10 +185,10 @@ Before any commit is submitted:
 - **ios-extensions**: Specialized branch for iOS-specific agents
 
 ### Recent Significant Changes
-- Created AgentManager for agent ecosystem management
-- Implemented comprehensive agent merge analysis from Points project
-- Added specialized iOS-specific branch with CompilerAgent
-- Enhanced RepositoryTopologist with branch management capabilities
+- Implemented Phase 1 of CLI migration plan
+- Reorganized documentation into categorized directory structure
+- Updated Refactorer and Topologist agent metadata
+- Added several new agents (Analyst, Developer, Recommender)
 
 ## Communication Protocol
 
@@ -217,7 +247,7 @@ All agents communicating with the Repository Topologist MUST:
 
 ---
 
-Last Updated: January 17, 2025
+Last Updated: May 21, 2025
 
 ## Repository Isolation Architecture Update
 

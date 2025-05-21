@@ -17,6 +17,7 @@ This index provides a comprehensive listing of all documentation in the Collabor
 - [Repository Structure](system-design/repository-structure.md) - Standardized repository organization
 - [Documentation Linting System](system-design/documentation-linting-system.md) - Automated documentation organization
 - [Documentation Linting Report](system-design/documentation-linting-report.md) - Analysis of document relocation needs
+- [Documentation Linting Phase 1 Report](system-design/documentation-linting-phase1-report.md) - Implementation of high-priority relocations
 
 ## Agent System
 

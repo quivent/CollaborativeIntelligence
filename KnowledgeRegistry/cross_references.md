@@ -77,9 +77,9 @@ This document maps relationships between knowledge artifacts across the Collabor
 - Memory Architecture (`/Documentation/MemoryArchitecture.md`)
 
 ### Agent Interaction
-- Agent Protocol Reference (`/Protocols/AGENT_PROTOCOL_REFERENCE.md`)
+- Agent Protocol Reference (`/docs/protocols/AGENT_PROTOCOL_REFERENCE.md`)
 - Terminal Title Format (`/NOTIFICATION_TERMINAL_TITLE_FORMAT.md`)
-- Trust Based Task Management (`/NOTIFICATION_TRUST_BASED_TASK_MANAGEMENT.md`)
+- Trust Based Task Management (`/docs/protocols/task-management-protocol.md`)
 - Proactive Behavior (`/NOTIFICATION_PROACTIVE_BEHAVIOR.md`)
 
 ### Performance Optimization

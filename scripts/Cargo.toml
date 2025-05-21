@@ -125,6 +125,10 @@ path = "unified_memory_cli.rs"
 name = "migration_plan"
 path = "migration_plan.rs"
 
+[[bin]]
+name = "remove_cir_references"
+path = "remove_cir_references.rs"
+
 [profile.release]
 opt-level = 3
 lto = true

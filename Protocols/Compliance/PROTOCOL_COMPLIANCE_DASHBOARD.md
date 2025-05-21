@@ -85,8 +85,9 @@ This dashboard provides real-time visibility into system-wide protocol complianc
 
 ## Compliance Resources
 
-- [Response Format Protocol](../../NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md)
+- [Response Format Protocol](../../docs/protocols/response-format-protocol.md)
 - [Terminal Title Protocol](../../NOTIFICATION_TERMINAL_TITLE_FORMAT.md)
+- [Task Management Protocol](../../docs/protocols/task-management-protocol.md)
 - [Protocol Compliance Registry](./PROTOCOL_COMPLIANCE_REGISTRY.md)
 - [Protocol Compliance Training](../Training/PROTOCOL_COMPLIANCE_TRAINING.md)
 - [Protocol Enforcement Tools](../../ci-tools/activate-agent.sh)

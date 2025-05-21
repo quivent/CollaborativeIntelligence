@@ -31,11 +31,27 @@ pub fn detect_external_ci() -> Option<ExternalCi> {
     }
     
     // Check the following locations in order:
-    // 1. ci-external in PATH
+    // 1. ci or ci-external in PATH
     // 2. $HOME/.ci/bin/ci
-    // 3. $CI_EXTERNAL_PATH/bin/ci
+    // 3. $HOME/CI/target/release/ci (local build)
+    // 4. $HOME/Projects/CI/target/release/ci (local build)
+    // 5. $HOME/Documents/Projects/CI/target/release/ci (local build)
+    // 6. $CI_EXTERNAL_PATH/bin/ci (custom location)
     
-    // Check if ci-external is in PATH
+    // Check if "ci" is in PATH
+    if let Ok(status) = Command::new("ci")
+        .arg("--version")
+        .stdout(std::process::Stdio::null())
+        .status() {
+        if status.success() {
+            return Some(ExternalCi {
+                path: PathBuf::from("ci"),
+                version: get_external_ci_version("ci"),
+            });
+        }
+    }
+    
+    // Check if ci-external is in PATH (legacy name)
     if let Ok(status) = Command::new("ci-external")
         .arg("--version")
         .stdout(std::process::Stdio::null())
@@ -56,6 +72,23 @@ pub fn detect_external_ci() -> Option<ExternalCi> {
                 path: home_ci_path.clone(),
                 version: get_external_ci_version(&home_ci_path.to_string_lossy()),
             });
+        }
+        
+        // Check common local build paths
+        let local_build_paths = [
+            home_dir.join("CI/target/release/ci"),
+            home_dir.join("Projects/CI/target/release/ci"),
+            home_dir.join("Documents/Projects/CI/target/release/ci"),
+            home_dir.join("Documents/CI/target/release/ci"),
+        ];
+        
+        for path in local_build_paths {
+            if path.exists() {
+                return Some(ExternalCi {
+                    path: path.clone(),
+                    version: get_external_ci_version(&path.to_string_lossy()),
+                });
+            }
         }
     }
     
@@ -133,10 +166,11 @@ pub fn execute_external_ci(command: &str, args: &[String], config: &Config) -> R
             println!("ℹ️  See https://github.com/anthropics/ci-tools for more information");
         }
         
-        // Build command with args
+        // Build command with args and pass through CI_PATH
         let status = Command::new(&external_ci.path)
             .arg(command)
             .args(args)
+            .env("CI_PATH", &config.ci_path)  // Pass CI_PATH to external CLI
             .status()?;
         
         // Exit with same status code
@@ -152,8 +186,18 @@ pub fn show_deprecation_notice() {
     if should_show_deprecation_notice() {
         println!();
         println!("⚠️  This local implementation will be deprecated in future releases.");
-        println!("⚠️  Please install the external CI tool for continued support:");
-        println!("    npm install -g @anthropics/ci-tools");
+        println!("⚠️  Please install the external CI CLI from the CI repository for continued support.");
+        
+        // Show installation instructions if external CI not available
+        if !is_external_ci_available() {
+            println!();
+            println!("Installation instructions:");
+            println!("  1. Clone the CI repository: git clone <CI_REPO_URL> ../CI");
+            println!("  2. Install the CLI: cd ../CI && cargo build --release");
+            println!("  3. Add to PATH or create symlink: ln -s $(pwd)/target/release/ci /usr/local/bin/");
+            println!("  4. Set CI_PATH in your shell: export CI_PATH=/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence");
+        }
+        
         println!();
     }
 }
