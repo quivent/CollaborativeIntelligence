@@ -24,7 +24,7 @@ For the parent directory (`../CI`), we need to:
 
 1. **Update CLAUDE.md**:
    - Change all occurrences of `CIR` to `CI`
-   - Update all directives (e.g., `_CIR.config` to `_CI.config`)
+   - Update all directives (e.g., `_CI.config` to `_CI.config`)
    - Revise explanatory text
 
 2. **Directory Renaming**:

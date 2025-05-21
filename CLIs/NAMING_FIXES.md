@@ -61,7 +61,7 @@ struct CIRConfig {
     // ...
 }
 
-const CIR_VERSION: &str = "1.0.0";
+const CI_VERSION: &str = "1.0.0";
 
 // AFTER
 mod ci_commands;
