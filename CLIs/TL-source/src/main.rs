@@ -1,0 +1,218 @@
+//! TL CLI - Teaching/Learning CLI for CollaborativeIntelligence repository maintenance
+//!
+//! This is the main entry point for the TL CLI tool.
+
+use clap::{Parser, Subcommand};
+use colored::*;
+
+mod commands;
+mod utils;
+mod config;
+mod helpers;
+mod error;
+
+#[derive(Parser)]
+#[clap(name = "TL")]
+#[clap(about = "Teaching/Learning CLI for CollaborativeIntelligence repository maintenance", long_about = None)]
+#[clap(version)]
+struct Cli {
+    #[clap(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Agent management commands
+    #[clap(subcommand)]
+    Agent(AgentCommands),
+    
+    /// Memory system commands
+    #[clap(subcommand)]
+    Memory(MemoryCommands),
+    
+    /// Knowledge management commands
+    #[clap(subcommand)]
+    Knowledge(KnowledgeCommands),
+    
+    /// Debug utilities for development
+    #[clap(subcommand)]
+    Debug(DebugCommands),
+    
+    /// System maintenance commands
+    #[clap(subcommand)]
+    System(SystemCommands),
+}
+
+#[derive(Subcommand)]
+enum AgentCommands {
+    /// Activate an agent
+    Activate {
+        /// Name of the agent to activate
+        #[clap(value_parser)]
+        name: String,
+    },
+    
+    /// List all available agents
+    List,
+    
+    /// Create a new agent
+    Create {
+        /// Name of the agent to create
+        #[clap(value_parser)]
+        name: String,
+        
+        /// Category of the agent
+        #[clap(value_parser)]
+        category: Option<String>,
+    },
+}
+
+#[derive(Subcommand)]
+enum MemoryCommands {
+    /// Load agent memory
+    Load {
+        /// Name of the agent to load memory for
+        #[clap(value_parser)]
+        agent: String,
+    },
+    
+    /// Optimize agent memory
+    Optimize {
+        /// Name of the agent to optimize memory for
+        #[clap(value_parser)]
+        agent: String,
+    },
+    
+    /// Cache agent memory
+    Cache {
+        /// Name of the agent to cache memory for
+        #[clap(value_parser)]
+        agent: String,
+    },
+}
+
+#[derive(Subcommand)]
+enum KnowledgeCommands {
+    /// Search the knowledge registry
+    Search {
+        /// Query to search for
+        #[clap(value_parser)]
+        query: String,
+        
+        /// Optional category to limit search to
+        #[clap(value_parser)]
+        category: Option<String>,
+    },
+    
+    /// Update knowledge registry indexes
+    Index,
+    
+    /// Distribute knowledge to agents
+    Distribute {
+        /// Optional agent to distribute to, otherwise distributes to all
+        #[clap(value_parser)]
+        agent: Option<String>,
+    },
+}
+
+#[derive(Subcommand)]
+enum DebugCommands {
+    /// Print repo path information
+    Paths,
+    
+    /// Check system configuration
+    Config,
+    
+    /// Test terminal formatting
+    Format,
+    
+    /// Display visual map of CLI commands
+    Map,
+}
+
+#[derive(Subcommand)]
+enum SystemCommands {
+    /// Clean temporary files
+    Clean {
+        /// Specify if agent cache should be cleaned
+        #[clap(long)]
+        cache: bool,
+    },
+    
+    /// Verify repository structure
+    Verify,
+    
+    /// Update terminal title
+    Title {
+        /// Custom title to set
+        #[clap(value_parser)]
+        title: Option<String>,
+    },
+}
+
+fn main() {
+    // Check for empty arguments to show custom help
+    if std::env::args().len() <= 1 {
+        // Set the terminal title
+        helpers::terminal::TerminalHelpers::set_terminal_title("TL CLI");
+        
+        // Show our custom styled help message
+        helpers::terminal::TerminalHelpers::print_help_message();
+        return;
+    }
+    
+    // Parse command line arguments
+    let cli = Cli::parse();
+    
+    // Set the terminal title to indicate TL CLI is active
+    helpers::terminal::TerminalHelpers::set_terminal_title("TL CLI");
+    
+    // Load configuration
+    let config = match config::Config::load() {
+        Ok(config) => config,
+        Err(e) => {
+            eprintln!("{} {}", "Error:".red().bold(), e);
+            std::process::exit(1);
+        }
+    };
+    
+    // Process commands
+    let result = match &cli.command {
+        Commands::Agent(agent_cmd) => match agent_cmd {
+            AgentCommands::Activate { name } => commands::agent::activate(name, &config),
+            AgentCommands::List => commands::agent::list(&config),
+            AgentCommands::Create { name, category } => commands::agent::create(name, category, &config),
+        },
+        
+        Commands::Memory(memory_cmd) => match memory_cmd {
+            MemoryCommands::Load { agent } => commands::memory::load(agent, &config),
+            MemoryCommands::Optimize { agent } => commands::memory::optimize(agent, &config),
+            MemoryCommands::Cache { agent } => commands::memory::cache(agent, &config),
+        },
+        
+        Commands::Knowledge(knowledge_cmd) => match knowledge_cmd {
+            KnowledgeCommands::Search { query, category } => commands::knowledge::search(query, category, &config),
+            KnowledgeCommands::Index => commands::knowledge::index(&config),
+            KnowledgeCommands::Distribute { agent } => commands::knowledge::distribute(agent, &config),
+        },
+        
+        Commands::Debug(debug_cmd) => match debug_cmd {
+            DebugCommands::Paths => commands::debug::paths(&config),
+            DebugCommands::Config => commands::debug::config(&config),
+            DebugCommands::Format => commands::debug::format(&config),
+            DebugCommands::Map => commands::debug::map(&config),
+        },
+        
+        Commands::System(system_cmd) => match system_cmd {
+            SystemCommands::Clean { cache } => commands::system::clean(*cache, &config),
+            SystemCommands::Verify => commands::system::verify(&config),
+            SystemCommands::Title { title } => commands::system::title(title, &config),
+        },
+    };
+    
+    // Handle any errors
+    if let Err(e) = result {
+        eprintln!("{} {}", "Error:".red().bold(), e);
+        std::process::exit(1);
+    }
+}
