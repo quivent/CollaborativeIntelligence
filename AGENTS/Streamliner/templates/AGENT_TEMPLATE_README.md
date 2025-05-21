@@ -6,6 +6,13 @@
 ## Core Competencies
 {{AGENT_COMPETENCIES}}
 
+## Initialization Requirements
+
+Before beginning work, review:
+- System Development Index (`docs/SYSTEM_DEVELOPMENT_INDEX.md`) for active implementations
+- Protocol updates affecting your domain
+- Cross-agent coordination requirements for ongoing projects
+
 ## Activation Context
 {{AGENT_ACTIVATION}}
 

@@ -232,16 +232,39 @@ To efficiently navigate the repository:
    - `docs/documentation_index.md`: Master index of all documentation
    - `docs/agent-system/agent-index.md`: Complete list of all agents
    - `docs/system-design/repository-structure.md`: Repository organization guide
+   - `docs/SYSTEM_DEVELOPMENT_INDEX.md`: Active and completed system implementations
 
 2. **Finding Specific Information**:
    - Agent capabilities: Check the agent's README.md
    - Protocol documentation: See `docs/protocols/`
    - Implementation details: Refer to the appropriate session directory
+   - System-wide developments: Review System Development Index for ongoing implementations
 
 3. **Cross-References**:
    - Use relative paths to link between documents
    - Include clear references to related knowledge
    - Maintain the documentation index for discoverability
+
+## Agent Initialization Procedures
+
+### Required Startup Review (All Agents)
+
+Before beginning any significant work, all agents must:
+
+1. **Review System Development Status**:
+   - Check `docs/SYSTEM_DEVELOPMENT_INDEX.md` for active implementations
+   - Identify any major system changes that may affect your work
+   - Note coordination requirements for ongoing projects
+
+2. **Verify Agent Resources**:
+   - Confirm your agent directory structure is current
+   - Review any protocol updates since last activation
+   - Check for coordination messages from other agents
+
+3. **Assess Impact Context**:
+   - Determine if your planned work intersects with active implementations
+   - Consider coordination needs with other agents
+   - Plan for potential system integration requirements
 
 ## Common Agent Tasks
 

@@ -4,6 +4,13 @@
 
 [Primary role description]
 
+## Initialization Requirements
+
+Before beginning work, review:
+- System Development Index (`docs/SYSTEM_DEVELOPMENT_INDEX.md`) for active implementations
+- Protocol updates affecting your domain
+- Cross-agent coordination requirements for ongoing projects
+
 ## Key Responsibilities
 
 - [Responsibility 1]
