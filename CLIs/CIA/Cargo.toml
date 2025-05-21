@@ -1,0 +1,60 @@
+[package]
+name = "cia-cli"
+version = "0.1.0"
+edition = "2021"
+authors = ["Collaborative Intelligence Team"]
+description = "Collaborative Intelligence Adaption CLI for repository intelligence adaption"
+build = "build.rs"  # Specify the build script
+
+# Main binary
+[[bin]]
+name = "cia"
+path = "src/main.rs"
+
+[dependencies]
+# Command line parsing
+clap = { version = "3.2.22", features = ["derive"] }
+# Error handling
+anyhow = "1.0.68"
+thiserror = "1.0.38"
+# Serialization
+serde = { version = "1.0.152", features = ["derive"] }
+serde_json = "1.0.91"
+toml = "0.5.10"
+# Display and formatting
+colored = "2.0.0"
+# Date and time
+chrono = { version = "0.4.23", features = ["serde"] }
+# Text processing
+regex = "1.7.1"
+# File system
+dirs = "4.0.0"
+path-absolutize = "3.0.14"
+glob = "0.3.0"
+# Concurrency
+tokio = { version = "1.25.0", features = ["full"] }
+# Utilities
+lazy_static = "1.4.0"
+ctrlc = "3.2.5"
+
+[build-dependencies]
+# For build script
+chrono = "0.4.23"
+
+[dev-dependencies]
+# Testing
+tempfile = "3.3.0"
+assert_cmd = "2.0.8"
+predicates = "2.1.5"
+
+[profile.release]
+# Optimize release builds
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
+
+[profile.dev]
+# Add debug info for development
+debug = true
+opt-level = 0
