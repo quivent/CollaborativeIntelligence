@@ -26,7 +26,7 @@ This document maps relationships between knowledge artifacts across the Collabor
 
 **References**:
 - Agent Cache System (`/OPTIMIZATIONS/AGENT_STATE_CACHING.md`)
-- Database Schema (`/DATABASE_SCHEMA.md`)
+- Database Schema (`/docs/architecture/database-schema.md`)
 
 **Complements**:
 - Distributed Architecture (`/docs/system-design/distributed-architecture.md`)
@@ -57,7 +57,7 @@ This document maps relationships between knowledge artifacts across the Collabor
 
 **References**:
 - Learning System (`/Documentation/LearningSystem.md`)
-- Memory Unification Plan (`/MEMORY_UNIFICATION_PLAN.md`)
+- Memory Unification Plan (`/docs/optimizations/memory-unification-plan.md`)
 
 **Complements**:
 - Agent Cache System (`/OPTIMIZATIONS/AGENT_STATE_CACHING.md`)

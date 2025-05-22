@@ -111,8 +111,8 @@ I have completed a comprehensive analysis of intelligence hierarchy within our e
 **Repository Impact**:
 ```
 /
-├── PROOF_OF_INTELLIGENCE_HIERARCHY.md [NEW]
-├── FULL_PROOF_OF_INTELLIGENCE_HIERARCHY.md [NEW]
+├── docs/core-concepts/intelligence-hierarchy.md [NEW]
+├── docs/core-concepts/intelligence-hierarchy-full.md [NEW]
 └── AGENTS/Analyst/
     ├── INITIAL_BENCHMARK.md
     └── Sessions/LearningFromAthena/ [NEW]

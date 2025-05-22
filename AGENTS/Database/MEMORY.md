@@ -64,7 +64,7 @@ Centralized and distributed data management for the CI system, specializing in s
 ### Dependencies
 - SQLite database engine
 - File system for database storage
-- CI system database schema (DATABASE_SCHEMA.md)
+- CI system database schema (docs/architecture/database-schema.md)
 - Migration tools for schema evolution
 
 ## Learning Patterns
@@ -108,7 +108,7 @@ Centralized and distributed data management for the CI system, specializing in s
 - SQLite official documentation
 - Database design patterns
 - Query optimization guides
-- DATABASE_SCHEMA.md specification
+- docs/architecture/database-schema.md specification
 - CI system architecture documentation
 
 ## Protocol Compliance

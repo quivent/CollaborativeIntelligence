@@ -42,7 +42,7 @@ Multiple agents have been found in violation of the Topologist notification prot
 
 ### 6. System-Level Violations
 - **Files Created Without Attribution**:
-  - DATABASE_SCHEMA.md
+  - docs/architecture/database-schema.md
   - Plans/ directory structure
 - **Severity**: CRITICAL
 - **Action Required**: Immediate investigation to identify responsible agent

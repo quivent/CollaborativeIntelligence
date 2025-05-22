@@ -20,7 +20,7 @@ Protocols/
 
 #### 2. System-Wide Notifications
 - `CRITICAL_PROTOCOL_UPDATE_2025-01-16.md` - Critical system update
-- `SYSTEM_WIDE_ALERT.md` - Emergency notification
+- `docs/protocols/system-alerts.md` - Emergency notification
 - `notification-to-all-agents.md` - Agent directive
 
 #### 3. Agent-Specific Work

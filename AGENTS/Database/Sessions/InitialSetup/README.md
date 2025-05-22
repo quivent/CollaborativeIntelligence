@@ -36,7 +36,7 @@ This session documents the creation and initial configuration of the Database ag
 - ContinuousLearning.md prepared with initial insights
 
 ## Database Schema Understanding
-- Analyzed DATABASE_SCHEMA.md
+- Analyzed docs/architecture/database-schema.md
 - Identified 7 core tables: projects, agents, operations, sessions, metrics, knowledge_items, integrations
 - Noted strategic indexing and view implementations
 - Understood migration and backup strategies

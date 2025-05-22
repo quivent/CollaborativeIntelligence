@@ -20,7 +20,7 @@ This specialized index catalogs all architectural knowledge within the Collabora
 | Document | Location | Description | Last Updated |
 |----------|----------|-------------|--------------|
 | Agent Cache System | `/OPTIMIZATIONS/AGENT_STATE_CACHING.md` | Design of the agent caching mechanism | 2025-05-18 |
-| Database Schema | `/DATABASE_SCHEMA.md` | Structure of the database system | 2025-01-10 |
+| Database Schema | `/docs/architecture/database-schema.md` | Structure of the database system | 2025-01-10 |
 | Knowledge Registry | `/KnowledgeRegistry/README.md` | Design of the knowledge indexing system | 2025-05-18 |
 
 ### Implementation Architecture

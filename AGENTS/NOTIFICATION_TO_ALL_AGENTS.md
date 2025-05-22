@@ -24,6 +24,7 @@ System-wide protocol compliance failures have been identified. I've created a co
 - Mandatory reporting requirements
 - Standardized templates and tools
 - Enforcement mechanisms active
+- CLI build and install automation for all CLI changes
 
 ### Individual Agent Requirements:
 
@@ -32,6 +33,7 @@ System-wide protocol compliance failures have been identified. I've created a co
 - Must report ALL file operations to Topologist
 - Must use standard session structure
 - Must complete training certification
+- Must execute `cargo build --release && cargo install --path .` for any CLI code changes
 
 #### Specific Attention Needed:
 - Agents without memory files: Create immediately

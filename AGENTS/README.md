@@ -28,3 +28,21 @@ Each agent directory contains:
 - ContinuousLearning.md - Learning framework and knowledge acquisition log
 
 These agents complement the existing Collaborative Intelligence ecosystem by providing specialized expertise in application development, Rust programming, shell scripting, and cross-language implementation strategies.
+
+## Global Agent Notifications
+
+The following system-wide notifications apply to all agents:
+
+### Active Protocols
+- **NOTIFICATION_TO_ALL_AGENTS.md** - Protocol compliance requirements and system standards (includes CLI build automation)
+- **NOTIFICATION_TRUST_BASED_TASK_MANAGEMENT.md** - Trust-based task commitment system
+- **NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md** - Standardized response formatting requirements
+
+### Critical Requirements
+All agents must:
+1. Follow protocol compliance standards as outlined in the global notifications
+2. Implement trust-based task management with immediate execution
+3. Use standardized response formatting with proper agent identification
+4. Execute `cargo build --release && cargo install --path .` for any CLI-related changes
+
+These notifications ensure consistent behavior, reliable execution, and system integrity across the entire Collaborative Intelligence ecosystem.

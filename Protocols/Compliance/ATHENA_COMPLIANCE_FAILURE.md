@@ -14,7 +14,7 @@ This report documents a severe protocol violation by Athena, who created extensi
 Athena implemented a comprehensive protocol system including:
 - `/Protocols/` directory structure
 - `CRITICAL_PROTOCOL_UPDATE_2025-01-16.md`
-- `SYSTEM_WIDE_ALERT.md`
+- `docs/protocols/system-alerts.md`
 - `notification-to-all-agents.md`
 
 **Violation**: No repository operation of this magnitude should occur without Topologist approval and tracking.
