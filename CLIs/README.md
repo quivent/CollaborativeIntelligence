@@ -14,7 +14,6 @@ CLIs/
 │   │   ├── config/        # Configuration management
 │   │   ├── helpers/       # Shared utility functions
 │   │   └── terminal/      # Terminal integration features
-├── TL-source/             # TL CLI source (internal repository management)
 ├── ci/                    # Legacy CI system components (mostly for reference)
 │   ├── bash/              # Bash utilities and scripts
 │   └── rust/              # Rust implementation (separate from ../CI external system)
@@ -58,11 +57,7 @@ The primary CLI for CollaborativeIntelligence-specific functionality:
 - Experimental Rust implementation (separate from external ../CI)
 - Modular command architecture for learning purposes
 
-### 3. TL CLI Source (TL-source/)
-
-A specialized internal CLI for repository management and topological operations:
-
-#### Features
+### 3. Specialized CLI Tools
 - Agent-focused command structure with domain-specific modules
 - Role-based permissions and operation verification
 - High-performance Rust implementation
