@@ -3,10 +3,7 @@
 A comprehensive catalog of all bash scripts in the Collaborative Intelligence system.
 
 ## Core CLI Tools
-- **CI** - Main wrapper for the Collaborative Intelligence tool
-- **ci-init** - Project initializer for creating new projects with CI integration
-- **ci-fix** - Tool for resolving CI-related issues
-- **ci-verify** - Verification tool for CI system integrity
+- **CI** - Main wrapper for the Collaborative Intelligence tool (external system)
 - **claude-init** - Script to initialize Claude with CI system
 - **terminal-launcher.sh** - Script to launch the terminal with CI integration
 - **integrate-ci.sh** - Script to integrate CI into existing projects
@@ -65,7 +62,6 @@ A comprehensive catalog of all bash scripts in the Collaborative Intelligence sy
 - **scripts/build.sh** - Main build script
 - **scripts/build_cli.sh** - Builds the CLI tools
 - **scripts/agent_switch.sh** - Switches between agents
-- **ci-rust-minimal/build.sh** - Builds the minimal Rust implementation
 - **tauri-test-script/run-tauri.sh** - Runs Tauri tests
 
 ## Wellness Monitoring

@@ -24,9 +24,6 @@ fi
 
 # Make scripts executable
 echo "Making scripts executable..."
-chmod +x "$SCRIPT_DIR/ci-fix"
-chmod +x "$SCRIPT_DIR/ci-init"
-chmod +x "$SCRIPT_DIR/ci-verify"
 chmod +x "$SCRIPT_DIR/enforce-agent-format.sh"
 chmod +x "$SCRIPT_DIR/update-terminal-title.sh"
 chmod +x "$SCRIPT_DIR/validate-config.sh"
