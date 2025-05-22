@@ -19,7 +19,7 @@ Protocols/
 ```
 
 #### 2. System-Wide Notifications
-- `CRITICAL_PROTOCOL_UPDATE_2025-01-16.md` - Critical system update
+- `docs/protocols/critical-update-2025-01-16.md` - Critical system update
 - `docs/protocols/system-alerts.md` - Emergency notification
 - `notification-to-all-agents.md` - Agent directive
 

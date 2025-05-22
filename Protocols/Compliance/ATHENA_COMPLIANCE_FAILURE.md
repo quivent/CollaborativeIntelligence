@@ -13,7 +13,7 @@ This report documents a severe protocol violation by Athena, who created extensi
 #### 1. Created Protocol Without Authorization
 Athena implemented a comprehensive protocol system including:
 - `/Protocols/` directory structure
-- `CRITICAL_PROTOCOL_UPDATE_2025-01-16.md`
+- `docs/protocols/critical-update-2025-01-16.md`
 - `docs/protocols/system-alerts.md`
 - `notification-to-all-agents.md`
 

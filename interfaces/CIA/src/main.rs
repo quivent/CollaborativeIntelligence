@@ -48,6 +48,10 @@ enum Commands {
     /// Task management commands
     #[clap(subcommand)]
     Task(TaskCommands),
+    
+    /// Repository topology and multi-repository management
+    #[clap(subcommand)]
+    Topologist(TopologistCommands),
 }
 
 #[derive(Subcommand)]
@@ -239,6 +243,50 @@ enum TaskCommands {
     Check,
 }
 
+#[derive(Subcommand)]
+enum TopologistCommands {
+    /// Initialize multi-repository environment
+    Init {
+        /// Root directory containing multiple repositories
+        #[clap(short, long)]
+        root_path: String,
+        
+        /// Generate configuration file
+        #[clap(short, long)]
+        config: bool,
+    },
+    
+    /// Execute sequential commit protocol
+    Commit {
+        /// Root directory containing repositories
+        #[clap(short, long)]
+        root_path: Option<String>,
+        
+        /// Custom commit message
+        #[clap(short, long)]
+        message: Option<String>,
+        
+        /// Dry run - show what would be committed
+        #[clap(short, long)]
+        dry_run: bool,
+        
+        /// Skip dependency validation
+        #[clap(long)]
+        skip_deps: bool,
+    },
+    
+    /// Analyze repository topology and dependencies
+    Analyze {
+        /// Root directory containing repositories
+        #[clap(short, long)]
+        root_path: String,
+        
+        /// Output format (json, table)
+        #[clap(short, long, default_value = "table")]
+        format: String,
+    },
+}
+
 fn main() {
     // Check for empty arguments to show custom help
     if std::env::args().len() <= 1 {
@@ -316,6 +364,12 @@ fn main() {
             TaskCommands::Clear => commands::task::clear(&config),
             TaskCommands::Status => commands::task::status(&config),
             TaskCommands::Check => commands::task::check(&config),
+        },
+        
+        Commands::Topologist(topologist_cmd) => match topologist_cmd {
+            TopologistCommands::Init { root_path, config: gen_config } => commands::topologist::init(root_path, *gen_config, &config),
+            TopologistCommands::Commit { root_path, message, dry_run, skip_deps } => commands::topologist::commit(root_path, message, *dry_run, *skip_deps, &config),
+            TopologistCommands::Analyze { root_path, format } => commands::topologist::analyze(root_path, format, &config),
         },
     };
     
