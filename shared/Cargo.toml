@@ -1,0 +1,12 @@
+[package]
+name = "ci-shared"
+version = "0.1.0"
+edition = "2021"
+description = "Shared components for Collaborative Intelligence CLI tools"
+
+[lib]
+name = "ci_shared"
+path = "src/lib.rs"
+
+[dependencies]
+# No external dependencies needed for protocol display

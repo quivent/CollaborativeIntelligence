@@ -195,6 +195,11 @@ fn main() {
     // Parse command line arguments
     let cli = Cli::parse();
     
+    // Initialize terminal title system
+    if let Err(e) = terminal::initialize_title_system() {
+        eprintln!("Warning: Failed to initialize terminal title system: {}", e);
+    }
+    
     // Set the terminal title to indicate CIA CLI is active
     helpers::terminal::TerminalHelpers::set_terminal_title("CIA CLI");
     
