@@ -19,7 +19,7 @@ pub struct TitleConfig {
 impl Default for TitleConfig {
     fn default() -> Self {
         Self {
-            format_template: "[{project}] | [{agent}] | [{task}]".to_string(),
+            format_template: "{project} → {agent} → {task}".to_string(),
             update_enabled: true,
             project_detection: ProjectDetectionMethod::DirectoryName,
             task_timeout_minutes: Some(60),
@@ -282,11 +282,11 @@ mod tests {
             Some("TestAgent"),
             Some("TestTask"),
         );
-        assert_eq!(title, "[TestProject] | [TestAgent] | [TestTask]");
+        assert_eq!(title, "TestProject → TestAgent → TestTask");
         
         // Test with defaults
         let title = manager.format_title_with_context(None, None, None);
-        assert_eq!(title, "[Project] | [CLI] | [Ready]");
+        assert_eq!(title, "Project → CLI → Ready");
     }
     
     #[test]

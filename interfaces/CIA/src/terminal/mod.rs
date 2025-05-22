@@ -9,6 +9,7 @@
 pub mod title_manager;
 pub mod task_tracker;
 pub mod context_monitor;
+pub mod state_persistence;
 
 // Re-export commonly used types and functions
 pub use title_manager::TerminalTitleManager;
@@ -53,10 +54,17 @@ pub fn initialize_title_system() -> anyhow::Result<()> {
         anyhow::anyhow!("Failed to acquire title manager lock: {}", e)
     })?;
     
-    // Set initial project context
-    if let Ok(current_dir) = std::env::current_dir() {
-        if let Some(project_name) = crate::helpers::path::PathHelpers::get_project_name(&current_dir) {
-            manager.update_project(&project_name);
+    // Restore state from disk first
+    if let Err(e) = state_persistence::restore_state_to_manager(&mut *manager) {
+        eprintln!("Warning: Failed to restore title state: {}", e);
+    }
+    
+    // Set initial project context if not already set
+    if manager.get_project().is_none() {
+        if let Ok(current_dir) = std::env::current_dir() {
+            if let Some(project_name) = crate::helpers::path::PathHelpers::get_project_name(&current_dir) {
+                manager.update_project(&project_name);
+            }
         }
     }
     
@@ -120,6 +128,12 @@ pub fn set_active_agent(agent_name: &str) -> anyhow::Result<()> {
     
     manager.update_agent(agent_name);
     manager.refresh_title();
+    
+    // Save state to disk
+    if let Err(e) = state_persistence::save_manager_state(&*manager) {
+        eprintln!("Warning: Failed to save title state: {}", e);
+    }
+    
     Ok(())
 }
 
@@ -134,6 +148,12 @@ pub fn set_current_task(task_description: &str) -> anyhow::Result<()> {
     
     manager.update_task(task_description);
     manager.refresh_title();
+    
+    // Save state to disk
+    if let Err(e) = state_persistence::save_manager_state(&*manager) {
+        eprintln!("Warning: Failed to save title state: {}", e);
+    }
+    
     Ok(())
 }
 
@@ -148,6 +168,12 @@ pub fn clear_current_task() -> anyhow::Result<()> {
     
     manager.clear_task();
     manager.refresh_title();
+    
+    // Save state to disk
+    if let Err(e) = state_persistence::save_manager_state(&*manager) {
+        eprintln!("Warning: Failed to save title state: {}", e);
+    }
+    
     Ok(())
 }
 

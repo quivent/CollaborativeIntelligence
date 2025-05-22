@@ -13,11 +13,113 @@ const { execSync } = require('child_process');
 const path = require('path');
 
 /**
+ * Check for uncommitted work and run commit protocol if needed
+ * @returns {Object} Status of repository check and protocol execution
+ */
+function checkUncommittedWorkAndRunProtocol() {
+  try {
+    // Check repository status
+    const gitStatus = execSync('git status --porcelain').toString().trim();
+    const stagedFiles = execSync('git diff --cached --name-only').toString().trim();
+    const unstagedFiles = execSync('git diff --name-only').toString().trim();
+    
+    const hasUncommittedWork = gitStatus.length > 0 || stagedFiles.length > 0 || unstagedFiles.length > 0;
+    
+    if (hasUncommittedWork) {
+      console.log('🔍 Uncommitted work detected - executing pre-commit protocol...');
+      
+      // Execute mandatory pre-commit protocol
+      const protocolResult = executePreCommitProtocol();
+      
+      return {
+        hasUncommittedWork: true,
+        protocolExecuted: true,
+        protocolResult: protocolResult,
+        gitStatus: gitStatus,
+        stagedFiles: stagedFiles.split('\n').filter(f => f.trim()),
+        unstagedFiles: unstagedFiles.split('\n').filter(f => f.trim())
+      };
+    }
+    
+    return {
+      hasUncommittedWork: false,
+      protocolExecuted: false,
+      message: 'Repository is clean - no uncommitted work found'
+    };
+  } catch (error) {
+    return {
+      hasUncommittedWork: false,
+      protocolExecuted: false,
+      error: error.message
+    };
+  }
+}
+
+/**
+ * Execute the mandatory pre-commit protocol
+ * @returns {Object} Results of protocol execution
+ */
+function executePreCommitProtocol() {
+  const protocolResults = {
+    changeAnalysis: null,
+    untrackedFiles: null,
+    largeFiles: null,
+    gitignoreCheck: null,
+    topologyReport: null
+  };
+  
+  try {
+    // Step 1: Analyze all changes
+    const diffStats = execSync('git diff --stat').toString().trim();
+    protocolResults.changeAnalysis = diffStats;
+    
+    // Step 2: Check for untracked files
+    const untrackedFiles = execSync('git status --porcelain | grep "^??" || true').toString().trim();
+    protocolResults.untrackedFiles = untrackedFiles.split('\n').filter(f => f.trim());
+    
+    // Step 3: Check for large files
+    try {
+      const largeFiles = execSync('find . -name "*.rs" -o -name "*.md" -o -name "*.json" | xargs ls -la | awk \'$5 > 500000 {print $9, $5}\' || true').toString().trim();
+      protocolResults.largeFiles = largeFiles.split('\n').filter(f => f.trim());
+    } catch (error) {
+      protocolResults.largeFiles = [];
+    }
+    
+    // Step 4: Check .gitignore coverage
+    try {
+      const gitignoreContent = fs.readFileSync('.gitignore', 'utf8');
+      protocolResults.gitignoreCheck = {
+        exists: true,
+        patterns: gitignoreContent.split('\n').filter(line => line.trim() && !line.trim().startsWith('#')).length
+      };
+    } catch (error) {
+      protocolResults.gitignoreCheck = {
+        exists: false,
+        error: error.message
+      };
+    }
+    
+    // Step 5: Create topology report (session documentation)
+    protocolResults.topologyReport = 'Session documentation will be created';
+    
+    return protocolResults;
+  } catch (error) {
+    return {
+      error: error.message,
+      partialResults: protocolResults
+    };
+  }
+}
+
+/**
  * Generate a repository initialization report
  * @returns {string} Formatted initialization report
  */
 function generateInitializationReport() {
   try {
+    // First check for uncommitted work and run protocol if needed
+    const protocolCheck = checkUncommittedWorkAndRunProtocol();
+    
     // Create analysis instance
     const analysis = new RepositoryChangeAnalysis();
     
@@ -263,8 +365,36 @@ function generateInitializationReport() {
       }
     };
     
-    // Generate report
-    return analysis.generateReport();
+    // Add protocol check results to the analysis
+    analysis.protocolCheck = protocolCheck;
+    
+    // Generate report including protocol check results
+    const baseReport = analysis.generateReport();
+    
+    // Append protocol check information if work was found
+    if (protocolCheck.hasUncommittedWork) {
+      const protocolSection = `
+## Initialization Protocol Check
+
+### Uncommitted Work Detected
+- **Status**: ${protocolCheck.protocolExecuted ? '✅ Pre-commit protocol executed' : '❌ Protocol execution failed'}
+- **Git Status**: ${protocolCheck.gitStatus.split('\n').length} items found
+- **Staged Files**: ${protocolCheck.stagedFiles.length} files
+- **Unstaged Files**: ${protocolCheck.unstagedFiles.length} files
+
+### Protocol Results
+${protocolCheck.protocolResult && !protocolCheck.protocolResult.error ? 
+  `- **Change Analysis**: ${protocolCheck.protocolResult.changeAnalysis ? 'Completed' : 'Failed'}
+- **Untracked Files**: ${protocolCheck.protocolResult.untrackedFiles.length} found
+- **Large Files**: ${protocolCheck.protocolResult.largeFiles.length} detected
+- **GitIgnore Check**: ${protocolCheck.protocolResult.gitignoreCheck.exists ? 'Valid' : 'Missing'}` : 
+  `- **Error**: ${protocolCheck.protocolResult?.error || 'Unknown protocol error'}`}
+
+`;
+      return baseReport + protocolSection;
+    }
+    
+    return baseReport;
   } catch (error) {
     return `Error generating repository analysis: ${error.message}`;
   }
@@ -370,5 +500,7 @@ if (require.main === module) {
 
 module.exports = {
   generateInitializationReport,
-  generateGitignoreAnalysis
+  generateGitignoreAnalysis,
+  checkUncommittedWorkAndRunProtocol,
+  executePreCommitProtocol
 };

@@ -1,0 +1,28 @@
+#!/bin/bash
+# CIA Title Override Script
+# Called by Claude Code to set contextual terminal titles
+# Usage: cia-title-override [context]
+
+# Path to the CIA binary
+CIA_BINARY="/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/interfaces/target/debug/cia"
+
+# Check if CIA binary exists
+if [ ! -f "$CIA_BINARY" ]; then
+    # Fallback to system override - still better than nothing
+    if [ $# -eq 1 ]; then
+        printf "\033]0;%s\007" "$1"
+    else
+        printf "\033]0;CollaborativeIntelligence\007"
+    fi
+    exit 0
+fi
+
+# Change to the project directory
+cd "$(dirname "$0")"
+
+# Call CIA override with context if provided
+if [ $# -eq 1 ]; then
+    "$CIA_BINARY" system override "$1" 2>/dev/null
+else
+    "$CIA_BINARY" system override 2>/dev/null
+fi

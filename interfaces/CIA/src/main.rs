@@ -208,6 +208,13 @@ enum SystemCommands {
         #[clap(value_parser)]
         title: Option<String>,
     },
+    
+    /// Override terminal title with CIA contextual format
+    Override {
+        /// Context information for the override
+        #[clap(value_parser)]
+        context: Option<String>,
+    },
 }
 
 #[derive(Subcommand)]
@@ -300,6 +307,7 @@ fn main() {
             SystemCommands::Verify => commands::system::verify(&config),
             SystemCommands::View => commands::system::view::view(&config),
             SystemCommands::Title { title } => commands::system::title(title, &config),
+            SystemCommands::Override { context } => commands::system::override_title(context, &config),
         },
         
         Commands::Task(task_cmd) => match task_cmd {

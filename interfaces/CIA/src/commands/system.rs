@@ -205,3 +205,31 @@ pub fn title(title: &Option<String>, config: &Config) -> Result<()> {
     
     Ok(())
 }
+
+/// Override terminal title with CIA contextual format
+pub fn override_title(context: &Option<String>, config: &Config) -> Result<()> {
+    // Initialize the terminal title system to get current state
+    if let Err(e) = crate::terminal::initialize_title_system() {
+        eprintln!("Warning: Failed to initialize terminal title system: {}", e);
+    }
+    
+    // Update the terminal title using the contextual system
+    match crate::terminal::update_title() {
+        Ok(_) => {
+            if let Some(ctx) = context {
+                // If context is provided, this might be from Claude Code with task context
+                if let Err(e) = crate::terminal::set_current_task(ctx) {
+                    eprintln!("Warning: Failed to set task context: {}", e);
+                }
+            }
+            
+            // Silent operation - no output to avoid interfering with Claude Code
+            // The title has been set via ANSI escape sequences
+        },
+        Err(e) => {
+            eprintln!("Warning: Failed to override terminal title: {}", e);
+        }
+    }
+    
+    Ok(())
+}
