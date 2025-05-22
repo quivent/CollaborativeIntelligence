@@ -29,7 +29,10 @@ pub fn activate(name: &str, config: &Config) -> Result<()> {
         return Err(anyhow::anyhow!("Agent does not exist: {}", name));
     }
     
-    // Update terminal title
+    // Update terminal title with contextual information
+    crate::helpers::terminal::TerminalHelpers::set_contextual_agent(name);
+    
+    // Also update using legacy method for backward compatibility
     CommandHelpers::set_terminal_title(&format!("Agent: {}", name));
     
     // Simulate agent activation
