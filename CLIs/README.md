@@ -2,40 +2,32 @@
 
 ## Overview
 
-This directory contains a centralized organization of all Command Line Interface (CLI) tools used throughout the Collaborative Intelligence system. The goal of this reorganization is to improve maintainability, streamline development, and provide a clear structure for developers working with these tools.
+This directory contains CLI tools for the Collaborative Intelligence system. After the CLI migration and decoupling process (completed 2025-05-22), the structure has been simplified to focus on active, non-redundant tools.
 
-## Structure
-
-The CLI system is organized into the following components:
+## Current Structure
 
 ```
 CLIs/
-├── ci/                    # Main CI CLI system (external repository integration)
-│   ├── bash/              # Original Bash implementation
-│   └── rust/              # Rust implementation with modular commands
-│       ├── src/
-│       │   ├── commands/  # Command modules (init, verify, etc.)
-│       │   ├── config/    # Configuration management
-│       │   └── helpers/   # Shared utility functions
-├── tl/                    # Topologist CLI (internal repository management)
+├── CIA/                   # CIA CLI - CollaborativeIntelligence-specific functionality
 │   ├── src/
-│   │   ├── commands/      # Command modules organized by domain
-│   │   │   ├── agent.rs   # Agent management commands
-│   │   │   ├── memory.rs  # Memory operations
-│   │   │   ├── knowledge.rs # Knowledge management
-│   │   │   ├── system.rs  # System operations
-│   │   │   └── debug.rs   # Debugging utilities
+│   │   ├── commands/      # Command modules (agent, memory, knowledge, etc.)
 │   │   ├── config/        # Configuration management
 │   │   ├── helpers/       # Shared utility functions
-│   │   └── main.rs        # Entry point with command delegation
-├── memory/                # Memory management CLI
+│   │   └── terminal/      # Terminal integration features
+├── TL-source/             # TL CLI source (internal repository management)
+├── ci/                    # Legacy CI system components (mostly for reference)
+│   ├── bash/              # Bash utilities and scripts
+│   └── rust/              # Rust implementation (separate from ../CI external system)
+├── memory/                # Memory management CLI tools
 │   ├── src/               # Rust source code
 │   └── schemas/           # JSON schemas
+├── knowledge/             # Knowledge registry CLI tools
+│   └── src/               # Implementation
+├── topologist/            # Topological analysis tools
+│   └── src/               # Rust source code
 ├── agent-cache/           # Agent caching CLI
 │   └── src/               # Rust source code
-├── knowledge/             # Knowledge registry CLI
-│   └── src/               # Implementation
-├── plugins/               # CLI plugins
+├── plugins/               # Plugin systems for external integration
 │   └── claude/            # Claude CLI plugin
 └── docs/                  # Centralized CLI documentation
     ├── usage/             # Usage guides
@@ -45,30 +37,28 @@ CLIs/
 
 ## CLI Components
 
-### 1. CI Command Line Interface (ci/)
+### 1. CIA CLI (CIA/)
 
-The main Collaborative Intelligence command-line tool for external repository integration:
+The primary CLI for CollaborativeIntelligence-specific functionality:
+- **Agent Management**: Load, activate, and manage agents
+- **Memory Operations**: Handle agent memory and learning systems  
+- **Knowledge Management**: Access and search knowledge registry
+- **System Operations**: Repository maintenance and diagnostics
+- **Terminal Integration**: Enhanced terminal title management and context tracking
+
+### 2. Legacy CI System (ci/)
+
+**Note**: After the 2025-05-22 decoupling, this system is largely for reference. Active CI functionality moved to external ../CI system.
 
 #### Bash Implementation (ci/bash/)
-- Original shell-based implementation
-- Commands: `ci-init`, `ci-fix`, `ci-verify`
-- Handles project initialization, integration, and verification
+- Legacy shell-based utilities and scripts
+- Agent activation, config validation, terminal title updates
 
 #### Rust Implementation (ci/rust/)
-- Modern, type-safe implementation 
-- Enhanced error handling and improved performance
-- Modular command architecture with clear separation of concerns
-- Commands organized into discrete modules with focused responsibilities:
-  - `init.rs`: Project initialization
-  - `fix.rs`: Error correction and integration repair
-  - `integrate.rs`: CI system integration
-  - `load.rs`: Loading CI resources
-  - `map.rs`: Repository mapping and analysis
-  - `status.rs`: Integration status reporting
-  - `verify.rs`: Validation of integration
-- Shared utility modules in `helpers/` for terminal display, path operations, and execution
+- Experimental Rust implementation (separate from external ../CI)
+- Modular command architecture for learning purposes
 
-### 2. Topologist CLI (tl/)
+### 3. TL CLI Source (TL-source/)
 
 A specialized internal CLI for repository management and topological operations:
 
