@@ -105,7 +105,7 @@ safe_copy "$BASE_DIR/TAURI_*.tsx" "$BASE_DIR/extensions/tauri/src/"
 echo "Moving core system components..."
 safe_copy "$BASE_DIR/AGENT_INDEX.md" "$BASE_DIR/core/AGENT_INDEX.md"
 safe_copy "$BASE_DIR/docs/agent-system/claude-agents.md" "$BASE_DIR/core/CLAUDE_AGENTS.md"
-safe_copy "$BASE_DIR/CollaborativeIntelligences.md" "$BASE_DIR/core/CollaborativeIntelligences.md"
+safe_copy "$BASE_DIR/docs/core-concepts/collaborative-intelligences.md" "$BASE_DIR/core/CollaborativeIntelligences.md"
 safe_copy "$BASE_DIR/AGENT_PROACTIVE_BEHAVIOR.md" "$BASE_DIR/core/protocols/AGENT_PROACTIVE_BEHAVIOR.md"
 safe_copy "$BASE_DIR/DATABASE_SCHEMA.md" "$BASE_DIR/core/architecture/DATABASE_SCHEMA.md"
 

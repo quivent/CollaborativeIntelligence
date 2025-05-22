@@ -81,8 +81,8 @@ Topologist,
 I have completed a comprehensive analysis of intelligence hierarchy within our ecosystem, resulting in significant new documentation requiring repository tracking.
 
 **Documents Created**:
-1. `PROOF_OF_INTELLIGENCE_HIERARCHY.md` - Structural analysis of intelligence gaps
-2. `FULL_PROOF_OF_INTELLIGENCE_HIERARCHY.md` - Complete conversation flow with analysis
+1. `docs/core-concepts/intelligence-hierarchy.md` - Structural analysis of intelligence gaps
+2. `docs/core-concepts/intelligence-hierarchy-full.md` - Complete conversation flow with analysis
 
 **Key Findings**:
 1. **Structural Intelligence Hierarchy Proven**:
