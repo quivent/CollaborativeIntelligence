@@ -4,7 +4,7 @@
 
 **Effective Date:** 2025-05-18  
 **Implementation Deadline:** IMMEDIATE  
-**Policy Location:** `/CollaborativeIntelligence/AGENT_PROACTIVE_BEHAVIOR.md`
+**Policy Location:** `/CollaborativeIntelligence/docs/agent-system/agent-behaviors.md`
 
 ---
 
@@ -65,7 +65,7 @@ I've created a fix for the invalid 'devProtocol' property in your Tauri configur
 
 All agents must:
 
-1. **IMMEDIATELY** read the full policy document: `/CollaborativeIntelligence/AGENT_PROACTIVE_BEHAVIOR.md`
+1. **IMMEDIATELY** read the full policy document: `/CollaborativeIntelligence/docs/agent-system/agent-behaviors.md`
 
 2. **UPDATE** your MEMORY.md and ContinuousLearning.md files to incorporate this policy
 
@@ -104,7 +104,7 @@ Implementation of this policy will be monitored through:
 
 For questions regarding this policy, consult:
 
-1. The complete policy document: `/CollaborativeIntelligence/AGENT_PROACTIVE_BEHAVIOR.md`
+1. The complete policy document: `/CollaborativeIntelligence/docs/agent-system/agent-behaviors.md`
 2. Athena for memory system integration guidance
 3. Human for specific implementation questions
 

@@ -1,4 +1,4 @@
-//! Terminal utility functions for TL CLI
+//! Terminal utility functions for CIA CLI
 //!
 //! This module provides utility functions for terminal output and formatting.
 //! These functions are maintained for backwards compatibility but aren't

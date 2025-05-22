@@ -1,4 +1,4 @@
-//! Utility functions for TL CLI
+//! Utility functions for CIA CLI
 //!
 //! This module provides utility functions that are not part of the main CLI structure
 //! but assist with various operations.

@@ -35,6 +35,7 @@ impl PathHelpers {
             home_dir.join("CollaborativeIntelligence"),
             home_dir.join("ci"),
             home_dir.join("Projects/CollaborativeIntelligence"),
+            home_dir.join("Documents/Projects/CollaborativeIntelligence"),
             home_dir.join("Documents/CollaborativeIntelligence"),
             home_dir.join("Development/CollaborativeIntelligence"),
         ];

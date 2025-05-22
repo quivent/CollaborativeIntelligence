@@ -21,7 +21,7 @@ Core documents should be stored in one of the following centralized locations ba
 | Document Type | Location | Example |
 |---------------|----------|---------|
 | System Philosophy | `/docs/core-concepts/` | `system-philosophy.md` |
-| Learning Frameworks | `/docs/core-concepts/` | `learning-framework.md` |
+| Learning Frameworks | `/docs/core-concepts/` | `unified-learning-framework.md` |
 | Architecture Documentation | `/docs/system-design/` | `repository-structure.md` |
 | Protocol Specifications | `/docs/protocols/` | `learning-update-protocol.md` |
 | Agent Guidelines | `/docs/agent-system/` | `agent-onboarding-guide.md` |

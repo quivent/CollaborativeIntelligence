@@ -36,25 +36,27 @@ fn main() -> anyhow::Result<()> {
         }
     };
     
-    // Check for external CI repository
-    if is_external_ci_available() {
-        // Extract command and arguments for external CI
-        let command_name = match cli.command.as_ref().unwrap() {
-            Commands::Init { .. } => "init",
-            Commands::Integrate { .. } => "integrate",
-            Commands::Status { .. } => "status",
-            Commands::Fix { .. } => "fix",
-            Commands::Verify { .. } => "verify",
-            Commands::Load { .. } => "load",
-            Commands::Map => "map",
-        };
-        
-        // Get all args except the program name
-        let args: Vec<String> = std::env::args().skip(1).collect();
-        
-        // Execute external CI tool
-        execute_external_ci(command_name, &args, &config)?;
-    }
+    // Disable external CI detection for now to ensure our implementation runs
+    // TODO: Re-enable when external CI properly supports all commands
+    // if is_external_ci_available() {
+    //     // Extract command and arguments for external CI
+    //     let command_name = match cli.command.as_ref().unwrap() {
+    //         Commands::Init { .. } => "init",
+    //         Commands::Integrate { .. } => "integrate",
+    //         Commands::Status { .. } => "status",
+    //         Commands::Fix { .. } => "fix",
+    //         Commands::Verify { .. } => "verify",
+    //         Commands::Load { .. } => "load",
+    //         Commands::Agents { .. } => "agents",
+    //         Commands::Map => "map",
+    //     };
+    //     
+    //     // Get all args except the program name
+    //     let args: Vec<String> = std::env::args().skip(1).collect();
+    //     
+    //     // Execute external CI tool
+    //     execute_external_ci(command_name, &args, &config)?;
+    // }
 
     // Process commands
     let result = match cli.command.unwrap() {
@@ -80,6 +82,10 @@ fn main() -> anyhow::Result<()> {
         
         Commands::Load { agent, context, path } => {
             commands::load(&agent, context.as_deref(), path.as_deref(), &config)
+        },
+        
+        Commands::Agents { detailed, filter, agent_name } => {
+            commands::agents(detailed, filter, agent_name, &config)
         },
         
         Commands::Map => {

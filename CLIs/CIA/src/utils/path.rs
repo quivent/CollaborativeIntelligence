@@ -1,4 +1,4 @@
-//! Path utility functions for TL CLI
+//! Path utility functions for CIA CLI
 //!
 //! This module provides utility functions for working with file paths.
 

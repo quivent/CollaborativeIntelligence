@@ -1,9 +1,9 @@
-// TL CLI Error Definition Module
+// CIA CLI Error Definition Module
 
 use std::path::PathBuf;
 use thiserror::Error;
 
-/// Comprehensive error type for the TL CLI
+/// Comprehensive error type for the CIA CLI
 #[derive(Error, Debug)]
 pub enum Error {
     // Configuration errors
@@ -79,18 +79,18 @@ pub enum Error {
     UnexpectedError(String),
 }
 
-/// Result type alias for TL CLI operations
+/// Result type alias for CIA CLI operations
 pub type Result<T> = std::result::Result<T, Error>;
 
 /// Extension methods for Result type
 pub trait ResultExt<T> {
-    /// Convert any error to a TL CLI error with a custom message
+    /// Convert any error to a CIA CLI error with a custom message
     fn with_context<F, S>(self, f: F) -> Result<T>
     where
         F: FnOnce() -> S,
         S: AsRef<str>;
     
-    /// Convert any error to a TL CLI error with a custom message and exit the process
+    /// Convert any error to a CIA CLI error with a custom message and exit the process
     fn context<S: AsRef<str>>(self, msg: S) -> Result<T>;
 }
 

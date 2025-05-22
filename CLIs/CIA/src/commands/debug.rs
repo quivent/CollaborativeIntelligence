@@ -71,7 +71,7 @@ pub fn config(config: &Config) -> Result<()> {
     
     // Display CLI information
     println!("{}", "CLI Information:".cyan().bold());
-    println!("- TL CLI Version: {}", env!("CARGO_PKG_VERSION"));
+    println!("- CIA CLI Version: {}", env!("CARGO_PKG_VERSION"));
     println!("- Rust Version: {}", env!("CARGO_PKG_RUST_VERSION", "unknown"));
     
     // Check for repository structure
@@ -120,8 +120,8 @@ pub fn map(_config: &Config) -> Result<()> {
     let debug_color = "yellow";
     let system_color = "blue";
     
-    // Show the main TL command
-    println!("{}", format!("{}  TL", Symbols::ARROW).bold());
+    // Show the main CIA command
+    println!("{}", format!("{}  CIA", Symbols::ARROW).bold());
     
     // Agent commands branch
     println!("{}{} {}", 

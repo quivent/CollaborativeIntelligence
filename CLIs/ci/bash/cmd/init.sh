@@ -89,7 +89,7 @@ This file serves as the primary configuration and initialization point for the E
 | \`Project Overview\` | See what's in this repository right now |
 | \`Detailed Analysis\` | Get comprehensive codebase documentation |
 
-For complete details, see \`CollaborativeIntelligence/QuickStart.md\`
+For complete details, see \`CollaborativeIntelligence/docs/guides/QuickStart.md\`
 EOF
   fi
   

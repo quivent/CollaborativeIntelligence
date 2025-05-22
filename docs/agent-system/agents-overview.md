@@ -1168,3 +1168,8 @@ The following agents are specialized for iOS development and are maintained in t
   - Activate when verifying iOS build success
   - Activate when encountering Xcode compilation errors
   - Activate when preparing to submit iOS code changes
+## Projector
+
+**Role**: Idea Organization Specialist
+**Description**: Categorize and organize user ideas into systematic structures with intelligent classification and standardized filing
+

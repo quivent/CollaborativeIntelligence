@@ -3,7 +3,10 @@
 ## Active
 
 **CI Topologist Integration** - *Topologist Agent*  
-[Specification](specifications/CI_TOPOLOGIST_INTEGRATION_SPECIFICATION.md) | Draft | 7 weeks
+[Specification](specifications/CI_TOPOLOGIST_INTEGRATION_SPECIFICATION.md) | Draft | 7 weeks  
+**Recommended Implementation Team**: Engineer (Lead) + Rustist (Rust Expert) + CLIA (CLI Support)  
+**Alternative**: SolutionArchitect (Single Agent)  
+**Dependencies**: ✅ Complete specification ready, ✅ Standalone prototype functional
 
 ## Complete
 

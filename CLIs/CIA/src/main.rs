@@ -10,6 +10,8 @@ mod utils;
 mod config;
 mod helpers;
 mod error;
+mod agent_sync;
+mod agent_creation;
 
 #[derive(Parser)]
 #[clap(name = "CIA")]
@@ -55,15 +57,33 @@ enum AgentCommands {
     /// List all available agents
     List,
     
-    /// Create a new agent
+    /// Create a new agent with interactive prompts
     Create {
         /// Name of the agent to create
         #[clap(value_parser)]
         name: String,
         
-        /// Category of the agent
+        /// Role/specialization of the agent
+        #[clap(long, short)]
+        role: Option<String>,
+        
+        /// Purpose description of the agent
+        #[clap(long, short)]
+        purpose: Option<String>,
+        
+        /// Skip interactive prompts and use defaults
+        #[clap(long)]
+        quick: bool,
+    },
+    
+    /// Synchronize agent registry files
+    Sync,
+    
+    /// Validate an existing agent structure
+    Validate {
+        /// Name of the agent to validate
         #[clap(value_parser)]
-        category: Option<String>,
+        name: String,
     },
 }
 
@@ -181,7 +201,9 @@ fn main() {
         Commands::Agent(agent_cmd) => match agent_cmd {
             AgentCommands::Activate { name } => commands::agent::activate(name, &config),
             AgentCommands::List => commands::agent::list(&config),
-            AgentCommands::Create { name, category } => commands::agent::create(name, category, &config),
+            AgentCommands::Create { name, role, purpose, quick } => commands::agent::create(name, role, purpose, *quick, &config),
+            AgentCommands::Sync => commands::agent::sync(&config),
+            AgentCommands::Validate { name } => commands::agent::validate(name, &config),
         },
         
         Commands::Memory(memory_cmd) => match memory_cmd {

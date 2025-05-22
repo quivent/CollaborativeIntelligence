@@ -1,9 +1,13 @@
 use crate::helpers::CommandHelpers;
 use crate::helpers::path::PathHelpers;
 use crate::config::Config;
+use crate::agent_sync::AgentSyncTool;
 use colored::*;
 use std::fs;
 use anyhow::Result;
+
+// Import enhanced agent creation modules
+use crate::agent_creation::{create_agent_interactive, validate_agent};
 
 /// Activate an agent by name
 pub fn activate(name: &str, config: &Config) -> Result<()> {
@@ -106,79 +110,98 @@ pub fn list(config: &Config) -> Result<()> {
     Ok(())
 }
 
-/// Create a new agent
-pub fn create(name: &str, category: &Option<String>, config: &Config) -> Result<()> {
+/// Create a new agent using the enhanced template system
+pub fn create(
+    name: &str,
+    role: &Option<String>,
+    purpose: &Option<String>,
+    quick: bool,
+    config: &Config,
+) -> Result<()> {
+    create_agent_interactive(name, role, purpose, quick, config)
+}
+
+/// Validate an existing agent's structure
+pub fn validate(name: &str, config: &Config) -> Result<()> {
+    validate_agent(name, config)
+}
+
+/// Synchronize agents-overview.md and agent-index.md
+pub fn sync(config: &Config) -> Result<()> {
     CommandHelpers::print_command_header(
-        &format!("Creating New Agent: {}", name),
-        "➕",
+        "Synchronizing Agent Index",
+        "🔄",
         "Agent Management",
         "cyan"
     );
     
-    // Check if agent already exists
-    let agents_path = PathHelpers::get_agents_path(&config.repo_path);
-    let agent_path = agents_path.join(name);
+    let repo_path = config.repo_path.to_string_lossy().to_string();
+    let tool = AgentSyncTool::with_base_dir(repo_path);
     
-    if agent_path.exists() {
-        CommandHelpers::print_error(&format!("Agent '{}' already exists", name));
-        return Err(anyhow::anyhow!("Agent already exists: {}", name));
-    }
-    
-    // Determine agent category
-    let category = match category {
-        Some(cat) => cat.clone(),
-        None => {
-            // Default to "General" category
-            "General".to_string()
-        }
-    };
-    
-    // Create agent directory
-    match fs::create_dir_all(&agent_path) {
+    match tool.sync_indices() {
         Ok(_) => {
-            CommandHelpers::print_info(&format!("Created agent directory: {}", agent_path.display()));
-            
-            // Create default agent files
-            let readme_path = agent_path.join("README.md");
-            let readme_content = format!("# {} Agent\n\n## Purpose\n\nThis agent is responsible for...\n\n## Capabilities\n\n- \n", name);
-            
-            match fs::write(&readme_path, readme_content) {
-                Ok(_) => CommandHelpers::print_info(&format!("Created README.md for {}", name)),
-                Err(e) => CommandHelpers::print_error(&format!("Failed to create README.md: {}", e)),
-            }
-            
-            // Create memory file
-            let memory_path = agent_path.join("MEMORY.md");
-            let memory_content = format!("# {} Agent Memory\n\n## Core Knowledge\n\n- \n", name);
-            
-            match fs::write(&memory_path, memory_content) {
-                Ok(_) => CommandHelpers::print_info(&format!("Created MEMORY.md for {}", name)),
-                Err(e) => CommandHelpers::print_error(&format!("Failed to create MEMORY.md: {}", e)),
-            }
-            
-            // Create continuous learning file
-            let learning_path = agent_path.join("ContinuousLearning.md");
-            let learning_content = format!("# {} Agent Learning\n\n## Recent Developments\n\n- \n", name);
-            
-            match fs::write(&learning_path, learning_content) {
-                Ok(_) => CommandHelpers::print_info(&format!("Created ContinuousLearning.md for {}", name)),
-                Err(e) => CommandHelpers::print_error(&format!("Failed to create ContinuousLearning.md: {}", e)),
-            }
-            
-            // Create Sessions directory
-            let sessions_path = agent_path.join("Sessions");
-            match fs::create_dir_all(&sessions_path) {
-                Ok(_) => CommandHelpers::print_info(&format!("Created Sessions directory for {}", name)),
-                Err(e) => CommandHelpers::print_error(&format!("Failed to create Sessions directory: {}", e)),
-            }
-            
-            // Success message
-            CommandHelpers::print_success(&format!("Agent '{}' created successfully in category '{}'", name, category));
+            CommandHelpers::print_success("Agent indices synchronized successfully");
             Ok(())
-        },
+        }
         Err(e) => {
-            CommandHelpers::print_error(&format!("Failed to create agent directory: {}", e));
-            Err(anyhow::anyhow!("Failed to create agent directory: {}", e))
+            CommandHelpers::print_error(&format!("Failed to sync agent indices: {}", e));
+            Err(e)
         }
     }
+}
+
+/// Add a new agent to the agent registry
+pub fn add_to_registry(name: &str, role: &str, description: &str, config: &Config) -> Result<()> {
+    CommandHelpers::print_command_header(
+        &format!("Adding Agent to Registry: {}", name),
+        "📝",
+        "Agent Management",
+        "cyan"
+    );
+    
+    let repo_path = config.repo_path.to_string_lossy().to_string();
+    let tool = AgentSyncTool::with_base_dir(repo_path);
+    
+    match tool.add_agent(name, role, description) {
+        Ok(_) => {
+            CommandHelpers::print_success(&format!("Agent '{}' added to registry successfully", name));
+            Ok(())
+        }
+        Err(e) => {
+            CommandHelpers::print_error(&format!("Failed to add agent to registry: {}", e));
+            Err(e)
+        }
+    }
+}
+
+/// Check agent synchronization status
+pub fn check_sync(config: &Config) -> Result<()> {
+    CommandHelpers::print_command_header(
+        "Checking Agent Synchronization",
+        "🔍",
+        "Agent Management",
+        "cyan"
+    );
+    
+    let repo_path = config.repo_path.to_string_lossy().to_string();
+    let tool = AgentSyncTool::with_base_dir(repo_path);
+    
+    let agents = tool.parse_agents_file()?;
+    let index_agents = tool.parse_agent_index()?;
+    
+    CommandHelpers::print_info(&format!("Found {} agents in agents-overview.md", agents.len()));
+    CommandHelpers::print_info(&format!("Found {} agents in agent-index.md", index_agents.len()));
+    
+    let discrepancies = tool.check_discrepancies(&agents, &index_agents);
+    
+    if discrepancies.is_empty() {
+        CommandHelpers::print_success("No discrepancies found - files are synchronized");
+    } else {
+        CommandHelpers::print_warning(&format!("Found {} discrepancies:", discrepancies.len()));
+        for discrepancy in discrepancies {
+            println!("  • {}", discrepancy.yellow());
+        }
+    }
+    
+    Ok(())
 }

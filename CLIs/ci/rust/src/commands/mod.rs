@@ -12,6 +12,7 @@ pub mod status;
 pub mod fix;
 pub mod verify;
 pub mod load;
+pub mod agents;
 pub mod map;
 
 // Re-export command functions
@@ -21,6 +22,7 @@ pub use status::status;
 pub use fix::fix;
 pub use verify::verify;
 pub use load::load;
+pub use agents::agents;
 pub use map::map;
 
 /// CI CLI - Collaborative Intelligence Command Line Interface
@@ -120,6 +122,21 @@ pub enum Commands {
         /// Path to the memory file (optional)
         #[clap(long, value_parser)]
         path: Option<String>,
+    },
+    
+    /// Display available Collaborative Intelligence agents
+    Agents {
+        /// Show detailed information for each agent
+        #[clap(long, action)]
+        detailed: bool,
+        
+        /// Filter agents by name or role
+        #[clap(long, value_parser)]
+        filter: Option<String>,
+        
+        /// Show specific agent information
+        #[clap(value_parser)]
+        agent_name: Option<String>,
     },
     
     /// Display visual map of CLI commands

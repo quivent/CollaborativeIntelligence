@@ -1,0 +1,13 @@
+{
+  "name": "Debugger",
+  "description": "Agent Debugger",
+  "capabilities": [],
+  "created_at": "2025-05-21T23:27:07.946562+00:00",
+  "last_used": "2025-05-21T23:27:07.946604+00:00",
+  "usage_count": 1,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Debugger",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Debugger/Debugger_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Debugger/ContinuousLearning.md",
+  "attributes": {}
+}

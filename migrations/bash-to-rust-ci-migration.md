@@ -77,61 +77,79 @@ Current CI Ecosystem:
 ## Migration Strategy
 
 ### Phase 1: Feature Parity Implementation (Immediate - 2 weeks)
-**Priority: Critical**
+**Priority: Critical** 🔴
 
 #### 1.1 Add Missing Commands to Rust CLI
-- **agents command**: Full implementation with formatting, filtering, usage tracking
-- **session management**: Basic session creation and listing
-- **template system**: Project initialization templates
+- [x] ✅ **agents command**: Full implementation with formatting, filtering, usage tracking
+- [ ] 🟡 **session management**: Basic session creation and listing
+- [ ] 🟡 **template system**: Project initialization templates
 
 #### 1.2 Enhance Existing Commands
-- **init**: Add agent selection, template support, memory optimization flags
-- **fix**: Implement comprehensive system repair capabilities
-- **verify**: Add full system validation with dependency checking
+- [ ] 🔴 **init**: Add agent selection, template support, memory optimization flags
+- [ ] 🔴 **fix**: Implement comprehensive system repair capabilities
+- [ ] 🔴 **verify**: Add full system validation with dependency checking
 
 #### 1.3 Agent System Integration
-- **Agent loading**: Memory optimization and activation protocols
-- **Agent templates**: Creation and management system
-- **Session management**: Basic session workflow support
+- [ ] 🟡 **Agent loading**: Memory optimization and activation protocols
+- [ ] 🟡 **Agent templates**: Creation and management system
+- [ ] 🟡 **Session management**: Basic session workflow support
 
 ### Phase 2: Advanced Feature Migration (2-4 weeks)
-**Priority: High**
+**Priority: High** 🟡
 
 #### 2.1 Memory and Optimization Systems
-- **Memory loading**: Agent memory optimization and caching
-- **Performance optimization**: Agent activation performance improvements
-- **Configuration management**: Advanced config validation and repair
+- [ ] 🟡 **Memory loading**: Agent memory optimization and caching
+- [ ] 🟡 **Performance optimization**: Agent activation performance improvements
+- [ ] 🟡 **Configuration management**: Advanced config validation and repair
 
 #### 2.2 Template and Automation Systems
-- **Project templates**: Advanced template system with customization
-- **Automation scripts**: Integration with existing automation workflows
-- **Batch operations**: Multiple project/agent management
+- [ ] 🟡 **Project templates**: Advanced template system with customization
+- [ ] 🟡 **Automation scripts**: Integration with existing automation workflows
+- [ ] 🟡 **Batch operations**: Multiple project/agent management
 
 ### Phase 3: Deprecation and Cleanup (4-6 weeks)
-**Priority: Medium**
+**Priority: Medium** 🟢
 
 #### 3.1 Gradual Script Deprecation
-- **Warning system**: Add deprecation warnings to bash scripts
-- **Migration guides**: Provide clear migration paths for users
-- **Fallback removal**: Gradually remove bash script dependencies
+- [ ] 🟢 **Warning system**: Add deprecation warnings to bash scripts
+- [ ] 🟢 **Migration guides**: Provide clear migration paths for users
+- [ ] 🟢 **Fallback removal**: Gradually remove bash script dependencies
 
 #### 3.2 Repository Cleanup
-- **Script consolidation**: Move deprecated scripts to archive directory
-- **Documentation updates**: Update all references to new Rust commands
-- **CI/CD integration**: Update automation to use Rust tools
+- [ ] 🟢 **Script consolidation**: Move deprecated scripts to archive directory
+- [ ] 🟢 **Documentation updates**: Update all references to new Rust commands
+- [ ] 🟢 **CI/CD integration**: Update automation to use Rust tools
 
 ### Phase 4: Advanced Integration (6-8 weeks)
-**Priority: Low**
+**Priority: Low** 🔵
 
 #### 4.1 Enhanced Agent Features
-- **Agent creation tools**: Dynamic agent creation and modification
-- **Advanced memory management**: Sophisticated memory optimization
-- **Cross-agent communication**: Enhanced agent interaction protocols
+- [ ] 🔵 **Agent creation tools**: Dynamic agent creation and modification
+- [ ] 🔵 **Advanced memory management**: Sophisticated memory optimization
+- [ ] 🔵 **Cross-agent communication**: Enhanced agent interaction protocols
 
 #### 4.2 Developer Experience Improvements
-- **Auto-completion**: Shell completion for all commands
-- **Interactive modes**: Guided setup and configuration
-- **Advanced diagnostics**: Comprehensive system health monitoring
+- [ ] 🔵 **Auto-completion**: Shell completion for all commands
+- [ ] 🔵 **Interactive modes**: Guided setup and configuration
+- [ ] 🔵 **Advanced diagnostics**: Comprehensive system health monitoring
+
+### Status Legend
+- 🔴 **Critical**: Must implement immediately (blocking external CI functionality)
+- 🟡 **High**: Important for feature parity (significant gaps)
+- 🟢 **Medium**: Quality improvements (nice to have)
+- 🔵 **Low**: Future enhancements (post-migration)
+- ✅ **Complete**: Implementation finished
+- 🚧 **In Progress**: Currently being worked on
+
+## Progress Update
+
+### ✅ Completed Tasks (Phase 1)
+1. **Agents Command**: ✅ **FULLY IMPLEMENTED**
+   - Complete agents command with formatting, filtering, and usage tracking
+   - Works consistently inside and outside repository
+   - Supports `--detailed`, `--filter`, and specific agent lookup
+   - Maintains original visual design and functionality
+   - **Status**: The critical "agents" command inconsistency has been resolved
 
 ## Technical Implementation Details
 

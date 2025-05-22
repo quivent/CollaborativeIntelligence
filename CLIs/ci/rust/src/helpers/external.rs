@@ -38,16 +38,19 @@ pub fn detect_external_ci() -> Option<ExternalCi> {
     // 5. $HOME/Documents/Projects/CI/target/release/ci (local build)
     // 6. $CI_EXTERNAL_PATH/bin/ci (custom location)
     
-    // Check if "ci" is in PATH
-    if let Ok(status) = Command::new("ci")
+    // Check if "ci" is in PATH and it's not ourselves
+    if let Ok(output) = Command::new("ci")
         .arg("--version")
-        .stdout(std::process::Stdio::null())
-        .status() {
-        if status.success() {
-            return Some(ExternalCi {
-                path: PathBuf::from("ci"),
-                version: get_external_ci_version("ci"),
-            });
+        .output() {
+        if output.status.success() {
+            let version_output = String::from_utf8_lossy(&output.stdout);
+            // Skip if this is our own CI tool (contains "ci " in version)
+            if !version_output.contains("ci ") {
+                return Some(ExternalCi {
+                    path: PathBuf::from("ci"),
+                    version: version_output.trim().to_string(),
+                });
+            }
         }
     }
     
@@ -84,10 +87,15 @@ pub fn detect_external_ci() -> Option<ExternalCi> {
         
         for path in local_build_paths {
             if path.exists() {
-                return Some(ExternalCi {
-                    path: path.clone(),
-                    version: get_external_ci_version(&path.to_string_lossy()),
-                });
+                // Check if this is our own implementation by checking version format
+                let version = get_external_ci_version(&path.to_string_lossy());
+                // Skip if this is our own CI tool (simple "ci x.x.x" format)
+                if !version.starts_with("ci ") {
+                    return Some(ExternalCi {
+                        path: path.clone(),
+                        version,
+                    });
+                }
             }
         }
     }

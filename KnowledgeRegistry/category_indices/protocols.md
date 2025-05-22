@@ -18,9 +18,8 @@ Protocol violation report regarding Athena's failure to follow her own complianc
 
 ## Related Resources
 
-- [AGENT_PROTOCOL_REFERENCE.md](/Protocols/AGENT_PROTOCOL_REFERENCE.md)
-- [AGENT_TRAINING_GUIDE.md](/Protocols/AGENT_TRAINING_GUIDE.md)
-- [AGENT_PROTOCOL_UPDATE.md](/Protocols/AGENT_PROTOCOL_UPDATE.md)
+- [AGENT_PROTOCOL_REFERENCE.md](/docs/protocols/AGENT_PROTOCOL_REFERENCE.md) - Primary protocol reference
+- [AGENT_TRAINING_GUIDE.md](/docs/protocols/AGENT_TRAINING_GUIDE.md) - Agent training and onboarding
 
 ---
 

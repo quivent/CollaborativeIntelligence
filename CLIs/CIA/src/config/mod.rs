@@ -1,12 +1,12 @@
-//! Configuration module for TL CLI
+//! Configuration module for CIA CLI
 //!
-//! This module provides structures and functions for managing TL CLI configuration.
+//! This module provides structures and functions for managing CIA CLI configuration.
 
 use crate::error::Error;
 use std::path::PathBuf;
 use crate::helpers::path::PathHelpers;
 
-/// Core global configuration for TL CLI
+/// Core global configuration for CIA CLI
 #[derive(Clone, Debug)]
 pub struct Config {
     /// Path to the repository root
