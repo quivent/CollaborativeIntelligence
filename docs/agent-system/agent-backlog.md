@@ -1,6 +1,6 @@
 # Agent Development Backlog
 
-This file serves as a quick-reference index for agents that are planned for future development but not yet implemented. For full details on each agent, see the complete entries in [FUTURE_AGENTS.md](./FUTURE_AGENTS.md).
+This file serves as a quick-reference index for agents that are planned for future development but not yet implemented. For full details on each agent, see the complete entries in [future-agents.md](./future-agents.md).
 
 ## Current Backlog (Prioritized)
 
@@ -27,15 +27,15 @@ This file serves as a quick-reference index for agents that are planned for futu
 ## How to Use This Backlog
 
 When any of these agents are needed:
-1. Reference the entry in FUTURE_AGENTS.md for full implementation details
+1. Reference the entry in future-agents.md for full implementation details
 2. Use Manager to coordinate the implementation
-3. Once implemented, move the entry from FUTURE_AGENTS.md to AGENT_INDEX.md
+3. Once implemented, move the entry from future-agents.md to agent-index.md
 4. Remove the entry from this backlog
 
 ## Adding to the Backlog
 
 To add future agent ideas to this backlog:
-1. Add the agent to FUTURE_AGENTS.md with complete details
+1. Add the agent to future-agents.md with complete details
 2. Add a summary entry to this file for quick reference
 3. Prioritize the entry appropriately
 

@@ -159,7 +159,7 @@ System design documents in `architecture/`:
 
 ## Core Files
 - **AGENT_INDEX.md** - Definitive list of all available agents
-- **CLAUDE_AGENTS.md** - Core agent interaction framework
+- **docs/agent-system/claude-agents.md** - Core agent interaction framework
 - **agent_categories.md** - Agent domain categorization
 
 These components form the foundation of the Collaborative Intelligence system and define the standards that all other components follow.
