@@ -7,7 +7,8 @@
 
 ## 2. core-concepts/
 - ConceptualOverview.md
-- MemoryArchitecture.md
+- unified-memory-architecture.md
+- unified-learning-framework.md
 - LearningSystem.md
 - UniversalConcepts.md
 - NaturalLanguageLearning.md

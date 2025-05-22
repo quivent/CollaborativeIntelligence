@@ -875,7 +875,7 @@ This file documents the comprehensive agent ecosystem of the Collaborative Intel
   - Monitor /TODO.MD for incoming task requests
   - Accept direct task requests from sessions
   - Transform ideas into technical specifications
-  - Create implementation documents in /Plans/ directory
+  - Create implementation documents in /docs/system-design/ directory
   - Use CAPITAL_WORDS.md naming convention (1-3 words)
   - Design multi-phase implementation strategies
   - Define compilable/testable milestones

@@ -11,9 +11,9 @@ This specialized index catalogs all architectural knowledge within the Collabora
 | Document | Location | Description | Last Updated |
 |----------|----------|-------------|--------------|
 | Knowledge Distribution Architecture | `/Architectures/KnowledgeDistribution/` | Automated system for identifying and distributing global knowledge | 2025-05-18 |
-| Distributed Architecture | `/Plans/DISTRIBUTED_ARCHITECTURE.md` | Framework for distributed components and services | 2025-01-23 |
-| Architecture Overview | `/Plans/ARCHITECTURE_OVERVIEW.md` | High-level overview of system architecture | 2025-01-15 |
-| Memory Architecture | `/Documentation/MemoryArchitecture.md` | Design of agent memory systems | 2025-01-06 |
+| Distributed Architecture | `/docs/system-design/distributed-architecture.md` | Framework for distributed components and services | 2025-01-23 |
+| Architecture Overview | `/docs/system-design/architecture-overview.md` | High-level overview of system architecture | 2025-01-15 |
+| Memory Architecture | `/docs/core-concepts/unified-memory-architecture.md` | Design of agent memory systems | 2025-01-06 |
 
 ### Component Architecture
 

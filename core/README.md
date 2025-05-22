@@ -4,7 +4,7 @@ This directory contains the core components of the Collaborative Intelligence sy
 
 ## Critical Files
 
-- **AGENT_INDEX.md** - Definitive list of all available agents
+- **[Agent Index](../docs/agent-system/agent-index.md)** - Definitive list of all available agents
 - **agent_categories.md** - Agent domain categorization map
 
 ## Directory Structure

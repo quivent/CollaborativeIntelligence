@@ -5,8 +5,8 @@ This directory contains documentation for the fundamental concepts and principle
 ## Contents
 
 - [System Philosophy](system-philosophy.md) - Core philosophical underpinnings
-- [Memory Architecture](memory-architecture.md) - Memory system design principles
-- [Learning Framework](learning-framework.md) - Knowledge acquisition and refinement
+- [Unified Memory Architecture](unified-memory-architecture.md) - Comprehensive memory system design and unification plan
+- [Unified Learning Framework](unified-learning-framework.md) - Comprehensive knowledge acquisition and refinement system
 - [Collaborative Intelligence Model](collaborative-intelligence-model.md) - Agent collaboration paradigm
 
 ## Purpose

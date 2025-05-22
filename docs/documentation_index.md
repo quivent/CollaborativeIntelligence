@@ -5,13 +5,14 @@ This index provides a comprehensive listing of all documentation in the Collabor
 ## Core Concepts
 
 - [System Philosophy](core-concepts/system-philosophy.md) - Fundamental principles
-- [Memory Architecture](core-concepts/memory-architecture.md) - Memory system design
-- [Learning Framework](core-concepts/learning-framework.md) - Knowledge acquisition and refinement
+- [Unified Memory Architecture](core-concepts/unified-memory-architecture.md) - Comprehensive memory system design and unification plan
+- [Unified Learning Framework](core-concepts/unified-learning-framework.md) - Comprehensive knowledge acquisition and refinement system
 - [Positive Reinforcement System](core-concepts/positive-reinforcement-system.md) - Feedback and success pattern system
 
 ## System Design
 
-- [Memory Systems](system-design/memory-systems.md) - Tiered memory implementation
+- [Memory Optimization](system-design/memory-optimization.md) - Memory optimization system integration
+- [Memory Architect](system-design/memory-architect.md) - Memory system implementation specialist
 - [Learning Systems](system-design/learning-systems.md) - Knowledge processing framework
 - [Knowledge Management](system-design/knowledge-management.md) - Information organization
 - [Repository Structure](system-design/repository-structure.md) - Standardized repository organization

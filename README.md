@@ -25,7 +25,7 @@ This repository has been organized for maximum readability and maintainability:
 - `tools/` - Development and testing tools
 - `extensions/` - Optional extensions and integrations
 
-For details on this organization, see the [Repository Restructuring Guide](REPOSITORY_RESTRUCTURING_GUIDE.md).
+For details on this organization, see the [Repository Restructuring Guide](docs/development/repository-restructuring.md).
 
 ## Purpose
 
@@ -78,7 +78,7 @@ For comprehensive details about the system, see the following resources:
 - [Documentation Index](docs/documentation_index.md) - Complete listing of all documentation
 - [QuickStart Guide](docs/guides/QuickStart.md) - Getting started with the system
 - [Agent Categories](core/agent_categories.md) - Logical organization of agents
-- [Memory Architecture](core/memory/MemoryArchitecture.md) - Memory systems technical details
+- [Memory Architecture](docs/core-concepts/unified-memory-architecture.md) - Memory systems technical details
 
 ## Future Development
 

@@ -94,7 +94,7 @@ You can now use:
 - "Project Overview" - See what's in this repository
 - "Detailed Analysis" - Get comprehensive documentation
 
-See CollaborativeIntelligence/QuickStart.md for details.
+See CollaborativeIntelligence/docs/guides/QuickStart.md for details.
 ```
 
 ---

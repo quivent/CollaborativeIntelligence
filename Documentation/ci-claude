@@ -191,7 +191,7 @@ setup_ci() {
     echo -e "CollaborativeIntelligence is ${GREEN}embedded${NC} in your project."
   fi
   echo
-  echo -e "See ${BLUE}$CI_DIR/QuickStart.md${NC} for details."
+  echo -e "See ${BLUE}$CI_DIR/docs/guides/QuickStart.md${NC} for details."
   echo
 }
 
@@ -322,7 +322,7 @@ This file serves as the primary configuration and initialization point for the C
 | `Project Overview` | See what's in this repository right now |
 | `Detailed Analysis` | Get comprehensive codebase documentation |
 
-For complete details, see `CollaborativeIntelligence/QuickStart.md`
+For complete details, see `CollaborativeIntelligence/docs/guides/QuickStart.md`
 
 ## System Initialization
 

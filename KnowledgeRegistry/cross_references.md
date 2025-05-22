@@ -21,7 +21,7 @@ This document maps relationships between knowledge artifacts across the Collabor
 - Session Organization Protocol (`/Sessions/SessionOrganizationProtocol/KNOWLEDGE_SYNCHRONIZATION.md`)
 
 **Extends**:
-- Memory Architecture (`/Documentation/MemoryArchitecture.md`)
+- Memory Architecture (`/docs/core-concepts/unified-memory-architecture.md`)
 - Learning System (`/Documentation/LearningSystem.md`)
 
 **References**:
@@ -29,7 +29,7 @@ This document maps relationships between knowledge artifacts across the Collabor
 - Database Schema (`/DATABASE_SCHEMA.md`)
 
 **Complements**:
-- Distributed Architecture (`/Plans/DISTRIBUTED_ARCHITECTURE.md`)
+- Distributed Architecture (`/docs/system-design/distributed-architecture.md`)
 
 ### Agent Cache System
 
@@ -40,18 +40,18 @@ This document maps relationships between knowledge artifacts across the Collabor
 - Terminal Title Format (`/NOTIFICATION_TERMINAL_TITLE_FORMAT.md`)
 
 **Complements**:
-- Knowledge Distribution Architecture (`/Architectures/KnowledgeDistribution/`)
+- Knowledge Distribution Architecture (`/docs/system-design/knowledge-distribution.md`)
 
 ### Distributed Architecture
 
 **Implements**:
-- Architecture Overview (`/Plans/ARCHITECTURE_OVERVIEW.md`)
+- Architecture Overview (`/docs/system-design/architecture-overview.md`)
 
 **References**:
 - Database Gaps (`/Plans/DATABASE_GAPS.md`)
 
 **Complements**:
-- Knowledge Distribution Architecture (`/Architectures/KnowledgeDistribution/`)
+- Knowledge Distribution Architecture (`/docs/system-design/knowledge-distribution.md`)
 
 ### Memory Architecture
 
@@ -65,16 +65,16 @@ This document maps relationships between knowledge artifacts across the Collabor
 ## Topic Clusters
 
 ### Knowledge Management
-- Knowledge Distribution Architecture (`/Architectures/KnowledgeDistribution/`)
+- Knowledge Distribution Architecture (`/docs/system-design/knowledge-distribution.md`)
 - Session Organization Protocol (`/Sessions/SessionOrganizationProtocol/`)
 - Knowledge Synchronization (`/Sessions/SessionOrganizationProtocol/KNOWLEDGE_SYNCHRONIZATION.md`)
 - Learning System (`/Documentation/LearningSystem.md`)
 
 ### System Architecture
-- Distributed Architecture (`/Plans/DISTRIBUTED_ARCHITECTURE.md`)
-- Architecture Overview (`/Plans/ARCHITECTURE_OVERVIEW.md`)
-- Knowledge Distribution Architecture (`/Architectures/KnowledgeDistribution/`)
-- Memory Architecture (`/Documentation/MemoryArchitecture.md`)
+- Distributed Architecture (`/docs/system-design/distributed-architecture.md`)
+- Architecture Overview (`/docs/system-design/architecture-overview.md`)
+- Knowledge Distribution Architecture (`/docs/system-design/knowledge-distribution.md`)
+- Memory Architecture (`/docs/core-concepts/unified-memory-architecture.md`)
 
 ### Agent Interaction
 - Agent Protocol Reference (`/docs/protocols/AGENT_PROTOCOL_REFERENCE.md`)
