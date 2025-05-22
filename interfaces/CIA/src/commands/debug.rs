@@ -23,9 +23,9 @@ pub fn paths(config: &Config) -> Result<()> {
     let agents_path = PathHelpers::get_agents_path(&config.repo_path);
     println!("{}: {}", "AGENTS Directory".green().bold(), agents_path.display());
     
-    // Display CLIs directory path
-    let clis_path = PathHelpers::get_cli_path(&config.repo_path);
-    println!("{}: {}", "CLIs Directory".green().bold(), clis_path.display());
+    // Display interfaces directory path
+    let interfaces_path = PathHelpers::get_cli_path(&config.repo_path);
+    println!("{}: {}", "Interfaces Directory".green().bold(), interfaces_path.display());
     
     // Display current working directory
     let current_dir = env::current_dir()

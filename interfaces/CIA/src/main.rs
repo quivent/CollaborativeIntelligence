@@ -121,6 +121,20 @@ enum MemoryCommands {
         #[clap(value_parser)]
         agent: String,
     },
+    
+    /// Validate agent memory files with checksum verification
+    Validate {
+        /// Name of the agent to validate memory for
+        #[clap(value_parser)]
+        agent: String,
+    },
+    
+    /// Show memory statistics for an agent
+    Stats {
+        /// Name of the agent to show stats for
+        #[clap(value_parser)]
+        agent: String,
+    },
 }
 
 #[derive(Subcommand)]
@@ -144,6 +158,17 @@ enum KnowledgeCommands {
         /// Optional agent to distribute to, otherwise distributes to all
         #[clap(value_parser)]
         agent: Option<String>,
+    },
+    
+    /// Run complete knowledge distribution workflow
+    Workflow {
+        /// Minimum relevance threshold (0.0-1.0)
+        #[clap(long, short)]
+        threshold: Option<f64>,
+        
+        /// Generate reports without making changes
+        #[clap(long)]
+        report_only: bool,
     },
 }
 
@@ -252,12 +277,15 @@ fn main() {
             MemoryCommands::Load { agent } => commands::memory::load(agent, &config),
             MemoryCommands::Optimize { agent } => commands::memory::optimize(agent, &config),
             MemoryCommands::Cache { agent } => commands::memory::cache(agent, &config),
+            MemoryCommands::Validate { agent } => commands::memory::validate(agent, &config),
+            MemoryCommands::Stats { agent } => commands::memory::stats(agent, &config),
         },
         
         Commands::Knowledge(knowledge_cmd) => match knowledge_cmd {
             KnowledgeCommands::Search { query, category } => commands::knowledge::search(query, category, &config),
             KnowledgeCommands::Index => commands::knowledge::index(&config),
             KnowledgeCommands::Distribute { agent } => commands::knowledge::distribute(agent, &config),
+            KnowledgeCommands::Workflow { threshold, report_only } => commands::knowledge::workflow(&config, *threshold, *report_only),
         },
         
         Commands::Debug(debug_cmd) => match debug_cmd {

@@ -46,9 +46,9 @@ impl PathHelpers {
         repo_root.join("AGENTS")
     }
     
-    /// Get the CLI directory path
+    /// Get the interfaces directory path
     pub fn get_cli_path(repo_root: &Path) -> PathBuf {
-        repo_root.join("CLIs")
+        repo_root.join("interfaces")
     }
     
     /// Get agent directories

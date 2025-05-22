@@ -7,7 +7,7 @@ This directory contains CLI tools for the Collaborative Intelligence system. Aft
 ## Current Structure
 
 ```
-CLIs/
+interfaces/
 ├── CIA/                   # CIA CLI - CollaborativeIntelligence-specific functionality
 │   ├── src/
 │   │   ├── commands/      # Command modules (agent, memory, knowledge, etc.)
@@ -160,30 +160,14 @@ When developing or extending CLI functionality:
    - anyhow/thiserror: For error handling
    - serde: For serialization/deserialization
 
-## Usage Examples
+## Workspace Benefits
 
-### CI & Topologist CLI
-```bash
-# External repository integration
-ci init my-project
-ci verify
+The consolidated CLI structure provides:
 
-# Internal repository management
-tl agent activate Athena
-tl system analyze --report
-tl debug trace --command ci-verify
-```
-
-### Memory & Cache CLI
-```bash
-# Memory operations
-memory-cli load --agent Athena
-memory-cli status
-
-# Agent cache operations
-agent-cache activate Athena --directory /current/path --initializer User
-agent-cache list
-```
+1. **Unified Build Process**: Single `cargo build` command builds all CLIs
+2. **Shared Dependencies**: Common crates defined in workspace 
+3. **Consistent Versioning**: All CLIs use workspace version
+4. **Simplified Maintenance**: Centralized dependency management
 
 ## Development Guidelines
 
@@ -201,24 +185,25 @@ When developing or extending CLI functionality:
    - serde: For serialization/deserialization
    - colored: For terminal output formatting
 
-## Configuration
+## Building and Installation
 
-CLIs support local configuration files that should be excluded from version control:
+```bash
+# Build all CLIs in workspace
+cd interfaces/
+cargo build --release
 
+# Install specific CLI
+cargo install --path agent-cache
+
+# Build specific CLI
+cargo build -p memory
 ```
-CLIs/
-├── tl/
-│   ├── config.local.json     # Local configuration (gitignored)
-│   └── settings.local.toml   # Local settings (gitignored)
-├── ci/
-    └── rust/
-        └── .cache/           # Local cache (gitignored)
-```
 
-## Future Directions
+## Migration Notes (2025-05-22)
 
-1. **Rust Migration**: Complete migration from Bash to Rust for improved reliability and maintainability
-2. **CLI Integration**: Standardize interfaces between CLI components
-3. **Enhanced Documentation**: Expand usage examples and integration guides
-4. **Plugin System**: Develop a more robust plugin architecture for extensions
-5. **Testing Framework**: Add comprehensive test coverage for all CLI components
+As part of the CLI consolidation:
+- `agent_cache/` → `interfaces/agent-cache/` 
+- `data/db-cli/` → `interfaces/db/`
+- `scripts/` → `interfaces/memory/`
+
+Deprecation notices have been left in original locations to assist with migration.

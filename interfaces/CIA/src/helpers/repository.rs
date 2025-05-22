@@ -159,8 +159,8 @@ impl RepositoryHelpers {
             issues.push("AGENTS directory is missing".to_string());
         }
         
-        if !repo_path.join("CLIs").exists() {
-            issues.push("CLIs directory is missing".to_string());
+        if !repo_path.join("interfaces").exists() {
+            issues.push("interfaces directory is missing".to_string());
         }
         
         if !repo_path.join("README.md").exists() {

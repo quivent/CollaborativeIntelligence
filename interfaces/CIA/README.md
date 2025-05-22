@@ -19,7 +19,7 @@ The CIA CLI is an internal tool designed specifically for managing and maintaini
 To build and install the CIA CLI:
 
 ```bash
-cd CLIs/CIA
+cd interfaces/CIA
 cargo build --release
 cargo install --path .
 ```
