@@ -13,6 +13,7 @@ mod error;
 mod agent_sync;
 mod agent_creation;
 mod terminal;
+mod ci_integration;
 
 #[derive(Parser)]
 #[clap(name = "CIA")]
@@ -52,6 +53,10 @@ enum Commands {
     /// Repository topology and multi-repository management
     #[clap(subcommand)]
     Topologist(TopologistCommands),
+    
+    /// CI integration and agent management
+    #[clap(subcommand)]
+    Ci(CiCommands),
 }
 
 #[derive(Subcommand)]
@@ -287,7 +292,63 @@ enum TopologistCommands {
     },
 }
 
+#[derive(Subcommand)]
+enum CiCommands {
+    /// Show CI agents status and available agents
+    Agents,
+    
+    /// Show CI integration status
+    Status,
+    
+    /// Test and establish CI connection
+    Connect,
+    
+    /// Activate a specific CI agent
+    Activate {
+        /// Name of the agent to activate
+        #[clap(value_parser)]
+        name: String,
+    },
+    
+    /// Check CI integration health
+    Health,
+    
+    /// Validate CI integration configuration
+    Validate,
+    
+    /// Repair CI integration issues
+    Repair {
+        /// Perform a dry run without making changes
+        #[clap(long)]
+        dry_run: bool,
+    },
+    
+    /// Monitor CI integration health continuously
+    Monitor {
+        /// Monitoring interval in seconds
+        #[clap(long, default_value = "30")]
+        interval: u64,
+    },
+}
+
+
 fn main() {
+    // CRITICAL: Enforce CI title override before any other operations
+    if let Ok(detector) = ci_integration::CIIntegrationDetector::new() {
+        if detector.is_ci_integrated() {
+            println!("✓ CI integration detected - enforcing title override");
+            if let Err(e) = detector.enforce_title_override() {
+                eprintln!("Warning: CI title override enforcement failed: {}", e);
+            } else {
+                println!("✓ CI title override enforcement completed successfully");
+            }
+        } else {
+            println!("ⓘ No CI integration detected");
+        }
+    } else {
+        println!("⚠ CI integration detector failed to initialize");
+    }
+
     // Check for empty arguments to show custom help
     if std::env::args().len() <= 1 {
         // Set the terminal title using contextual system
@@ -371,6 +432,18 @@ fn main() {
             TopologistCommands::Commit { root_path, message, dry_run, skip_deps } => commands::topologist::commit(root_path, message, *dry_run, *skip_deps, &config),
             TopologistCommands::Analyze { root_path, format } => commands::topologist::analyze(root_path, format, &config),
         },
+        
+        Commands::Ci(ci_cmd) => match ci_cmd {
+            CiCommands::Agents => commands::ci::agents(&config),
+            CiCommands::Status => commands::ci::status(&config),
+            CiCommands::Connect => commands::ci::connect(&config),
+            CiCommands::Activate { name } => commands::ci::activate(name, &config),
+            CiCommands::Health => commands::ci::health(&config),
+            CiCommands::Validate => commands::ci::validate(&config),
+            CiCommands::Repair { dry_run } => commands::ci::repair(*dry_run, &config),
+            CiCommands::Monitor { interval } => commands::ci::monitor(*interval, &config),
+        },
+        
     };
     
     // Handle any errors

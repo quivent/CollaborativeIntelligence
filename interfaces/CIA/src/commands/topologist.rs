@@ -128,7 +128,8 @@ pub fn commit(
     
     println!("\n{} Execution plan:", "📋".bright_blue());
     for (phase, repos) in execution_plan.iter().enumerate() {
-        println!("  Phase {}: {}", phase + 1, repos.iter().map(|r| &r.name).collect::<Vec<_>>().join(", "));
+        let repo_names: Vec<String> = repos.iter().map(|r| r.name.clone()).collect();
+        println!("  Phase {}: {}", phase + 1, repo_names.join(", "));
     }
     
     execute_sequential_commits(&execution_plan, message)?;

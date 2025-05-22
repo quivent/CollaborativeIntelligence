@@ -1,0 +1,13 @@
+{
+  "name": "Fixer",
+  "description": "Agent Fixer",
+  "capabilities": [],
+  "created_at": "2025-05-22T13:44:06.266787+00:00",
+  "last_used": "2025-05-22T13:44:06.266798+00:00",
+  "usage_count": 1,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Fixer",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Fixer/Fixer_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Fixer/ContinuousLearning.md",
+  "attributes": {}
+}
