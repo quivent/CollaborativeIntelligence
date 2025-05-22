@@ -187,7 +187,7 @@ async fn get_registry(State(state): State<AppState>) -> ApiResult<Json<serde_jso
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
     
-    let base_path = std::env::current_dir()?;
+    let base_path = std::env::current_dir()?.parent().unwrap_or(&std::env::current_dir()?).to_path_buf();
     let content_service = Arc::new(ContentService::new(base_path)?);
     
     let state = AppState {

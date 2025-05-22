@@ -91,4 +91,83 @@ impl PathHelpers {
                     .collect()
             })
     }
+    
+    /// Get project name from a directory path
+    /// 
+    /// This attempts to extract a meaningful project name using various strategies:
+    /// 1. Git repository name
+    /// 2. Directory name (if meaningful)
+    /// 3. Parent directory name (if current is not meaningful)
+    /// 4. Fallback to "Project"
+    pub fn get_project_name(dir: &Path) -> Option<String> {
+        // Try git repository name first
+        if let Some(git_name) = Self::get_git_project_name(dir) {
+            return Some(git_name);
+        }
+        
+        // Try current directory name
+        if let Some(dir_name) = dir.file_name() {
+            if let Some(name) = dir_name.to_str() {
+                if Self::is_meaningful_project_name(name) {
+                    return Some(name.to_string());
+                }
+            }
+        }
+        
+        // Try parent directories
+        let mut current = dir;
+        while let Some(parent) = current.parent() {
+            if let Some(parent_name) = parent.file_name() {
+                if let Some(name) = parent_name.to_str() {
+                    if Self::is_meaningful_project_name(name) {
+                        return Some(name.to_string());
+                    }
+                }
+            }
+            current = parent;
+        }
+        
+        // Final fallback
+        dir.file_name()
+            .and_then(|name| name.to_str())
+            .map(|s| s.to_string())
+    }
+    
+    /// Get project name from git repository
+    fn get_git_project_name(dir: &Path) -> Option<String> {
+        let mut current = dir;
+        loop {
+            let git_dir = current.join(".git");
+            if git_dir.exists() {
+                // Found git directory, use this directory name as project name
+                return current.file_name()
+                    .and_then(|name| name.to_str())
+                    .map(|s| s.to_string());
+            }
+            
+            if let Some(parent) = current.parent() {
+                current = parent;
+            } else {
+                break;
+            }
+        }
+        None
+    }
+    
+    /// Check if a directory name looks like a meaningful project name
+    fn is_meaningful_project_name(name: &str) -> bool {
+        // Skip common non-project directories
+        let skip_names = [
+            "bin", "usr", "opt", "var", "tmp", "etc", "home", "root",
+            "Applications", "Library", "System", "Users", "Volumes",
+            "src", "lib", "include", "share", "docs", "test", "tests",
+            "node_modules", "target", "build", "dist", ".git", ".svn",
+            "cache", "temp", "logs", "output", "public", "static",
+        ];
+        
+        !skip_names.contains(&name) && 
+        !name.starts_with('.') && 
+        name.len() > 2 &&
+        !name.chars().all(|c| c.is_ascii_digit()) // Skip purely numeric names
+    }
 }

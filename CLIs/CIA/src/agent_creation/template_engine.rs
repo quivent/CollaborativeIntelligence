@@ -49,17 +49,199 @@ impl AgentTemplate {
             limitations: Vec::new(),
         };
 
-        // Generate intelligent defaults based on the role
-        template.generate_role_based_defaults();
+        // Generate intelligent defaults based on purpose and role
+        template.generate_intelligent_defaults();
         template
     }
 
-    /// Generate role-based defaults using pattern matching
-    fn generate_role_based_defaults(&mut self) {
+    /// Generate intelligent defaults by parsing purpose and role
+    fn generate_intelligent_defaults(&mut self) {
+        // Parse the purpose statement for key concepts and behaviors
+        self.parse_purpose_statement();
+        
+        // Apply role-based enhancements
+        self.enhance_with_role_patterns();
+        
+        // Generate contextual integration points
+        self.generate_contextual_integrations();
+    }
+    
+    /// Parse the purpose statement to extract specific competencies and behaviors
+    fn parse_purpose_statement(&mut self) {
+        let purpose_lower = self.purpose.to_lowercase();
+        
+        // Extract action verbs and concepts
+        let key_actions = self.extract_action_verbs(&purpose_lower);
+        let key_concepts = self.extract_domain_concepts(&purpose_lower);
+        let methodologies = self.extract_methodologies(&purpose_lower);
+        
+        // Build competencies from extracted concepts
+        self.competencies = self.build_competencies_from_purpose(&key_actions, &key_concepts, &methodologies);
+        
+        // Build activation contexts from purpose
+        self.activation_contexts = self.build_activation_contexts(&key_actions, &key_concepts);
+        
+        // Extract specific frameworks mentioned
+        self.frameworks = self.extract_frameworks_from_purpose(&purpose_lower);
+    }
+    
+    /// Extract action verbs from purpose statement
+    fn extract_action_verbs(&self, purpose: &str) -> Vec<String> {
+        let action_patterns = [
+            "categorize", "organize", "classify", "file", "transform", "structure",
+            "analyze", "process", "manage", "coordinate", "develop", "implement",
+            "design", "create", "build", "optimize", "monitor", "track", "evaluate"
+        ];
+        
+        action_patterns.iter()
+            .filter(|&action| purpose.contains(action))
+            .map(|&action| action.to_string())
+            .collect()
+    }
+    
+    /// Extract domain-specific concepts
+    fn extract_domain_concepts(&self, purpose: &str) -> Vec<String> {
+        let mut concepts = Vec::new();
+        
+        // Look for specific domain terms
+        if purpose.contains("idea") { concepts.push("idea management".to_string()); }
+        if purpose.contains("project") { concepts.push("project categorization".to_string()); }
+        if purpose.contains("classification") { concepts.push("intelligent classification".to_string()); }
+        if purpose.contains("filing") { concepts.push("systematic filing".to_string()); }
+        if purpose.contains("category") || purpose.contains("categor") { 
+            concepts.push("categorical organization".to_string()); 
+        }
+        if purpose.contains("standard") { concepts.push("standardization".to_string()); }
+        if purpose.contains("systematic") { concepts.push("systematic approaches".to_string()); }
+        
+        // Extract specific categories mentioned
+        let category_patterns = ["project", "migration", "enhancement", "task", "integration"];
+        for pattern in &category_patterns {
+            if purpose.contains(pattern) {
+                concepts.push(format!("{} classification", pattern));
+            }
+        }
+        
+        concepts
+    }
+    
+    /// Extract methodologies from purpose
+    fn extract_methodologies(&self, purpose: &str) -> Vec<String> {
+        let mut methodologies = Vec::new();
+        
+        if purpose.contains("intelligent") && purpose.contains("classification") {
+            methodologies.push("AI-driven categorization".to_string());
+        }
+        if purpose.contains("systematic") {
+            methodologies.push("systematic organization".to_string());
+        }
+        if purpose.contains("standardized") {
+            methodologies.push("standardized processes".to_string());
+        }
+        if purpose.contains("decision") || purpose.contains("choice") {
+            methodologies.push("autonomous decision-making".to_string());
+        }
+        
+        methodologies
+    }
+    
+    /// Build competencies from extracted purpose elements
+    fn build_competencies_from_purpose(
+        &self, 
+        actions: &[String], 
+        concepts: &[String], 
+        methodologies: &[String]
+    ) -> Vec<String> {
+        let mut competencies = Vec::new();
+        
+        // Create competencies from actions + concepts
+        for action in actions {
+            for concept in concepts {
+                competencies.push(format!("{} and {}", 
+                    action.chars().next().unwrap().to_uppercase().collect::<String>() + &action[1..],
+                    concept
+                ));
+            }
+        }
+        
+        // Add methodology competencies
+        for methodology in methodologies {
+            competencies.push(methodology.clone());
+        }
+        
+        // Add communication competencies if purpose suggests interaction
+        if self.purpose.to_lowercase().contains("answer") || 
+           self.purpose.to_lowercase().contains("communicate") ||
+           self.purpose.to_lowercase().contains("understand") {
+            competencies.push("Conversational intelligence and user interaction".to_string());
+            competencies.push("Contextual understanding and explanation".to_string());
+        }
+        
+        // Ensure we have at least basic competencies
+        if competencies.is_empty() {
+            competencies.push(format!("{} domain expertise", self.role));
+            competencies.push("Problem analysis and solution development".to_string());
+        }
+        
+        // Remove duplicates and limit to reasonable number
+        competencies.sort();
+        competencies.dedup();
+        competencies.truncate(6);
+        
+        competencies
+    }
+    
+    /// Build activation contexts from purpose elements
+    fn build_activation_contexts(&self, actions: &[String], concepts: &[String]) -> Vec<String> {
+        let mut contexts = Vec::new();
+        
+        // Build contexts from actions
+        for action in actions {
+            contexts.push(format!("When {} is required", action));
+        }
+        
+        // Build contexts from concepts
+        for concept in concepts {
+            contexts.push(format!("For {} challenges", concept));
+        }
+        
+        // Add purpose-specific contexts
+        if self.purpose.to_lowercase().contains("decision") {
+            contexts.push("When autonomous decision-making is needed".to_string());
+        }
+        
+        // Ensure we have basic contexts
+        if contexts.is_empty() {
+            contexts.push(format!("When {} expertise is needed", self.role.to_lowercase()));
+        }
+        
+        contexts.truncate(4);
+        contexts
+    }
+    
+    /// Extract frameworks from purpose
+    fn extract_frameworks_from_purpose(&self, purpose: &str) -> Vec<String> {
+        let mut frameworks = Vec::new();
+        
+        if purpose.contains("categor") {
+            frameworks.push("**Categorization Framework**: Multi-dimensional classification system for systematic organization".to_string());
+        }
+        if purpose.contains("filing") {
+            frameworks.push("**Filing Methodology**: Standardized storage and retrieval protocols".to_string());
+        }
+        if purpose.contains("intelligent") {
+            frameworks.push("**Decision Engine**: AI-driven classification and routing logic".to_string());
+        }
+        
+        frameworks
+    }
+    
+    /// Apply role-based enhancements to the purpose-derived content
+    fn enhance_with_role_patterns(&mut self) {
         let role_lower = self.role.to_lowercase();
         
-        // Core competencies based on role
-        self.competencies = match role_lower.as_str() {
+        // Add role-specific enhancements to existing competencies
+        let role_enhancements = match role_lower.as_str() {
             r if r.contains("analyst") => vec![
                 "Data analysis and interpretation".to_string(),
                 "Pattern recognition and insight extraction".to_string(),
@@ -93,42 +275,70 @@ impl AgentTemplate {
             _ => vec![
                 format!("{} domain expertise", self.role),
                 "Cross-functional collaboration".to_string(),
-                "Problem analysis and solution development".to_string(),
-                "Continuous learning and adaptation".to_string(),
             ],
         };
-
-        // Activation contexts
-        self.activation_contexts = vec![
-            format!("When {} expertise is needed", self.role.to_lowercase()),
-            format!("For {}-specific challenges", self.role.to_lowercase()),
-            "When deep domain knowledge is required".to_string(),
-            "For complex problem-solving in this area".to_string(),
-        ];
-
-        // Integration points - common collaborators
-        self.integrations = vec![
-            "**Manager**: For coordination and resource allocation".to_string(),
-            "**Analyst**: For data-driven insights and validation".to_string(),
-            "**Architect**: For system design alignment".to_string(),
-            format!("**Other {} agents**: For specialized collaboration", self.role),
-        ];
-
-        // Basic principles
-        self.principles = vec![
+        
+        // Add role-specific competencies to purpose-derived ones (don't replace)
+        for enhancement in role_enhancements {
+            if !self.competencies.contains(&enhancement) {
+                self.competencies.push(enhancement);
+            }
+        }
+        
+        // Enhance principles with role-specific ones
+        let role_principles = vec![
             format!("Excellence in {} practices", self.role.to_lowercase()),
             "Collaborative approach to problem-solving".to_string(),
             "Continuous learning and improvement".to_string(),
             "Clear communication and documentation".to_string(),
         ];
-
-        // Success metrics
-        self.metrics = vec![
+        
+        for principle in role_principles {
+            if !self.principles.contains(&principle) {
+                self.principles.push(principle);
+            }
+        }
+        
+        // Add standard success metrics if not already derived from purpose
+        let standard_metrics = vec![
             "Quality of deliverables and solutions".to_string(),
             "Efficiency of problem resolution".to_string(),
             "Stakeholder satisfaction and feedback".to_string(),
             "Knowledge transfer and documentation quality".to_string(),
         ];
+        
+        for metric in standard_metrics {
+            if !self.metrics.contains(&metric) {
+                self.metrics.push(metric);
+            }
+        }
+    }
+    
+    /// Generate contextual integration points based on purpose and role
+    fn generate_contextual_integrations(&mut self) {
+        // Start with basic integrations
+        self.integrations = vec![
+            "**Manager**: For coordination and resource allocation".to_string(),
+        ];
+        
+        // Add purpose-specific integrations
+        let purpose_lower = self.purpose.to_lowercase();
+        
+        if purpose_lower.contains("analyz") || purpose_lower.contains("data") {
+            self.integrations.push("**Analyst**: For data-driven insights and validation".to_string());
+        }
+        if purpose_lower.contains("system") || purpose_lower.contains("architect") {
+            self.integrations.push("**Architect**: For system design alignment".to_string());
+        }
+        if purpose_lower.contains("design") || purpose_lower.contains("interface") {
+            self.integrations.push("**Designer**: For user experience considerations".to_string());
+        }
+        if purpose_lower.contains("document") || purpose_lower.contains("report") {
+            self.integrations.push("**Documenter**: For comprehensive documentation".to_string());
+        }
+        
+        // Add role-based integrations
+        self.integrations.push(format!("**Other {} agents**: For specialized collaboration", self.role));
     }
 
     /// Convert template to replacement map for processing

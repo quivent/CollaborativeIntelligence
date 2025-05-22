@@ -80,9 +80,48 @@ pub struct TerminalHelpers;
 #[allow(dead_code)]
 impl TerminalHelpers {
     /// Set the terminal window title
+    /// 
+    /// This is the legacy method that sets the title directly.
+    /// For new code, consider using the TerminalTitleManager for context-aware titles.
     pub fn set_terminal_title(title: &str) {
-        print!("\x1B]0;CIA: {}\x07", title);
-        io::stdout().flush().unwrap_or_default();
+        // Try to use the new title manager for backward compatibility
+        if let Ok(title_manager) = crate::terminal::get_title_manager().try_lock() {
+            title_manager.set_title_direct(&format!("CIA: {}", title));
+        } else {
+            // Fallback to direct ANSI escape sequence
+            print!("\x1B]0;CIA: {}\x07", title);
+            io::stdout().flush().unwrap_or_default();
+        }
+    }
+    
+    /// Set the terminal title using the context-aware title manager
+    /// 
+    /// This updates the terminal title based on current project, agent, and task context.
+    pub fn update_contextual_title() {
+        if let Err(e) = crate::terminal::update_title() {
+            eprintln!("Warning: Failed to update contextual title: {}", e);
+        }
+    }
+    
+    /// Set the active agent for contextual titles
+    pub fn set_contextual_agent(agent_name: &str) {
+        if let Err(e) = crate::terminal::set_active_agent(agent_name) {
+            eprintln!("Warning: Failed to set active agent: {}", e);
+        }
+    }
+    
+    /// Set the current task for contextual titles
+    pub fn set_contextual_task(task_description: &str) {
+        if let Err(e) = crate::terminal::set_current_task(task_description) {
+            eprintln!("Warning: Failed to set current task: {}", e);
+        }
+    }
+    
+    /// Clear the current task from contextual titles
+    pub fn clear_contextual_task() {
+        if let Err(e) = crate::terminal::clear_current_task() {
+            eprintln!("Warning: Failed to clear current task: {}", e);
+        }
     }
     
     /// Apply color to text based on color name

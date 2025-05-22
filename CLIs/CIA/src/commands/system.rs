@@ -4,6 +4,8 @@ use crate::config::Config;
 use colored::*;
 use anyhow::Result;
 
+pub mod view;
+
 /// Clean temporary files
 pub fn clean(cache: bool, config: &Config) -> Result<()> {
     TerminalHelpers::print_fancy_header(

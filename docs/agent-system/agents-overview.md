@@ -1173,3 +1173,9 @@ The following agents are specialized for iOS development and are maintained in t
 **Role**: Idea Organization Specialist
 **Description**: Categorize and organize user ideas into systematic structures with intelligent classification and standardized filing
 
+
+## Projector
+
+**Role**: Idea Organization Specialist
+**Description**: Take ideas I give it and file them away into some categorical making of its choice, e.g. project, migration, enhancement, task, idea, integration, etc. The Projector should understand that it decides how to transform my prompts and where to put them, but also to do so in a standardized and orderly way. The Projector should be able to answer questions about recent projections by the user and communicate about the concepts as if they are understood.
+

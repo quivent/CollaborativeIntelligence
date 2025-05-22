@@ -6,6 +6,7 @@ use anyhow::Result;
 use crate::config::Config;
 use crate::helpers::terminal::TerminalHelpers;
 use crate::helpers::path::PathHelpers;
+use ci_shared::display_agent_protocol_instructions;
 use std::path::Path;
 
 /// Load agent memory
@@ -39,6 +40,9 @@ pub fn load(
     } else {
         TerminalHelpers::print_warning(&format!("Agent '{}' not found in repository", agent));
     }
+    
+    // Display protocol compliance instructions
+    display_agent_protocol_instructions(agent);
     
     TerminalHelpers::print_success("Agent memory loaded successfully");
     Ok(())

@@ -12,6 +12,7 @@ mod helpers;
 mod error;
 mod agent_sync;
 mod agent_creation;
+mod terminal;
 
 #[derive(Parser)]
 #[clap(name = "CIA")]
@@ -84,6 +85,13 @@ enum AgentCommands {
         /// Name of the agent to validate
         #[clap(value_parser)]
         name: String,
+    },
+    
+    /// Recommend the best agent for a specific task or query
+    For {
+        /// The task, query, or prompt to find an agent for
+        #[clap(value_parser)]
+        query: String,
     },
 }
 
@@ -162,6 +170,9 @@ enum SystemCommands {
     /// Verify repository structure
     Verify,
     
+    /// View categorized repository structure for refactoring insights
+    View,
+    
     /// Update terminal title
     Title {
         /// Custom title to set
@@ -204,6 +215,7 @@ fn main() {
             AgentCommands::Create { name, role, purpose, quick } => commands::agent::create(name, role, purpose, *quick, &config),
             AgentCommands::Sync => commands::agent::sync(&config),
             AgentCommands::Validate { name } => commands::agent::validate(name, &config),
+            AgentCommands::For { query } => commands::agent::recommend_for(query, &config),
         },
         
         Commands::Memory(memory_cmd) => match memory_cmd {
@@ -228,6 +240,7 @@ fn main() {
         Commands::System(system_cmd) => match system_cmd {
             SystemCommands::Clean { cache } => commands::system::clean(*cache, &config),
             SystemCommands::Verify => commands::system::verify(&config),
+            SystemCommands::View => commands::system::view::view(&config),
             SystemCommands::Title { title } => commands::system::title(title, &config),
         },
     };
