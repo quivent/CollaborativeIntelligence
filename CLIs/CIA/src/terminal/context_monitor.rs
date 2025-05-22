@@ -92,14 +92,19 @@ impl ContextMonitor {
                     }
                 }
                 
-                // Check for agent changes (this would need integration with agent state)
-                // For now, we just track what we know
-                if let Ok(manager) = title_manager.try_lock() {
+                // Check for agent changes and task timeouts
+                if let Ok(mut manager) = title_manager.try_lock() {
                     let current_agent = manager.get_agent().cloned();
                     if current_agent != last_agent {
                         last_agent = current_agent;
                         // Agent change detected, title should already be updated by agent activation
                     }
+                    
+                    // Check for task timeout and clear if necessary
+                    if manager.clear_task_if_timed_out() {
+                        manager.refresh_title();
+                    }
+                    
                     drop(manager);
                 }
                 

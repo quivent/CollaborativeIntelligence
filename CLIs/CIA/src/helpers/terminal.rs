@@ -29,6 +29,7 @@ impl ThemeColors {
     pub const MEMORY: &'static str = "magenta";      // Memory operations
     pub const KNOWLEDGE: &'static str = "green";     // Knowledge management
     pub const DEBUG: &'static str = "yellow";        // Debug and diagnostic commands
+    pub const TASK: &'static str = "magenta";        // Task management commands
 }
 
 /// Symbol definitions for CIA CLI

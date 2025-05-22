@@ -4,6 +4,7 @@
 //! terminal window titles with project, agent, and task context.
 
 use std::io::{self, Write};
+use std::time::{Instant, Duration};
 
 /// Configuration for terminal title behavior
 #[derive(Debug, Clone)]
@@ -44,6 +45,7 @@ pub struct TerminalTitleManager {
     current_project: Option<String>,
     current_agent: Option<String>,
     current_task: Option<String>,
+    task_start_time: Option<Instant>,
     config: TitleConfig,
     update_enabled: bool,
 }
@@ -55,6 +57,7 @@ impl TerminalTitleManager {
             current_project: None,
             current_agent: None,
             current_task: None,
+            task_start_time: None,
             config: TitleConfig::default(),
             update_enabled: true,
         }
@@ -66,6 +69,7 @@ impl TerminalTitleManager {
             current_project: None,
             current_agent: None,
             current_task: None,
+            task_start_time: None,
             update_enabled: config.update_enabled,
             config,
         }
@@ -84,11 +88,13 @@ impl TerminalTitleManager {
     /// Update the current task description
     pub fn update_task(&mut self, task: &str) {
         self.current_task = Some(task.to_string());
+        self.task_start_time = Some(Instant::now());
     }
     
     /// Clear the current task
     pub fn clear_task(&mut self) {
         self.current_task = None;
+        self.task_start_time = None;
     }
     
     /// Clear the current agent
@@ -101,6 +107,7 @@ impl TerminalTitleManager {
         self.current_project = None;
         self.current_agent = None;
         self.current_task = None;
+        self.task_start_time = None;
     }
     
     /// Get the current project name
@@ -186,6 +193,37 @@ impl TerminalTitleManager {
         if let Err(e) = io::stdout().flush() {
             eprintln!("Warning: Failed to update terminal title: {}", e);
         }
+    }
+    
+    /// Clear task if it has timed out based on configuration
+    pub fn clear_task_if_timed_out(&mut self) -> bool {
+        if let Some(timeout_minutes) = self.config.task_timeout_minutes {
+            if let Some(task_start) = self.task_start_time {
+                let timeout_duration = Duration::from_secs(timeout_minutes as u64 * 60);
+                if task_start.elapsed() > timeout_duration {
+                    self.clear_task();
+                    return true;
+                }
+            }
+        }
+        false
+    }
+    
+    /// Get task elapsed time if a task is active
+    pub fn get_task_elapsed_time(&self) -> Option<Duration> {
+        self.task_start_time.map(|start| start.elapsed())
+    }
+    
+    /// Check if task is approaching timeout (within 5 minutes)
+    pub fn is_task_approaching_timeout(&self) -> bool {
+        if let Some(timeout_minutes) = self.config.task_timeout_minutes {
+            if let Some(elapsed) = self.get_task_elapsed_time() {
+                let timeout_duration = Duration::from_secs(timeout_minutes as u64 * 60);
+                let warning_threshold = Duration::from_secs(5 * 60); // 5 minutes warning
+                return elapsed + warning_threshold >= timeout_duration;
+            }
+        }
+        false
     }
     
     /// Update configuration

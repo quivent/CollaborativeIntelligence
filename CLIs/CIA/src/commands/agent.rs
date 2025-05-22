@@ -32,9 +32,6 @@ pub fn activate(name: &str, config: &Config) -> Result<()> {
     // Update terminal title with contextual information
     crate::helpers::terminal::TerminalHelpers::set_contextual_agent(name);
     
-    // Also update using legacy method for backward compatibility
-    CommandHelpers::set_terminal_title(&format!("Agent: {}", name));
-    
     // Simulate agent activation
     CommandHelpers::print_info(&format!("Loading configuration for agent '{}'", name));
     CommandHelpers::print_info(&format!("Loading memory for agent '{}'", name));

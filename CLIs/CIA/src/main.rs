@@ -44,6 +44,10 @@ enum Commands {
     /// System maintenance commands
     #[clap(subcommand)]
     System(SystemCommands),
+    
+    /// Task management commands
+    #[clap(subcommand)]
+    Task(TaskCommands),
 }
 
 #[derive(Subcommand)]
@@ -181,11 +185,35 @@ enum SystemCommands {
     },
 }
 
+#[derive(Subcommand)]
+enum TaskCommands {
+    /// Start a new task
+    Start {
+        /// Description of the task
+        #[clap(value_parser)]
+        description: String,
+    },
+    
+    /// Complete the current task
+    Complete,
+    
+    /// Clear the current task
+    Clear,
+    
+    /// Show current task status
+    Status,
+    
+    /// Check for task timeout
+    Check,
+}
+
 fn main() {
     // Check for empty arguments to show custom help
     if std::env::args().len() <= 1 {
-        // Set the terminal title
-        helpers::terminal::TerminalHelpers::set_terminal_title("CIA CLI");
+        // Set the terminal title using contextual system
+        if let Err(e) = terminal::initialize_title_system() {
+            eprintln!("Warning: Failed to initialize terminal title system: {}", e);
+        }
         
         // Show our custom styled help message
         helpers::terminal::TerminalHelpers::print_help_message();
@@ -199,9 +227,6 @@ fn main() {
     if let Err(e) = terminal::initialize_title_system() {
         eprintln!("Warning: Failed to initialize terminal title system: {}", e);
     }
-    
-    // Set the terminal title to indicate CIA CLI is active
-    helpers::terminal::TerminalHelpers::set_terminal_title("CIA CLI");
     
     // Load configuration
     let config = match config::Config::load() {
@@ -247,6 +272,14 @@ fn main() {
             SystemCommands::Verify => commands::system::verify(&config),
             SystemCommands::View => commands::system::view::view(&config),
             SystemCommands::Title { title } => commands::system::title(title, &config),
+        },
+        
+        Commands::Task(task_cmd) => match task_cmd {
+            TaskCommands::Start { description } => commands::task::start(description, &config),
+            TaskCommands::Complete => commands::task::complete(&config),
+            TaskCommands::Clear => commands::task::clear(&config),
+            TaskCommands::Status => commands::task::status(&config),
+            TaskCommands::Check => commands::task::check(&config),
         },
     };
     
