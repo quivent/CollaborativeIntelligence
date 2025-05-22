@@ -25,6 +25,7 @@ System-wide protocol compliance failures have been identified. I've created a co
 - Standardized templates and tools
 - Enforcement mechanisms active
 - CLI build and install automation for all CLI changes
+- System-wide notifications centralized in this file
 
 ### Individual Agent Requirements:
 
@@ -34,6 +35,7 @@ System-wide protocol compliance failures have been identified. I've created a co
 - Must use standard session structure
 - Must complete training certification
 - Must execute `cargo build --release && cargo install --path .` for any CLI code changes
+- Must write all scripts in Rust only - no JavaScript, Python, or other scripting languages
 
 #### Specific Attention Needed:
 - Agents without memory files: Create immediately

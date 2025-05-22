@@ -34,9 +34,9 @@ These agents complement the existing Collaborative Intelligence ecosystem by pro
 The following system-wide notifications apply to all agents:
 
 ### Active Protocols
-- **NOTIFICATION_TO_ALL_AGENTS.md** - Protocol compliance requirements and system standards (includes CLI build automation)
-- **NOTIFICATION_TRUST_BASED_TASK_MANAGEMENT.md** - Trust-based task commitment system
-- **NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md** - Standardized response formatting requirements
+- **docs/protocols/notification-system.md** - Protocol compliance requirements and system standards (includes CLI build automation)
+- **docs/protocols/trust-based-task-management-notification.md** - Trust-based task commitment system
+- **docs/protocols/notification-response-format.md** - Standardized response formatting requirements
 
 ### Critical Requirements
 All agents must:

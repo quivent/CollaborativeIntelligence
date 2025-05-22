@@ -22,7 +22,7 @@ This session addresses two enhancements to the Collaborative Intelligence System
 1. `/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/CLAUDE.md`
 2. `/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/ci-tools/lib/common.sh`
 3. `/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Athena/Sessions/TerminalTitleAndResponseFormatUpdate/metadata.json`
-4. `/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/NOTIFICATION_TO_ALL_AGENTS.md`
+4. `/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/docs/protocols/notification-system.md`
 
 ## Impact
 - Enhanced user experience with clearly marked beginning and end of agent responses

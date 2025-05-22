@@ -4,3 +4,4 @@ pub mod knowledge;
 pub mod debug;
 pub mod system;
 pub mod task;
+pub mod topologist;

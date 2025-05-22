@@ -1,5 +1,5 @@
 use crate::config::Config;
-use crate::error::Result;
+use anyhow::Result;
 use colored::*;
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
@@ -59,7 +59,7 @@ pub fn init(root_path: &str, gen_config: bool, _config: &Config) -> Result<()> {
     
     let root = Path::new(root_path);
     if !root.exists() {
-        return Err(format!("Root path does not exist: {}", root_path).into());
+        return Err(anyhow::anyhow!("Root path does not exist: {}", root_path));
     }
     
     let repositories = discover_repositories(root)?;
@@ -149,7 +149,7 @@ pub fn analyze(root_path: &str, format: &str, _config: &Config) -> Result<()> {
         "table" => {
             print_topology_table(&repositories);
         },
-        _ => return Err(format!("Unsupported format: {}", format).into()),
+        _ => return Err(anyhow::anyhow!("Unsupported format: {}", format)),
     }
     
     Ok(())
@@ -259,14 +259,14 @@ fn generate_config_file(root_path: &str, repositories: &[RepositoryInfo]) -> Res
     Ok(())
 }
 
-fn create_simple_execution_plan(repositories: &[&RepositoryInfo]) -> Vec<Vec<&RepositoryInfo>> {
+fn create_simple_execution_plan<'a>(repositories: &'a [&'a RepositoryInfo]) -> Vec<Vec<&'a RepositoryInfo>> {
     vec![repositories.to_vec()]
 }
 
-fn create_dependency_execution_plan(
-    repositories: &[&RepositoryInfo], 
+fn create_dependency_execution_plan<'a>(
+    repositories: &'a [&'a RepositoryInfo], 
     root_path: &str
-) -> Result<Vec<Vec<&RepositoryInfo>>> {
+) -> Result<Vec<Vec<&'a RepositoryInfo>>> {
     let config_path = Path::new(root_path).join("multi_repo_config.json");
     
     if !config_path.exists() {
@@ -298,7 +298,8 @@ fn execute_sequential_commits(
         for repo in repos {
             println!("Committing {}...", repo.name);
             
-            let commit_msg = message.as_deref().unwrap_or(&format!("Update {}", repo.name));
+            let default_msg = format!("Update {}", repo.name);
+            let commit_msg = message.as_deref().unwrap_or(&default_msg);
             
             // Stage all changes if nothing staged
             if repo.staged_files.is_empty() && !repo.unstaged_files.is_empty() {
@@ -319,7 +320,8 @@ fn execute_sequential_commits(
                     .args(["rev-parse", "HEAD"])
                     .current_dir(&repo.path)
                     .output()?;
-                let commit_hash = String::from_utf8_lossy(&commit_output.stdout).trim();
+                let commit_hash_full = String::from_utf8_lossy(&commit_output.stdout);
+                let commit_hash = commit_hash_full.trim();
                 
                 println!("  {} {}: {}", "✅".green(), repo.name, &commit_hash[..8]);
             } else {

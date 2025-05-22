@@ -6,7 +6,7 @@ This system provides a comprehensive framework for ensuring consistent applicati
 
 ### 1. Protocol Standards
 
-- [Response Format Protocol](../../NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md) - Standardized agent response formatting
+- [Response Format Protocol](../../docs/protocols/notification-response-format.md) - Standardized agent response formatting
 - [Terminal Title Protocol](../../NOTIFICATION_TERMINAL_TITLE_FORMAT.md) - Dynamic terminal window title updates
 
 ### 2. Implementation Tools
@@ -90,7 +90,7 @@ The system emphasizes natural compliance through:
 ### For New Agents
 
 1. Review the protocol standards:
-   - [Response Format Protocol](../../NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md)
+   - [Response Format Protocol](../../docs/protocols/notification-response-format.md)
    - [Terminal Title Protocol](../../NOTIFICATION_TERMINAL_TITLE_FORMAT.md)
 
 2. Complete the [Protocol Compliance Training](../Training/PROTOCOL_COMPLIANCE_TRAINING.md)

@@ -7,7 +7,7 @@ This system provides a structured approach for agents to acknowledge receipt and
 ### Step 1: Protocol Review
 
 Agents must thoroughly review the protocol documentation:
-- [Response Format Protocol](../../NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md)
+- [Response Format Protocol](../../docs/protocols/notification-response-format.md)
 - [Terminal Title Protocol](../../NOTIFICATION_TERMINAL_TITLE_FORMAT.md)
 
 ### Step 2: Training Completion

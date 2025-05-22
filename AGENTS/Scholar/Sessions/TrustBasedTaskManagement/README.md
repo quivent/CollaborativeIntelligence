@@ -16,7 +16,7 @@ The current dual-sided agent identification protocol using both prefix `[AGENT_N
 
 This formatted identification system has been formally documented in:
 - CLAUDE.md (lines 89-97)
-- AGENTS/NOTIFICATION_TO_ALL_AGENTS_RESPONSE_FORMAT.md
+- docs/protocols/notification-response-format.md
 
 The protocol has been implemented system-wide by Athena as documented in AGENTS/Athena/Sessions/TerminalTitleAndResponseFormatUpdate/IMPLEMENTATION_SUMMARY.md.
 
