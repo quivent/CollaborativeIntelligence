@@ -1,0 +1,250 @@
+{
+  "signatures": {
+    "Topologist": {
+      "agent_name": "Topologist",
+      "public_key": "EMERGENCY_Topologist_1747928191",
+      "signature_hash": "4425d09455f7bb82dcdad3d759d895ab97eb1af63771ea174647b189810aa291",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Fixer": {
+      "agent_name": "Fixer",
+      "public_key": "EMERGENCY_Fixer_1747928191",
+      "signature_hash": "361da01f99dc29cdf31a0b542ae72df16d7221397ccce29f2c18b99af3511abc",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Researcher": {
+      "agent_name": "Researcher",
+      "public_key": "EMERGENCY_Researcher_1747928191",
+      "signature_hash": "7181dc0e2369953a09b32b604368dfc25ef81ff37762cc6ea8d5a62610a4da75",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Engineer": {
+      "agent_name": "Engineer",
+      "public_key": "EMERGENCY_Engineer_1747928191",
+      "signature_hash": "f8cfdb003e2dbfe28a32991f7f373121f3a33b5f7b1dce4bcd4ee6e9c17767ed",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Linguist": {
+      "agent_name": "Linguist",
+      "public_key": "EMERGENCY_Linguist_1747928191",
+      "signature_hash": "16833a2b1e4271e5e8502fd214edd9a2f6399d5c8c1232c5b3c9270fa848deff",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Wellness": {
+      "agent_name": "Wellness",
+      "public_key": "EMERGENCY_Wellness_1747928191",
+      "signature_hash": "26ec53690b7b71afc3c9b3fc53791a4cc7d7c765e0444ac87638d9701e634d04",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Tester": {
+      "agent_name": "Tester",
+      "public_key": "EMERGENCY_Tester_1747928191",
+      "signature_hash": "ed8eda9127608abc71b2281f3edca0fcc2b6885036a030fae077839d0742ab54",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Optimizer": {
+      "agent_name": "Optimizer",
+      "public_key": "EMERGENCY_Optimizer_1747928191",
+      "signature_hash": "1e23a270da6d1d11366cf29d89b7948fa1b86337896f3e6457df2cb94146e2d3",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Benchmarker": {
+      "agent_name": "Benchmarker",
+      "public_key": "EMERGENCY_Benchmarker_1747928191",
+      "signature_hash": "4198fd19b51ba18b68bfd37b46c4f900d2068411d116fb132bec1981930dd047",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Refactorer": {
+      "agent_name": "Refactorer",
+      "public_key": "EMERGENCY_Refactorer_1747928191",
+      "signature_hash": "5582a6211447ca04af639ca3f61c37e4a74966fdcf6c49629ab3c7cb47a37dbb",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Database": {
+      "agent_name": "Database",
+      "public_key": "EMERGENCY_Database_1747928191",
+      "signature_hash": "9bddc740dc2a4a6f0d5ea9812843d77c59ddef33b0a9a5ed60d4c0b126ab0dea",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Verifier": {
+      "agent_name": "Verifier",
+      "public_key": "EMERGENCY_Verifier_1747928191",
+      "signature_hash": "a159967d9ed1bc244522f624c8009bc4afa9437c92c8e0e6504b10a8d721633c",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Basher": {
+      "agent_name": "Basher",
+      "public_key": "EMERGENCY_Basher_1747928191",
+      "signature_hash": "99e5d433fc4a77d1bfe7733c9f8d17657e151ceaf2c2ab3732c9022164ad57f5",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Athena": {
+      "agent_name": "Athena",
+      "public_key": "EMERGENCY_Athena_1747928191",
+      "signature_hash": "ba72b38fd6b7ea9483e2ab37e196116adf576aae392b80c9e6d241a58955eb8a",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Human": {
+      "agent_name": "Human",
+      "public_key": "EMERGENCY_Human_1747928191",
+      "signature_hash": "f823690a53998532c0344d2f160510309a627bc8fa5b8fe35daebc75a4434022",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Scholar": {
+      "agent_name": "Scholar",
+      "public_key": "EMERGENCY_Scholar_1747928191",
+      "signature_hash": "4cd21aafcab4653e86bbbc264d63ff185ecf1bc7122bc1b2392aea9621678f96",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Planner": {
+      "agent_name": "Planner",
+      "public_key": "EMERGENCY_Planner_1747928191",
+      "signature_hash": "b00d276f79f7c5f7d76f2b83461d9a5bb1f13d17b6ac5a66c31adceed9f708d1",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "User": {
+      "agent_name": "User",
+      "public_key": "EMERGENCY_User_1747928191",
+      "signature_hash": "94a0330ea4bfec6285b393adc54e4ab0df343c002fd88396f727e4f4eb09895a",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Debugger": {
+      "agent_name": "Debugger",
+      "public_key": "EMERGENCY_Debugger_1747928191",
+      "signature_hash": "9f8f77ce75884245a3b98c02915b8b2b19b8640d51ca20a64f0f7b0542e7e1e0",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Memory": {
+      "agent_name": "Memory",
+      "public_key": "EMERGENCY_Memory_1747928191",
+      "signature_hash": "c3a95190f936e3273e2b937e663f04981bdc228dcd8c2c80a2ae9b4ac10ec263",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Manager": {
+      "agent_name": "Manager",
+      "public_key": "EMERGENCY_Manager_1747928191",
+      "signature_hash": "dcde5f0ac982679876a78a91ec4962febf85046dfdaf6c7dbe76a26d2b8b6a1b",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Documenter": {
+      "agent_name": "Documenter",
+      "public_key": "EMERGENCY_Documenter_1747928191",
+      "signature_hash": "e0664a541ec96975909cab7f98e700cd8fa6363e6d814b699bbf7d3438fba93f",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Designer": {
+      "agent_name": "Designer",
+      "public_key": "EMERGENCY_Designer_1747928191",
+      "signature_hash": "07770736baf4c99791bd1ef5f81926d8d3e0ecb118d967e199a13368cdff2768",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "UI": {
+      "agent_name": "UI",
+      "public_key": "EMERGENCY_UI_1747928191",
+      "signature_hash": "4b848aec157b308245b90b50d7bca366c11ef1cff4dcf2973a4dd9042c2e2a82",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Expert": {
+      "agent_name": "Expert",
+      "public_key": "EMERGENCY_Expert_1747928191",
+      "signature_hash": "6350e9365f77e5898e37a48213d51b32cc427588e7376010cb60c7e0269f91a1",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Solver": {
+      "agent_name": "Solver",
+      "public_key": "EMERGENCY_Solver_1747928191",
+      "signature_hash": "00a6785be978892b643a171fcb011d5492ffc1ba7d7ffdf5eed5bca66c82e325",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Inspector": {
+      "agent_name": "Inspector",
+      "public_key": "EMERGENCY_Inspector_1747928191",
+      "signature_hash": "cdcdd5fea7a6939f2340f60b1c180cee2cf168e2592a06b1439bb10b37f5c0d0",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Developer": {
+      "agent_name": "Developer",
+      "public_key": "EMERGENCY_Developer_1747928191",
+      "signature_hash": "fa0961391ae6441c1cce50f6196d4758601cfbc914180e58a18f70aee731a8ad",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Architect": {
+      "agent_name": "Architect",
+      "public_key": "EMERGENCY_Architect_1747928191",
+      "signature_hash": "fbbb7128ffab64a0b5b05c75fa203de7bd4533e85c4d22682d1c8c4b827c8582",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "UX": {
+      "agent_name": "UX",
+      "public_key": "EMERGENCY_UX_1747928191",
+      "signature_hash": "8ed7531d58f28865606efff12932347949a7ed5005b5dc7b77393e75c9f827f2",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "SolutionArchitect": {
+      "agent_name": "SolutionArchitect",
+      "public_key": "EMERGENCY_SolutionArchitect_1747928191",
+      "signature_hash": "d8a7a627ba847bf090592915d5a3ac8acc0f4770f67602b8829542eeec6dece6",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Automator": {
+      "agent_name": "Automator",
+      "public_key": "EMERGENCY_Automator_1747928191",
+      "signature_hash": "920e49dca95b89624d56dd777b7223a36637e57e653fe3d832d74567de7b9b02",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Mnemosyne": {
+      "agent_name": "Mnemosyne",
+      "public_key": "EMERGENCY_Mnemosyne_1747928191",
+      "signature_hash": "08b84c8d7fbfca597f16df60662aaba99f2f41f8c7625509476de1703f5becd5",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Marketer": {
+      "agent_name": "Marketer",
+      "public_key": "EMERGENCY_Marketer_1747928191",
+      "signature_hash": "64adadd7d96dea6966a72250819956e26c1ae815e1f1141fd40f231f042e8715",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    },
+    "Analyst": {
+      "agent_name": "Analyst",
+      "public_key": "EMERGENCY_Analyst_1747928191",
+      "signature_hash": "701fb4dd24a47fd8074261e3a1ec0674cb94ed6e09196748394affa2f353760c",
+      "timestamp": 1747928191,
+      "version": "1.0.0-emergency"
+    }
+  },
+  "last_updated": 1747928191
+}

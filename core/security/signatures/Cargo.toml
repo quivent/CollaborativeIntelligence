@@ -1,0 +1,20 @@
+[package]
+name = "agent-signatures"
+version = "1.0.0-emergency"
+edition = "2021"
+description = "Emergency agent authentication system for AUTH_BYPASS_001 incident"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+hex = "0.4"
+chrono = { version = "0.4", features = ["serde"] }
+
+[lib]
+name = "agent_signatures"
+path = "mod.rs"
+
+[[bin]]
+name = "signature_cli"
+path = "cli.rs"

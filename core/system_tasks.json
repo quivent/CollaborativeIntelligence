@@ -1,0 +1,54 @@
+{
+  "matrix_type": "Priority",
+  "title": "System Task Priority Matrix",
+  "x_axis_label": "Urgency →",
+  "y_axis_label": "Importance ↑",
+  "items": [
+    {
+      "id": "auth_bypass",
+      "name": "Fix Authentication Bypass",
+      "description": "Critical security vulnerability",
+      "position": {
+        "x": 0.9,
+        "y": 0.9
+      },
+      "metadata": {},
+      "score": 9.8
+    },
+    {
+      "id": "performance_review",
+      "name": "Athena Performance Review",
+      "description": "Address documented performance issues",
+      "position": {
+        "x": 0.3,
+        "y": 0.8
+      },
+      "metadata": {},
+      "score": 8.2
+    },
+    {
+      "id": "matrix_docs",
+      "name": "Document Matrix System",
+      "description": "Create user documentation",
+      "position": {
+        "x": -0.6,
+        "y": 0.5
+      },
+      "metadata": {},
+      "score": 6.0
+    },
+    {
+      "id": "routine_cleanup",
+      "name": "Routine System Cleanup",
+      "description": "Regular maintenance",
+      "position": {
+        "x": -0.4,
+        "y": -0.3
+      },
+      "metadata": {},
+      "score": 3.0
+    }
+  ],
+  "created_at": 1747937621,
+  "updated_at": 1747937659
+}

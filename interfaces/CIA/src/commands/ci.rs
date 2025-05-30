@@ -137,6 +137,9 @@ pub fn activate(agent_name: &str, config: &Config) -> Result<()> {
             println!("{} Agent '{}' activated successfully via agent-cache", "🎉".green().bold(), agent_name);
         } else {
             let stderr = String::from_utf8_lossy(&output.stderr);
+            println!("{} Agent activation failed. Try refreshing the cache:", "💡".bright_yellow());
+            println!("  {} Build agent-cache: cd interfaces/agent-cache && cargo build --release", "🔧".cyan());
+            println!("  {} Clean cache: rm -rf CACHE/SESSIONS/*", "🧹".cyan());
             return Err(anyhow::anyhow!("Agent activation failed: {}", stderr));
         }
     } else {

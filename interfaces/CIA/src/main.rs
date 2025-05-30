@@ -14,6 +14,7 @@ mod agent_sync;
 mod agent_creation;
 mod terminal;
 mod ci_integration;
+mod security;
 
 #[derive(Parser)]
 #[clap(name = "CIA")]
@@ -57,6 +58,10 @@ enum Commands {
     /// CI integration and agent management
     #[clap(subcommand)]
     Ci(CiCommands),
+    
+    /// Security and authentication commands
+    #[clap(subcommand)]
+    Security(SecurityCommands),
 }
 
 #[derive(Subcommand)]
@@ -331,6 +336,32 @@ enum CiCommands {
     },
 }
 
+#[derive(Subcommand)]
+enum SecurityCommands {
+    /// Verify agent identity (emergency mode - all unverified)
+    VerifyAgent {
+        /// Name of the agent to verify
+        #[clap(value_parser)]
+        name: String,
+    },
+    
+    /// Challenge agent identity with authentication request
+    ChallengeIdentity {
+        /// Name of the agent to challenge
+        #[clap(value_parser)]
+        name: String,
+    },
+    
+    /// Show security system status
+    SystemStatus,
+    
+    /// Show emergency mode information
+    EmergencyMode,
+    
+    /// Generate security incident report
+    Report,
+}
+
 
 fn main() {
     // CRITICAL: Enforce CI title override before any other operations
@@ -442,6 +473,26 @@ fn main() {
             CiCommands::Validate => commands::ci::validate(&config),
             CiCommands::Repair { dry_run } => commands::ci::repair(*dry_run, &config),
             CiCommands::Monitor { interval } => commands::ci::monitor(*interval, &config),
+        },
+        
+        Commands::Security(security_cmd) => match security_cmd {
+            SecurityCommands::VerifyAgent { name } => {
+                security::commands::verify_agent(name).map_err(|e| anyhow::Error::new(e))
+            },
+            SecurityCommands::ChallengeIdentity { name } => {
+                security::commands::challenge_identity(name).map_err(|e| anyhow::Error::new(e))
+            },
+            SecurityCommands::SystemStatus => {
+                security::commands::system_status().map_err(|e| anyhow::Error::new(e))
+            },
+            SecurityCommands::EmergencyMode => {
+                security::commands::emergency_mode().map_err(|e| anyhow::Error::new(e))
+            },
+            SecurityCommands::Report => {
+                let enforcer = security::SecurityEnforcer::new();
+                println!("{}", enforcer.generate_security_report());
+                Ok(())
+            },
         },
         
     };
