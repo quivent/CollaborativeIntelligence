@@ -1,0 +1,14 @@
+# Collaborative Intelligence System Configuration
+
+## System Integration
+This configuration integrates with the Collaborative Intelligence system to provide
+advanced AI agent capabilities and collaborative development features.
+
+## Agent Management
+Agents are loaded from the AGENTS directory and can be activated using their names.
+
+## Memory System
+The system maintains persistent memory for each agent to provide continuity across sessions.
+
+## Learning System
+Continuous learning is enabled to improve agent performance over time.
