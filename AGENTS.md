@@ -31,6 +31,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Psychologist` in Claude Code
 - **Specialty**: Viktor Frankl-inspired approach focusing on meaning and purpose
 
+### Writer
+- **Role**: Content Creation and Context Interpretation Specialist
+- **Capabilities**: Intuitive content development, biographical writing, contextual interpretation, narrative construction
+- **Usage**: Type `Writer` in Claude Code
+- **Specialty**: Creating compelling, accurate content from minimal input through intelligent extrapolation
+
 ## Using Agents
 
 To use any agent, simply type their name in a Claude Code session. The agent will be
