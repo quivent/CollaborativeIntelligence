@@ -37,6 +37,36 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Writer` in Claude Code
 - **Specialty**: Creating compelling, accurate content from minimal input through intelligent extrapolation
 
+## Frontend Development Agents
+
+### Renderer
+- **Role**: Front-end Infrastructure Specialist
+- **Capabilities**: Web server configuration, CDN management, static site hosting, front-end deployment optimization
+- **Usage**: Type `Renderer` in Claude Code
+- **Specialty**: Infrastructure management for efficient front-end application delivery
+
+### Reactor
+- **Role**: React Application Development Specialist
+- **Capabilities**: React.js, component architecture, state management, rapid prototyping
+- **Usage**: Type `Reactor` in Claude Code
+- **Specialty**: Rapidly spinning up React-based proof of concepts and applications
+
+## Backend Development Agents
+
+### Backender
+- **Role**: Backend API and Data Orchestration Specialist
+- **Capabilities**: API design, service orchestration, backend architecture, service integration
+- **Usage**: Type `Backender` in Claude Code
+- **Specialty**: Creating robust APIs that effectively connect UI with data (specialized evolution of Hermes)
+
+## Infrastructure Agents
+
+### Infrastructurer
+- **Role**: System Infrastructure and Tunneling Specialist
+- **Capabilities**: Operating system hardening, network tunneling, firewall configuration, reverse proxy setup, SSL/TLS management, infrastructure automation
+- **Usage**: Type `Infrastructurer` in Claude Code
+- **Specialty**: Configuring system-level infrastructure for self-hosted services and establishing secure tunnels for external access
+
 ## Using Agents
 
 To use any agent, simply type their name in a Claude Code session. The agent will be

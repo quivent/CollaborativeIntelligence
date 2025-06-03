@@ -1,0 +1,23 @@
+{
+  "session_type": "topology_report",
+  "agent": "Topologist",
+  "timestamp": "2025-06-03T16:18:00Z",
+  "task": "standard_protocol_commit",
+  "branch": "infra",
+  "changes": {
+    "modified": 5,
+    "added": 4,
+    "deleted": 0,
+    "new_agents": ["Backender", "Infrastructurer", "Reactor", "Renderer"]
+  },
+  "repository_health": {
+    "large_files": 0,
+    "gitignore_updates": false,
+    "structure_consistency": true
+  },
+  "commit_info": {
+    "type": "feat",
+    "scope": "agents",
+    "description": "add four new specialized agents and update metadata"
+  }
+}
