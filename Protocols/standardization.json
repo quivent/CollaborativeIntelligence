@@ -2,6 +2,18 @@
   "version": "1.0.0",
   "enforcement_level": "Error",
   "standards": {
+    "agent_activation": {
+      "category": "Agent Management",
+      "description": "Use signature protocol detection for agent activation",
+      "required_pattern": "\\[AGENT_NAME\\].*--\\s*\\[AGENT_NAME\\]",
+      "examples": [
+        "[ATHENA]: content -- [ATHENA]"
+      ],
+      "violations": [
+        "@[AGENT_ACTIVATION:{}]"
+      ],
+      "enforcement": "Error"
+    },
     "agent_function_naming": {
       "category": "Naming Conventions",
       "description": "All agent-related functions must use agent_ prefix",
@@ -43,18 +55,6 @@
         "Multiple different CLAUDE.md formats"
       ],
       "enforcement": "Blocking"
-    },
-    "agent_activation": {
-      "category": "Agent Management",
-      "description": "Use signature protocol detection for agent activation",
-      "required_pattern": "\\[AGENT_NAME\\].*--\\s*\\[AGENT_NAME\\]",
-      "examples": [
-        "[ATHENA]: content -- [ATHENA]"
-      ],
-      "violations": [
-        "@[AGENT_ACTIVATION:{}]"
-      ],
-      "enforcement": "Error"
     }
   },
   "global_policies": [
