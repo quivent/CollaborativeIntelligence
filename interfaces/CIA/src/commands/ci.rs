@@ -103,6 +103,24 @@ pub fn connect(config: &Config) -> Result<()> {
 pub fn activate(agent_name: &str, config: &Config) -> Result<()> {
     println!("{} Activating CI agent: {}", "🚀".bright_blue(), agent_name.bright_white().bold());
     
+    // CRITICAL: Enforce authentication for CI agent activation (AUTH_BYPASS_001 fix)
+    let mut security_enforcer = crate::security::SecurityEnforcer::new();
+    
+    println!("{}", "🔒 SECURITY ENFORCEMENT: Validating CI agent authentication...".yellow().bold());
+    match security_enforcer.pre_operation_check(&format!("CI_{}", agent_name)) {
+        Ok(true) => {
+            println!("{}", "✅ Security check passed - User accepted risk for unverified CI agent".green());
+        },
+        Ok(false) => {
+            println!("{}", "🛡️ CI agent activation blocked by security enforcement".red());
+            return Err(anyhow::anyhow!("Security enforcement blocked CI agent activation: {}", agent_name));
+        },
+        Err(e) => {
+            println!("{} Security check failed: {}", "❌".red(), e);
+            return Err(anyhow::anyhow!("Security check failed for CI agent {}: {}", agent_name, e));
+        }
+    }
+    
     let detector = CIIntegrationDetector::new()?;
     
     if !detector.is_ci_integrated() {

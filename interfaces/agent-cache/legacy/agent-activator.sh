@@ -10,6 +10,9 @@ CI_ROOT_DIR="$(cd "$CI_TOOLS_DIR/.." && pwd)"
 # Import common library
 source "$SCRIPT_DIR/common.sh"
 
+# Import security enforcement (AUTH_BYPASS_001 fix)
+source "$SCRIPT_DIR/security-check.sh"
+
 # Import memory optimization bridge if available
 if [[ -f "$SCRIPT_DIR/rust-memory-bridge.sh" ]]; then
   source "$SCRIPT_DIR/rust-memory-bridge.sh"
@@ -30,6 +33,13 @@ activate_at() {
     exit 1
   fi
   
+  # CRITICAL: Enforce authentication before activation (AUTH_BYPASS_001 fix)
+  echo "🔒 SECURITY ENFORCEMENT: Validating agent authentication..."
+  if ! security_enforcement_check "$agent_name"; then
+    echo "❌ Agent activation blocked by security enforcement" >&2
+    exit 1
+  fi
+  
   # Call the full activation command
   "$CI_TOOLS_DIR/cmd/agent.sh" activate "$agent_name" "$context"
 }
@@ -43,6 +53,13 @@ activate_hash() {
   if [[ -z "$agent_name" ]]; then
     echo "Error: No agent name provided after > symbol" >&2
     echo "Usage: ><agent_name> [context]" >&2
+    exit 1
+  fi
+  
+  # CRITICAL: Enforce authentication before activation (AUTH_BYPASS_001 fix)
+  echo "🔒 SECURITY ENFORCEMENT: Validating agent authentication..."
+  if ! security_enforcement_check "$agent_name"; then
+    echo "❌ Agent activation blocked by security enforcement" >&2
     exit 1
   fi
   

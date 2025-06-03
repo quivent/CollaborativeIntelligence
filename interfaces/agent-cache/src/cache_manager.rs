@@ -8,6 +8,7 @@ use serde_json::{from_str, to_string_pretty, from_reader};
 use crate::error::{AgentCacheError, Result};
 use crate::models::{AgentCacheEntry, AgentStatus};
 use crate::terminal;
+use crate::security::SecurityEnforcer;
 
 /// Database format for storing all cache entries in a single file
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -322,6 +323,23 @@ impl AgentCacheManager {
         initializer: &str, 
         intent: &str
     ) -> Result<String> {
+        // CRITICAL: Enforce authentication before activation (AUTH_BYPASS_001 fix)
+        let mut security_enforcer = SecurityEnforcer::new();
+        
+        println!("{}", "🔒 SECURITY ENFORCEMENT: Validating agent authentication...".to_string().as_str());
+        match security_enforcer.pre_operation_check(agent_name) {
+            Ok(true) => {
+                println!("{}", "✅ Security check passed - User accepted risk for unverified agent");
+            },
+            Ok(false) => {
+                return Err(AgentCacheError::SecurityError(crate::security::SecurityError::OperationBlocked(
+                    format!("Agent activation blocked: {}", agent_name)
+                )));
+            },
+            Err(e) => {
+                return Err(AgentCacheError::SecurityError(e));
+            }
+        }
         // Update terminal window title immediately
         terminal::update_terminal_title(agent_name)?;
         

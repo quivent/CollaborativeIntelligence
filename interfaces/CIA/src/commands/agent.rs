@@ -20,6 +20,24 @@ pub fn activate(name: &str, config: &Config) -> Result<()> {
         "cyan"
     );
     
+    // CRITICAL: Enforce authentication before activation (AUTH_BYPASS_001 fix)
+    let mut security_enforcer = crate::security::SecurityEnforcer::new();
+    
+    println!("{}", "🔒 SECURITY ENFORCEMENT: Validating agent authentication...".yellow().bold());
+    match security_enforcer.pre_operation_check(name) {
+        Ok(true) => {
+            CommandHelpers::print_info("Security check passed - User accepted risk for unverified agent");
+        },
+        Ok(false) => {
+            CommandHelpers::print_error("Agent activation blocked by security enforcement");
+            return Err(anyhow::anyhow!("Security enforcement blocked agent activation: {}", name));
+        },
+        Err(e) => {
+            CommandHelpers::print_error(&format!("Security check failed: {}", e));
+            return Err(anyhow::anyhow!("Security check failed for agent {}: {}", name, e));
+        }
+    }
+    
     // Check if agent exists
     let agents_path = PathHelpers::get_agents_path(&config.repo_path);
     let agent_path = agents_path.join(name);
@@ -123,6 +141,24 @@ pub fn create(
     quick: bool,
     config: &Config,
 ) -> Result<()> {
+    // CRITICAL: Enforce authentication for agent creation (AUTH_BYPASS_001 fix)
+    let mut security_enforcer = crate::security::SecurityEnforcer::new();
+    
+    println!("{}", "🔒 SECURITY ENFORCEMENT: Validating permissions for agent creation...".yellow().bold());
+    match security_enforcer.pre_operation_check(&format!("CREATE_{}", name)) {
+        Ok(true) => {
+            CommandHelpers::print_info("Security check passed - User accepted risk for agent creation");
+        },
+        Ok(false) => {
+            CommandHelpers::print_error("Agent creation blocked by security enforcement");
+            return Err(anyhow::anyhow!("Security enforcement blocked agent creation: {}", name));
+        },
+        Err(e) => {
+            CommandHelpers::print_error(&format!("Security check failed: {}", e));
+            return Err(anyhow::anyhow!("Security check failed for agent creation {}: {}", name, e));
+        }
+    }
+    
     create_agent_interactive(name, role, purpose, quick, config)
 }
 

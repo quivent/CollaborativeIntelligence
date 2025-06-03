@@ -15,6 +15,7 @@ mod agent_creation;
 mod terminal;
 mod ci_integration;
 mod security;
+mod components;
 
 #[derive(Parser)]
 #[clap(name = "CIA")]

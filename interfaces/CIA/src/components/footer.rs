@@ -33,7 +33,7 @@ impl FooterComponent {
         let matrix_doc = DocumentationSection {
             title: "Matrix Quadrant System".to_string(),
             content: format!(
-                "{}\n\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n{}",
+                "{}\n\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n{}\n{}\n{}",
                 "📊 MATRIX QUADRANT SYSTEM".cyan().bold(),
                 "🏗️ Core Architecture:",
                 "  • Flexible QuadrantMatrix structure supporting multiple analysis types",
@@ -85,7 +85,7 @@ impl FooterComponent {
         let security_doc = DocumentationSection {
             title: "Security & Authentication System".to_string(),
             content: format!(
-                "{}\n\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}",
+                "{}\n\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}\n{}\n\n{}\n{}\n{}\n{}\n{}",
                 "🔐 SECURITY SYSTEM".red().bold(),
                 
                 "🛡️ Emergency Authentication:",

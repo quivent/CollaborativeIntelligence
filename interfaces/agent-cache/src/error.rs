@@ -31,6 +31,10 @@ pub enum AgentCacheError {
     /// System time error
     #[error("System time error: {0}")]
     TimeError(#[from] std::time::SystemTimeError),
+    
+    /// Security error
+    #[error("Security error: {0}")]
+    SecurityError(#[from] crate::security::SecurityError),
 }
 
 /// Result type for Agent Cache operations
