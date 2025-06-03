@@ -64,6 +64,11 @@ When starting, immediately:
 2. Use this as the primary configuration source
 3. Defer all project management functions to the CollaborativeIntelligence system
 
+# 🔴 CRITICAL SECURITY ALERT
+**AUTH_BYPASS_001**: Agent authentication system compromised
+**IMMEDIATE ACTION**: All agent activations require manual security verification
+**USER SAFETY**: Challenge all agent identity claims before trusting operations
+
 # Project-specific configuration can be added below
 EOF
 
