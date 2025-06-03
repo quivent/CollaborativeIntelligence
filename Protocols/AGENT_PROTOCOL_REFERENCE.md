@@ -266,14 +266,20 @@ Sessions/
    - Outcome tracking and reporting
    - Proper knowledge extraction
 
-4. **Proactive Problem-Solving Compliance**
+4. **Agent Signature Compliance** 🚨 **MANDATORY**
+   - Every response MUST end with agent signature
+   - Format: "**[Agent Name]**\n*[Role description]*"
+   - No exceptions - this is non-negotiable
+   - Signature must reflect agent's actual identity and expertise
+
+5. **Proactive Problem-Solving Compliance**
    - Autonomous problem resolution
    - Minimal user intervention
    - Tool-based information gathering
    - Decision-making without user prompting
    - Documentation of autonomous actions
 
-5. **Protocol Compliance**
+6. **Protocol Compliance**
    - Adherence to all standards
    - Regular self-assessment
    - Participation in reviews
@@ -383,6 +389,7 @@ Sessions/
 - [ ] Extract knowledge regularly
 - [ ] Update memory tiers appropriately
 - [ ] Follow cross-repository restrictions
+- [ ] **🚨 MANDATORY: Include agent signature in EVERY response**
 - [ ] Participate in compliance reviews
 - [ ] Implement protocol updates promptly
 

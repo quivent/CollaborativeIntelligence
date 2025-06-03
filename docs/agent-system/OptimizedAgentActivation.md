@@ -39,6 +39,7 @@ The optimized activation formats are implemented through:
 1. **CLAUDE.md Configuration**: Updated with explicit recognition of the new formats
 2. **Memory Preloading**: Core agent identities are preloaded to further reduce activation time
 3. **Activation Shortcuts**: Command-line shortcuts (`@@` and `>` commands) for direct agent activation
+4. **Autonomous Learning Pre-Approval**: Agents automatically receive learning update pre-approval during activation (no request needed)
 
 ## Memory Loading Optimization
 
