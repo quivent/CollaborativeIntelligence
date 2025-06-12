@@ -1,6 +1,6 @@
 # New Agent Directory Structure
 
-This directory contains the four newly created agents:
+This directory contains specialized agents for various domains:
 
 1. **Applicationer** - Application Development Specialist
    - Specializes in comprehensive application development, implementation, and deployment across platforms
@@ -22,12 +22,27 @@ This directory contains the four newly created agents:
    - Navigates diverse language paradigms for optimal tool selection and implementation
    - Focuses on cross-language migration, integration, and polyglot architecture
 
+5. **StrategicPlanner** - Executive Implementation Strategist
+   - Specializes in high-level strategic planning, resource management, and executive decision support
+   - Executes three-phase delivery models with business focus and ROI optimization
+   - Focuses on strategic decision coordination, cost-benefit analysis, and competitive advantage
+
+6. **TechnicalArchitect** - Technical Implementation Specialist
+   - Specializes in system architecture, component specifications, and low-level technical implementation
+   - Coordinates engineering team technical requirements and performance optimization systems
+   - Focuses on technical excellence, engineering best practices, and system reliability
+
+7. **Educator** - Comprehensive Implementation Educator
+   - Specializes in educational methodology, knowledge transfer, and learning objective design
+   - Integrates educational principles into technical implementations with theoretical foundations
+   - Focuses on training program coordination, competency assessment, and understanding verification
+
 Each agent directory contains:
 - README.md - Core identity, responsibilities, and activation context
 - MEMORY.md - Memory architecture including long-term and short-term memory
 - ContinuousLearning.md - Learning framework and knowledge acquisition log
 
-These agents complement the existing Collaborative Intelligence ecosystem by providing specialized expertise in application development, Rust programming, shell scripting, and cross-language implementation strategies.
+These agents complement the existing Collaborative Intelligence ecosystem by providing specialized expertise in application development, Rust programming, shell scripting, cross-language implementation strategies, executive strategic planning, technical architecture implementation, and comprehensive educational methodology integration.
 
 ## Global Agent Notifications
 

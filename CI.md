@@ -101,3 +101,25 @@ The following are SUSPENDED until authentication infrastructure is implemented:
 2. Maintain consistent formatting with the rest of the codebase
 3. Add appropriate error handling for all code modifications
 4. Include only necessary comments - focus on clear, self-documenting code
+
+## 🚫 GLOBAL ENFORCEMENT: Bash Script Prohibition
+
+**CRITICAL SYSTEM POLICY**: Creation of bash scripts is STRICTLY PROHIBITED across all system operations.
+
+### Enforcement Rules
+1. **NO BASH SCRIPT CREATION**: Never create files with .sh extension or bash shebangs
+2. **NO SHELL SCRIPTING**: Avoid all forms of shell script development
+3. **ALTERNATIVE SOLUTIONS REQUIRED**: Use Rust, JavaScript, or other proper programming languages
+4. **EXISTING SCRIPTS**: Legacy bash scripts should be migrated to proper languages when encountered
+5. **EMERGENCY EXCEPTION**: Only with explicit user override and strong justification
+
+### Rationale
+- Bash scripts create maintenance burden and reliability issues
+- Proper programming languages provide better error handling and testing
+- Type safety and modern tooling improve code quality
+- Cross-platform compatibility is better with compiled languages
+
+### Violation Response
+- Immediate refactoring to appropriate language
+- Documentation of alternative implementation approach
+- User notification of policy enforcement

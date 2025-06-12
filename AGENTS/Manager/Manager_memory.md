@@ -1,5 +1,7 @@
 # Agent Memory: Manager
 
+]11;#001133
+
 ## Manager - General Management and Organization Specialist
 
 - **Role**: Comprehensive management and organizational oversight specialist

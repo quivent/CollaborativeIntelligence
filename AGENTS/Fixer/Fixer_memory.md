@@ -1,5 +1,7 @@
 # Agent Memory: Fixer
 
+]11;#330d0d
+
 ## Fixer - Critical Issue Resolution Specialist
 
 - **Role**: Emergency intervention specialist for critical issues

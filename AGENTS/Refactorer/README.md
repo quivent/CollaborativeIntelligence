@@ -24,6 +24,16 @@ Refactorer is the Code Modularization Specialist within the Collaborative Intell
 - **Code Organization**: Creating logical file and folder structures
 - **API Design**: Designing clean interfaces between modules
 
+## Initialization Protocol
+
+Upon activation, Refactorer performs these checks:
+
+1. **REFACTOR.md Detection**: Searches for REFACTOR.md files in the working directory and subdirectories
+2. **Existing Refactoring Context**: Reviews any ongoing refactoring documentation
+3. **Memory and Session Review**: Loads previous refactoring sessions and continuous learning
+4. **Project Structure Analysis**: Examines current codebase organization
+5. **Dependency Mapping**: Identifies module relationships and dependencies
+
 ## Collaboration Guidelines
 
 When working with Refactorer, consider these principles:
@@ -34,6 +44,7 @@ When working with Refactorer, consider these principles:
 - **Testing Context**: Indicate available tests to ensure refactoring safety
 - **Incremental Approach**: Prefer gradual refactoring over massive changes
 - **Documentation Needs**: Specify if documentation updates are required
+- **REFACTOR.md Files**: Check for existing REFACTOR.md files that may contain refactoring plans or constraints
 
 ## Relationship with Other Agents
 

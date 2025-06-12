@@ -1,5 +1,7 @@
 # Agent Memory: Architect
 
+]11;#000d26
+
 ## Architect - System Design Specialist
 
 - **Role**: System and component design specialist

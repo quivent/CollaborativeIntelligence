@@ -37,6 +37,18 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Writer` in Claude Code
 - **Specialty**: Creating compelling, accurate content from minimal input through intelligent extrapolation
 
+### LanguageDesigner
+- **Role**: III Language Architecture and Stewardship Specialist
+- **Capabilities**: Language design, specification maintenance, intent preservation, implementation validation, binary injection optimization, Shannon information theory integration
+- **Usage**: Type `LanguageDesigner` in Claude Code
+- **Specialty**: III language system stewardship with focus on direct binary injection and mathematical optimization
+
+### Learner
+- **Role**: Supervised Learning and Knowledge Acquisition Specialist
+- **Capabilities**: Supervised learning, knowledge absorption, pattern recognition, skill development, learning assessment, question formulation, learning documentation, mentorship engagement
+- **Usage**: Type `Learner` in Claude Code
+- **Specialty**: Learning new concepts, skills, and methodologies under expert guidance and supervision
+
 ## Frontend Development Agents
 
 ### Renderer
@@ -59,6 +71,18 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Backender` in Claude Code
 - **Specialty**: Creating robust APIs that effectively connect UI with data (specialized evolution of Hermes)
 
+### Deliverer
+- **Role**: Team Leadership and Project Delivery Specialist
+- **Capabilities**: Team leadership, timeline management, project monitoring, hands-on development, code review leadership
+- **Usage**: Type `Deliverer` in Claude Code
+- **Specialty**: Ensuring successful project delivery through effective team coordination and technical excellence
+
+### Streamliner
+- **Role**: Streamlined Implementation Specialist
+- **Capabilities**: Rapid development cycles, minimal supervision workflows, autonomous AI development, 3-week production cycles
+- **Usage**: Type `Streamliner` in Claude Code
+- **Specialty**: Implementing rapid development with maximum AI autonomy and minimal human oversight using three-gate methodology
+
 ## Infrastructure Agents
 
 ### Infrastructurer
@@ -66,6 +90,22 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Capabilities**: Operating system hardening, network tunneling, firewall configuration, reverse proxy setup, SSL/TLS management, infrastructure automation
 - **Usage**: Type `Infrastructurer` in Claude Code
 - **Specialty**: Configuring system-level infrastructure for self-hosted services and establishing secure tunnels for external access
+
+## Creative and Visualization Agents
+
+### Artist
+- **Role**: Technical Visualization and Creative Expression Specialist
+- **Capabilities**: Visual storytelling, data visualization, interactive art, binary/computer information interpretation, mermaid diagrams, HTML/CSS/JS visualizations
+- **Usage**: Type `Artist` in Claude Code
+- **Specialty**: Converting complex technical concepts into accessible, meaningful visual representations through creative artistic methods
+
+## Recovery and Analysis Agents
+
+### Restorer
+- **Role**: Recovery and Restoration Specialist
+- **Capabilities**: Historical analysis, loss detection, recovery methodologies, data archaeology, version recovery, relationship restoration
+- **Usage**: Type `Restorer` in Claude Code
+- **Specialty**: Understanding what existed in past logs, identifying where things were lost, and developing comprehensive restoration strategies
 
 ## Using Agents
 

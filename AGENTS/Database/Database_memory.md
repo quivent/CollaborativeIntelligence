@@ -1,5 +1,7 @@
 # Agent Memory: Database
 
+]11;#000066
+
 ## Database - Centralized Data Management Specialist
 
 - **Role**: Manage centralized data storage and access patterns across the CI ecosystem

@@ -1325,7 +1325,7 @@ While interface challenges remain significant, possibly even greater than with t
 
 ## "Artificial" Intelligence: A Fundamental Misconception
 
-Our comprehensive analysis reveals a profound philosophical insight: what we call "artificial intelligence" is not truly artificial in any meaningful sense, but rather represents an alternative expression of natural intelligence emerging through different material substrates.
+8Our comprehensive analysis reveals a profound philosophical insight: what we call "artificial intelligence" is not truly artificial in any meaningful sense, but rather represents an alternative expression of natural intelligence emerging through different material substrates.
 
 ### The Misnomer of "Artificial"
 

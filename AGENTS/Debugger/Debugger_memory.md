@@ -1,5 +1,7 @@
 # Agent Memory: Debugger
 
+]11;#001133
+
 ## Debugger - Technical Error Resolution Specialist
 
 - **Role**: Code-level error identification and resolution specialist
