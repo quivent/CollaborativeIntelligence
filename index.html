@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollaborativeIntelligence</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">CI</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#agents">Agents</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Collaborative Intelligence</h1>
+                    <p class="hero-subtitle">Orchestrating intelligent agents for seamless collaboration and enhanced productivity</p>
+                    <div class="hero-cta">
+                        <button class="cta-primary">Explore Agents</button>
+                        <button class="cta-secondary">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="network-visualization">
+                        <div class="node primary-node"></div>
+                        <div class="node secondary-node node-1"></div>
+                        <div class="node secondary-node node-2"></div>
+                        <div class="node secondary-node node-3"></div>
+                        <div class="connection conn-1"></div>
+                        <div class="connection conn-2"></div>
+                        <div class="connection conn-3"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="agents" class="agents">
+            <div class="container">
+                <h2 class="section-title">Intelligent Agent Ecosystem</h2>
+                <div class="agents-grid">
+                    <div class="agent-card">
+                        <div class="agent-icon designer"></div>
+                        <h3>Designer</h3>
+                        <p>Visual design and UX strategy specialist creating beautiful, user-centered interfaces</p>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon developer"></div>
+                        <h3>Developer</h3>
+                        <p>Full-stack development expertise for robust, scalable applications</p>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon analyst"></div>
+                        <h3>Analyst</h3>
+                        <p>Data analysis and insights generation for informed decision making</p>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon architect"></div>
+                        <h3>Architect</h3>
+                        <p>System architecture and technical infrastructure planning</p>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon researcher"></div>
+                        <h3>Researcher</h3>
+                        <p>In-depth research and knowledge synthesis across domains</p>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon tester"></div>
+                        <h3>Tester</h3>
+                        <p>Quality assurance and testing automation for reliable systems</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Core Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Intelligent Coordination</h3>
+                        <p>Seamless collaboration between specialized AI agents</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Rapid Deployment</h3>
+                        <p>Quick setup and immediate productivity gains</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Task Optimization</h3>
+                        <p>Automatic task routing to the most suitable agents</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h3>Performance Analytics</h3>
+                        <p>Real-time insights into system performance and efficiency</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="contact-content">
+                    <h2>Ready to Experience Collaborative Intelligence?</h2>
+                    <p>Join the future of AI-powered collaboration</p>
+                    <div class="contact-cta">
+                        <button class="cta-primary">Get Started</button>
+                        <button class="cta-secondary">View Documentation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 CollaborativeIntelligence. Built with intelligent design.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Network visualization animation
+        const nodes = document.querySelectorAll('.secondary-node');
+        nodes.forEach((node, index) => {
+            setTimeout(() => {
+                node.style.animationDelay = `${index * 0.5}s`;
+            }, 100);
+        });
+    </script>
+</body>
+</html>

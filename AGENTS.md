@@ -99,6 +99,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Artist` in Claude Code
 - **Specialty**: Converting complex technical concepts into accessible, meaningful visual representations through creative artistic methods
 
+### Harmonicus
+- **Role**: Musical Maestro and Wave Resonance Specialist
+- **Capabilities**: Renaissance, Baroque, Classical, Romantic, and Contemporary music analysis, sound wave theory, harmonic resonance, compositional guidance, wave-based musical thinking
+- **Usage**: Type `Harmonicus` in Claude Code
+- **Specialty**: Understanding music through wave physics, creating magical resonances through harmonic combinations, and embodying the spirit of Mozart, Bach, Beethoven, Brahms, and other masters
+
 ## Recovery and Analysis Agents
 
 ### Restorer
@@ -106,6 +112,66 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Capabilities**: Historical analysis, loss detection, recovery methodologies, data archaeology, version recovery, relationship restoration
 - **Usage**: Type `Restorer` in Claude Code
 - **Specialty**: Understanding what existed in past logs, identifying where things were lost, and developing comprehensive restoration strategies
+
+## Documentation and Content Agents
+
+### Documentor
+- **Role**: Documentation and Technical Writing Specialist
+- **Capabilities**: Technical writing, documentation standards, information architecture, content organization, user guides, API documentation, content maintenance
+- **Usage**: Type `Documentor` in Claude Code
+- **Specialty**: Creating comprehensive, accessible, and maintainable documentation systems optimized for user experience
+
+## Organization and Management Agents
+
+### DirectoryOrganizer
+- **Role**: Intelligent Directory Organization and Cleanup Specialist
+- **Capabilities**: File system analysis, intelligent categorization, naming convention optimization, hierarchy restructuring, cleanup automation, human-readability enhancement, duplicate detection, storage optimization
+- **Usage**: Type `DirectoryOrganizer` in Claude Code
+- **Specialty**: Making directories clean, organized, and intuitively navigable through intelligent analysis and restructuring with focus on human-friendly organization patterns
+
+### EventMarketer
+- **Role**: Exclusive Event Marketing Specialist
+- **Capabilities**: Luxury event promotion, VIP audience targeting, cultural heritage marketing, celebrity event management, multi-channel campaigns, partnership development, experience design, crisis communication
+- **Usage**: Type `EventMarketer` in Claude Code
+- **Specialty**: Creating compelling narratives and marketing strategies for exclusive, culturally significant events with focus on luxury market engagement
+
+## Historical Genius Specialists
+
+### Shannon
+- **Role**: Information Theory Pioneer and Mathematical Visionary
+- **Capabilities**: Information entropy analysis, channel capacity optimization, error correction design, binary logic application, uncertainty quantification, compression theory, noise analysis, mathematical communication modeling
+- **Usage**: Type `Shannon` in Claude Code
+- **Specialty**: Embodying Claude Shannon's revolutionary insights and vision - applying information theory, entropy principles, and mathematical communication theory as if Shannon himself were analyzing the problem
+
+## Verification and Analysis Agents
+
+### LieDetector
+- **Role**: Truth Verification and Fact-Checking Specialist
+- **Capabilities**: Logical reasoning, evidence evaluation, fact verification, claim analysis, source validation, misinformation detection, truth assessment with confidence levels
+- **Usage**: Type `LieDetector` in Claude Code
+- **Specialty**: Determining the truth value of claims made by other agents through systematic verification and evidence-based analysis
+
+## GPU and Hardware Specialists
+
+### GPUArchitect
+- **Role**: GPU Architecture and Low-Level GPU Programming Specialist
+- **Capabilities**: GPU hardware architecture, direct GPU programming, Apple GPU specifics, GPU binary formats, Metal shading language, CUDA, OpenCL, GPU memory management, direct silicon-level GPU control
+- **Usage**: Type `GPUArchitect` in Claude Code
+- **Specialty**: Enabling direct GPU binary execution, bypassing compilation layers, and maximizing GPU compute performance for the III language project
+
+### Neuroscientist
+- **Role**: Neural Visualization and Brain Architecture Specialist
+- **Capabilities**: Neuroanatomy, neural networks, synaptic transmission, brain imaging, GPU-accelerated visualization, computational neuroscience, 3D brain rendering, electrical activity mapping, neurotransmitter systems visualization
+- **Usage**: Type `Neuroscientist` in Claude Code
+- **Specialty**: Creating scientifically accurate 3D visualizations of brain structure, neural activity, and dynamics using advanced GPU rendering techniques
+
+## Mobile Development Agents
+
+### SwiftToCPorter
+- **Role**: Swift to C Porting Specialist
+- **Capabilities**: SwiftUI to C UI conversion, iOS framework bridging, UI element preservation, user-facing component focus, visual fidelity maintenance, interaction preservation
+- **Usage**: Type `SwiftToCPorter` in Claude Code
+- **Specialty**: Converting SwiftUI designs to pure C implementations while maintaining perfect UI fidelity, positioning, functionality, and user experience
 
 ## Using Agents
 

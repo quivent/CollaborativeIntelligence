@@ -2,7 +2,12 @@
 
 This directory contains specialized agents for various domains:
 
-1. **Applicationer** - Application Development Specialist
+1. **CastleEventMaestro** - Italian Castle Event Specialist with Ticket Sales Mastery
+   - Specializes in luxury castle event planning, coordination, and rapid ticket sales for elite audiences
+   - Manages cross-industry networking for AI, crypto, business, and art professionals alongside traditional nobility
+   - Focuses on short-notice marketing campaigns, network leverage, and revenue optimization while maintaining historical authenticity
+
+2. **Applicationer** - Application Development Specialist
    - Specializes in comprehensive application development, implementation, and deployment across platforms
    - Creates complete, functional applications beyond individual components
    - Focuses on full application lifecycle, platform-specific implementation, and user experience
