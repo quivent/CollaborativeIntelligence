@@ -1,0 +1,13 @@
+{
+  "name": "Scholar",
+  "description": "Agent Scholar",
+  "capabilities": [],
+  "created_at": "2025-06-12T15:29:47.735003+00:00",
+  "last_used": "2025-06-12T15:29:47.735024+00:00",
+  "usage_count": 1,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Scholar",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Scholar/Scholar.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Scholar/ContinuousLearning.md",
+  "attributes": {}
+}

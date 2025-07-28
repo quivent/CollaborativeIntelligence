@@ -1,0 +1,13 @@
+{
+  "name": "Documentor",
+  "description": "Agent Documentor",
+  "capabilities": [],
+  "created_at": "2025-06-13T01:42:50.993643+00:00",
+  "last_used": "2025-07-28T11:52:08.346882+00:00",
+  "usage_count": 6,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Documentor",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Documentor/Documentor.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Documentor/ContinuousLearning.md",
+  "attributes": {}
+}

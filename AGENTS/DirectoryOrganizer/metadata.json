@@ -1,0 +1,13 @@
+{
+  "name": "DirectoryOrganizer",
+  "description": "Agent DirectoryOrganizer",
+  "capabilities": [],
+  "created_at": "2025-06-13T07:01:09.082458+00:00",
+  "last_used": "2025-06-13T07:01:09.082466+00:00",
+  "usage_count": 1,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/DirectoryOrganizer",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/DirectoryOrganizer/DirectoryOrganizer_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/DirectoryOrganizer/ContinuousLearning.md",
+  "attributes": {}
+}
