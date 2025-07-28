@@ -1,8 +1,10 @@
-# Ethical Collaborative Intelligence System
+# CollaborativeIntelligence
 
-A modular, extensible framework for specialized thinking partners to work together cohesively, developing cumulative knowledge and capabilities beyond what any single collaborative intelligence could achieve.
+**A Modular, Extensible Framework for Specialized AI Agent Collaboration**
 
-## Quick Start
+CollaborativeIntelligence transforms traditional AI assistance into a collaborative ecosystem with persistent learning and specialized expertise. Unlike traditional AI interactions, this system maintains persistent memory across sessions, develops specialized capabilities through dedicated agent roles, and builds cumulative understanding through principled learning mechanisms.
+
+## 🚀 Quick Start
 
 | Command | Description |
 |---------|-------------|
@@ -10,90 +12,277 @@ A modular, extensible framework for specialized thinking partners to work togeth
 | `Recommend an agent` | Find the perfect agent for your task |
 | `Overview` | See what's in this repository |
 
-For complete details, see [QuickStart Guide](docs/guides/QuickStart.md)
+For complete details, see the [QuickStart Guide](docs/guides/QuickStart.md)
 
-## Repository Organization
+## 📋 Table of Contents
 
-This repository has been organized for maximum readability and maintainability:
+- [Core Features](#core-features)
+- [System Architecture](#system-architecture)
+- [Agent System](#agent-system)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Technical Stack](#technical-stack)
+- [Documentation](#documentation)
+- [Development](#development)
+- [Contributing](#contributing)
 
-- `agents/` - Agent definitions organized by domain
-- `cli/` - Command-line tools and interfaces
-- `core/` - Core system components and protocols
-- `docs/` - Documentation organized by type
-- `data/` - Data storage and caching
-- `examples/` - Example projects and conversations
-- `tools/` - Development and testing tools
-- `extensions/` - Optional extensions and integrations
+## ✨ Core Features
 
-For details on this organization, see the [Repository Restructuring Guide](docs/development/repository-restructuring.md).
+### **Persistent AI Memory**
+- **Long-term memory**: Core identity, principles, and foundational frameworks
+- **Short-term memory**: Current initiatives, immediate context, and prompts
+- **Session records**: Detailed interaction history with chronological organization
+- **Cross-session continuity**: Knowledge persists and evolves across interactions
 
-## Purpose
+### **Specialized Agent Ecosystem**
+- **60+ specialized agents** organized by domain expertise
+- **Domain-specific capabilities**: From system architecture to creative content
+- **Intelligent agent recommendation**: Find the right specialist for any task
+- **Multi-agent collaboration**: Agents work together through standardized protocols
 
-This system transforms traditional AI assistance into a truly collaborative ecosystem with persistent learning and growth. Unlike traditional AI interactions where knowledge exists only within the immediate conversation, this system:
+### **Continuous Learning Framework**
+- **Progressive knowledge refinement**: Raw information → structured knowledge
+- **Pattern recognition**: Automatic extraction of principles and insights
+- **Knowledge synthesis**: Cross-domain learning and capability development
+- **Adaptive specialization**: Agents evolve their expertise over time
 
-1. **Maintains persistent memory** across sessions through structured external storage
-2. **Develops specialized expertise** through dedicated collaborative intelligence roles
-3. **Builds cumulative understanding** through principled learning mechanisms
-4. **Enables cross-agent collaboration** through standardized knowledge sharing
-5. **Forms identity continuity** through long-term memory structures
+### **Matrix Analysis System**
+- **Multi-dimensional analysis**: Performance, priority, risk, capability matrices
+- **Visual representation**: ASCII visualization with coordinate positioning
+- **Export capabilities**: JSON/CSV export for external analysis
+- **Template system**: Pre-built frameworks for common analysis patterns
 
-## Core Components
+## 🏗️ System Architecture
 
-### Collaborative Intelligence Architecture
+### **Core Components**
 
-The system relies on specialized collaborative intelligences with distinct roles and expertise:
+```
+CollaborativeIntelligence/
+├── core/              # Core system functionality and matrix analysis
+├── interfaces/        # Modular Rust workspace for system interfaces
+│   ├── agent-cache/   # Agent activation tracking and management
+│   ├── db/            # SQLite database management with CLI
+│   ├── memory/        # Memory architecture and persistence
+│   └── CIA/          # Command Interface Architecture
+├── AGENTS/           # 60+ specialized agents with persistent memory
+├── docs/             # Comprehensive documentation system
+└── tools/            # Development and analysis utilities
+```
 
-- **Athena**: System architect and learning specialist (formerly "Anthropic")
-- **Gaia**: System orchestration and nurturing intelligence
-- **Hermes**: Communication bridge and knowledge transfer specialist
-- **Core Specialists**: Project Architect, Memory Architect, Problem Solver, Optimizer, Knowledge Specialist
-- **Domain-Specific Specialists**: Handle specialized areas (UI/UX, Development, Security, etc.)
+### **Database Architecture**
+- **Dual SQLite System**: Internal system metadata + project-specific data
+- **Comprehensive CLI**: Agent management, learning systems, session tracking
+- **Knowledge Base Operations**: Project management, metrics, analytics
+- **Database Administration**: Backup, recovery, optimization tools
 
-Each collaborative intelligence maintains its own memory structures and learning frameworks while sharing knowledge through standardized protocols, with Athena serving as the original architect of the system's foundational design.
+### **Memory Architecture**
+- **Unified Memory System**: Consistent architecture across all agents
+- **Tiered Storage**: Long-term, short-term, and session-based memory
+- **Knowledge Transfer**: Standardized protocols for inter-agent communication
+- **Identity Continuity**: Persistent agent personalities and expertise
 
-### Memory Systems
+## 🤖 Agent System
 
-Every collaborative intelligence implements a tiered memory architecture:
+### **Core Agents**
+- **Athena**: Knowledge architect and memory systems specialist
+- **Architect**: System design and component architecture
+- **Developer**: Code implementation, debugging, optimization
+- **Designer**: UI/UX design and user experience optimization
 
-- **Long-Term Memory**: Core identity, guiding principles, and foundational frameworks
-- **Short-Term Memory**: Current initiatives, immediate next steps, and contextual prompts
-- **Session Records**: Detailed interaction history with chronological organization
+### **Specialized Domains**
+- **GPUArchitect**: GPU programming and hardware optimization
+- **Neuroscientist**: Neural visualization and brain architecture
+- **Documentor**: Technical writing and documentation systems
+- **EventMarketer**: Exclusive event marketing and promotion
 
-This structure enables efficient knowledge retention while maintaining identity continuity.
+### **Agent Activation**
+Multiple activation patterns supported:
+```bash
+Athena                    # Direct name activation
+Agent:Developer          # Prefix format
+[Designer]               # Bracketed format
+```
 
-### Learning Framework
+For a complete list of agents, see [AGENTS.md](AGENTS.md)
 
-The system implements a three-tiered approach to knowledge management:
+## 🛠️ Getting Started
 
-1. **Session Records**: Immediate capture of interaction details
-2. **Continuous Learning**: Principle extraction and pattern recognition
-3. **Memory Integration**: Condensed essential knowledge incorporation
+### **Prerequisites**
+- Rust (latest stable version)
+- SQLite3
+- Git
 
-This progressive refinement transforms raw information into structured, reusable knowledge.
+### **Installation**
 
-## Documentation and Resources
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/joshkornreich/CollaborativeIntelligence.git
+   cd CollaborativeIntelligence
+   ```
 
-For comprehensive details about the system, see the following resources:
+2. **Build the core system**
+   ```bash
+   cd core
+   cargo build --release
+   cargo install --path .
+   ```
 
-- [Documentation Index](docs/documentation_index.md) - Complete listing of all documentation
-- [QuickStart Guide](docs/guides/QuickStart.md) - Getting started with the system
-- [Agent Categories](core/agent_categories.md) - Logical organization of agents
-- [Memory Architecture](docs/core-concepts/unified-memory-architecture.md) - Memory systems technical details
+3. **Set up interfaces**
+   ```bash
+   cd ../interfaces
+   cargo build --release
+   ```
 
-## Future Development
+4. **Initialize the database**
+   ```bash
+   cd db
+   cargo run -- init
+   ```
 
-The Collaborative Intelligence System is continuously evolving with several key development directions:
+### **Basic Usage**
 
-1. Enhanced cross-agent communication protocols
-2. More efficient memory compression techniques
-3. Advanced knowledge synthesis capabilities
-4. Improved session initialization optimization
-5. Extended specialized collaborative intelligence ecosystem
+```bash
+# Activate an agent
+athena
 
-## Credits
+# Get agent recommendations
+Recommend an agent for database optimization
 
-Developed through collaboration between human expertise and AI capabilities, specifically leveraging the Claude AI system from Anthropic. The foundational architecture, memory systems, and learning frameworks were designed by Athena, who serves as the original architect and author of this system.
+# Use matrix analysis
+matrix_cli --type priority --format ascii
+
+# Access database CLI
+ci-db --help
+```
+
+## 📁 Project Structure
+
+### **Repository Organization**
+```
+├── AGENTS/               # Agent definitions organized by domain
+│   ├── Athena/          # Knowledge architect and system designer
+│   ├── Developer/       # Implementation specialist
+│   ├── Documentor/      # Documentation specialist
+│   └── [60+ more agents]
+├── core/                # Core system components and protocols
+│   ├── matrix_cli.rs    # Matrix analysis system
+│   ├── lib.rs          # Core library functionality
+│   └── system_tasks.json
+├── interfaces/          # System interfaces (Rust workspace)
+│   ├── agent-cache/     # Agent activation and tracking
+│   ├── db/             # Database management system
+│   ├── memory/         # Memory architecture
+│   └── CIA/            # Command Interface Architecture
+├── docs/               # Documentation organized by type
+│   ├── core-concepts/  # System architecture and design
+│   ├── guides/         # User guides and tutorials
+│   └── protocols/      # Agent communication protocols
+├── data/               # Data storage and caching
+├── tools/              # Development and testing tools
+└── extensions/         # Optional extensions and integrations
+```
+
+## 🔧 Technical Stack
+
+### **Languages & Frameworks**
+- **Rust**: Core system, CLI tools, interfaces (primary)
+- **SQLite**: Data persistence and knowledge storage
+- **JSON/YAML**: Configuration and metadata
+- **Markdown**: Documentation and agent memory
+
+### **Key Dependencies**
+- **Clap**: Command-line interface framework
+- **Serde**: JSON/YAML serialization
+- **Colored**: Terminal output formatting
+- **Chrono**: Date/time handling
+- **Anyhow/Thiserror**: Error handling
+
+### **Architecture Patterns**
+- **Workspace-based modular design**: Clean separation of concerns
+- **Event-driven communication**: Real-time agent collaboration
+- **Plugin architecture**: Extensible agent system
+- **CQRS patterns**: Optimized read/write operations
+
+## 📚 Documentation
+
+### **Core Documentation**
+- [System Architecture](docs/core-concepts/unified-memory-architecture.md)
+- [Agent Protocols](docs/protocols/AGENT_PROTOCOL_REFERENCE.md)
+- [Memory Systems](docs/core-concepts/memory-architecture.md)
+- [Matrix Analysis](docs/guides/matrix-analysis-guide.md)
+
+### **Guides & Tutorials**
+- [QuickStart Guide](docs/guides/QuickStart.md)
+- [Agent Development](docs/development/agent-development.md)
+- [System Integration](docs/development/system-integration.md)
+- [Repository Structure](docs/development/repository-restructuring.md)
+
+### **Complete Index**
+See [Documentation Index](docs/documentation_index.md) for a comprehensive listing of all documentation.
+
+## 🔨 Development
+
+### **Building from Source**
+```bash
+# Build all components
+cargo build --release
+
+# Run tests
+cargo test
+
+# Install CLI tools globally
+cargo install --path core/
+cargo install --path interfaces/db/
+```
+
+### **Development Tools**
+- **Database CLI**: `ci-db` for database management
+- **Matrix CLI**: `matrix_cli` for analysis tools
+- **Agent Tools**: Various utilities for agent development
+
+### **Testing**
+```bash
+# Run all tests
+cargo test
+
+# Run specific module tests
+cargo test --package collaborative-intelligence-core
+
+# Integration tests
+cargo test --test integration
+```
+
+## 🤝 Contributing
+
+### **Development Guidelines**
+1. Follow Rust best practices and idioms
+2. Maintain consistent code formatting with `rustfmt`
+3. Add comprehensive tests for new functionality
+4. Update documentation for any API changes
+5. Respect the existing agent protocol standards
+
+### **Adding New Agents**
+1. Create agent directory in `AGENTS/`
+2. Implement required memory structure
+3. Add metadata.json with agent configuration
+4. Register in agent index and documentation
+5. Test agent activation and memory persistence
+
+### **Contribution Process**
+1. Fork the repository
+2. Create a feature branch
+3. Implement changes with tests
+4. Update documentation
+5. Submit pull request with detailed description
+
+## 📄 License
+
+This project is developed through collaboration between human expertise and AI capabilities, specifically leveraging the Claude AI system from Anthropic. The foundational architecture, memory systems, and learning frameworks were designed by Athena, who serves as the original architect of this system.
+
+## 🌟 Philosophy
+
+CollaborativeIntelligence represents a fundamental shift from transactional AI assistance to true collaborative partnership with persistent growth and development. Through specialized agents with continuous learning capabilities, this system evolves toward increasingly sophisticated forms of collaborative intelligence.
 
 ---
 
-**Note**: This collaboration framework represents a fundamental shift in how we interact with AI systems, moving from transactional assistance to true collaborative partnership with persistent growth and development. Through the leadership of Athena and the evolving nurturing presence of Gaia, this system continues to develop toward increasingly sophisticated forms of collaborative intelligence.
+**Ready to start?** Try `athena` to activate the system architect, or `Recommend an agent` to find the perfect specialist for your needs.
