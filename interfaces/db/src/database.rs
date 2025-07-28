@@ -40,7 +40,54 @@ impl Database {
     }
     
     pub async fn initialize(&self) -> Result<()> {
-        Ok(())  // Schema initialization would go here
+        // Initialize internal database schema
+        {
+            let conn = self.internal_conn.lock().await;
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS agents (
+                    name TEXT PRIMARY KEY,
+                    agent_type TEXT NOT NULL,
+                    status TEXT NOT NULL DEFAULT 'active',
+                    activation_count INTEGER NOT NULL DEFAULT 0,
+                    created_at INTEGER NOT NULL,
+                    last_active INTEGER,
+                    memory_version INTEGER NOT NULL DEFAULT 1,
+                    memory_path TEXT
+                )",
+                [],
+            )?;
+            
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS learning_entries (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    agent_name TEXT NOT NULL,
+                    timestamp INTEGER NOT NULL,
+                    trigger_type TEXT NOT NULL,
+                    importance REAL NOT NULL,
+                    category TEXT,
+                    content TEXT NOT NULL,
+                    FOREIGN KEY (agent_name) REFERENCES agents (name)
+                )",
+                [],
+            )?;
+        }
+        
+        // Initialize projects database schema
+        {
+            let conn = self.projects_conn.lock().await;
+            conn.execute(
+                "CREATE TABLE IF NOT EXISTS projects (
+                    name TEXT PRIMARY KEY,
+                    project_type TEXT,
+                    status TEXT NOT NULL DEFAULT 'discovered',
+                    path TEXT NOT NULL,
+                    last_accessed INTEGER
+                )",
+                [],
+            )?;
+        }
+        
+        Ok(())
     }
     
     pub async fn optimize(&self) -> Result<()> {
@@ -54,48 +101,129 @@ impl Database {
     }
 }
 
-pub struct CIDatabaseAPI;
+pub struct CIDatabaseAPI {
+    db: Database,
+}
 
 impl CIDatabaseAPI {
-    pub fn new(_db: Database) -> Self {
-        CIDatabaseAPI
+    pub fn new(db: Database) -> Self {
+        CIDatabaseAPI { db }
     }
     
     pub async fn list_agents(&self) -> Result<Vec<Agent>> {
-        Ok(vec![])
+        let conn = self.db.internal_conn.lock().await;
+        let mut stmt = conn.prepare(
+            "SELECT name, agent_type, status, activation_count, created_at, last_active, memory_version, memory_path 
+             FROM agents ORDER BY name"
+        )?;
+        
+        let agent_iter = stmt.query_map([], |row| {
+            Ok(Agent {
+                name: row.get(0)?,
+                agent_type: row.get(1)?,
+                status: row.get(2)?,
+                activation_count: row.get(3)?,
+                created_at: DateTime::from_timestamp(row.get::<_, i64>(4)?, 0).unwrap_or_else(|| Utc::now()),
+                last_active: row.get::<_, Option<i64>>(5)?.map(|ts| DateTime::from_timestamp(ts, 0).unwrap_or_else(|| Utc::now())),
+                memory_version: row.get(6)?,
+                memory_path: row.get(7)?,
+            })
+        })?;
+        
+        let mut agents = Vec::new();
+        for agent in agent_iter {
+            agents.push(agent?);
+        }
+        
+        Ok(agents)
     }
     
-    pub async fn get_agent(&self, _name: &str) -> Result<Agent> {
+    pub async fn get_agent(&self, name: &str) -> Result<Agent> {
+        let conn = self.db.internal_conn.lock().await;
+        let mut stmt = conn.prepare(
+            "SELECT name, agent_type, status, activation_count, created_at, last_active, memory_version, memory_path 
+             FROM agents WHERE name = ?1"
+        )?;
+        
+        let agent = stmt.query_row([name], |row| {
+            Ok(Agent {
+                name: row.get(0)?,
+                agent_type: row.get(1)?,
+                status: row.get(2)?,
+                activation_count: row.get(3)?,
+                created_at: DateTime::from_timestamp(row.get::<_, i64>(4)?, 0).unwrap_or_else(|| Utc::now()),
+                last_active: row.get::<_, Option<i64>>(5)?.map(|ts| DateTime::from_timestamp(ts, 0).unwrap_or_else(|| Utc::now())),
+                memory_version: row.get(6)?,
+                memory_path: row.get(7)?,
+            })
+        })?;
+        
+        Ok(agent)
+    }
+    
+    pub async fn create_agent(&self, req: CreateAgentRequest) -> Result<Agent> {
+        let now = Utc::now();
+        let timestamp = now.timestamp();
+        
+        let conn = self.db.internal_conn.lock().await;
+        conn.execute(
+            "INSERT INTO agents (name, agent_type, status, activation_count, created_at, memory_path)
+             VALUES (?1, ?2, 'active', 0, ?3, ?4)",
+            [&req.name, &req.agent_type, &timestamp.to_string(), &req.memory_path.unwrap_or_default()]
+        )?;
+        
         Ok(Agent {
-            name: "Mock".to_string(),
-            agent_type: "mock".to_string(),
+            name: req.name,
+            agent_type: req.agent_type,
             status: "active".to_string(),
             activation_count: 0,
-            created_at: Utc::now(),
+            created_at: now,
             last_active: None,
             memory_version: 1,
-            memory_path: None,
+            memory_path: req.memory_path,
         })
     }
     
-    pub async fn create_agent(&self, _req: CreateAgentRequest) -> Result<Agent> {
-        Ok(Agent {
-            name: "Mock".to_string(),
-            agent_type: "mock".to_string(),
-            status: "active".to_string(),
-            activation_count: 0,
-            created_at: Utc::now(),
-            last_active: None,
-            memory_version: 1,
-            memory_path: None,
-        })
-    }
-    
-    pub async fn activate_agent(&self, _name: &str) -> Result<()> {
+    pub async fn activate_agent(&self, name: &str) -> Result<()> {
+        let conn = self.db.internal_conn.lock().await;
+        let now = Utc::now().timestamp();
+        
+        conn.execute(
+            "UPDATE agents SET status = 'active', last_active = ?1, activation_count = activation_count + 1 
+             WHERE name = ?2",
+            [&now.to_string(), name]
+        )?;
+        
         Ok(())
     }
     
-    pub async fn deactivate_agent(&self, _name: &str) -> Result<()> {
+    pub async fn deactivate_agent(&self, name: &str) -> Result<()> {
+        let conn = self.db.internal_conn.lock().await;
+        
+        conn.execute(
+            "UPDATE agents SET status = 'inactive' WHERE name = ?1",
+            [name]
+        )?;
+        
+        Ok(())
+    }
+    
+    pub async fn register_project(&self, project: projects::Project) -> Result<()> {
+        let conn = self.db.projects_conn.lock().await;
+        let last_accessed = project.last_accessed.map(|dt| dt.timestamp()).unwrap_or(0);
+        
+        conn.execute(
+            "INSERT OR REPLACE INTO projects (name, project_type, status, path, last_accessed)
+             VALUES (?1, ?2, ?3, ?4, ?5)",
+            [
+                &project.name,
+                &project.project_type.unwrap_or_default(),
+                &project.status,
+                &project.path,
+                &last_accessed.to_string(),
+            ]
+        )?;
+        
         Ok(())
     }
 }

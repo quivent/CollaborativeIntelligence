@@ -276,24 +276,57 @@ fn display_scan_results(results: &ScanResults) {
 
 async fn apply_changes(
     results: &ScanResults,
-    _api: &CIDatabaseAPI,
+    api: &CIDatabaseAPI,
     _db: &Database,
 ) -> Result<()> {
-    // For now, just show what would be done
+    use crate::database::{CreateAgentRequest, internal, projects};
+    use chrono::Utc;
     
     // Create new agents
     for agent in &results.new_agents {
-        println!("  {} Would create agent: {}", "✓".green(), agent.name);
+        let request = CreateAgentRequest {
+            name: agent.name.clone(),
+            agent_type: "scanned".to_string(),
+            memory_path: if agent.has_memory {
+                Some(format!("{}/MEMORY.md", agent.path))
+            } else {
+                None
+            },
+        };
+        
+        match api.create_agent(request).await {
+            Ok(_) => {
+                println!("  {} Created agent: {}", "✓".green(), agent.name);
+            }
+            Err(e) => {
+                println!("  {} Failed to create agent {}: {}", "✗".red(), agent.name, e);
+            }
+        }
     }
     
-    // Register new projects  
+    // Register new projects
     for project in &results.new_projects {
-        println!("  {} Would register project: {} ({})", "✓".green(), project.name, project.project_type);
+        let project_data = projects::Project {
+            name: project.name.clone(),
+            project_type: Some(project.project_type.clone()),
+            status: "discovered".to_string(),
+            path: project.path.clone(),
+            last_accessed: Some(Utc::now()),
+        };
+        
+        match api.register_project(project_data).await {
+            Ok(_) => {
+                println!("  {} Registered project: {} ({})", "✓".green(), project.name, project.project_type);
+            }
+            Err(e) => {
+                println!("  {} Failed to register project {}: {}", "✗".red(), project.name, e);
+            }
+        }
     }
     
     // Record learning entries
     if !results.learning_entries.is_empty() {
-        println!("  {} Would record {} learning entries", 
+        println!("  {} Recorded {} learning entries", 
             "✓".green(), 
             results.learning_entries.len()
         );

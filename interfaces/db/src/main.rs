@@ -107,7 +107,7 @@ async fn main() -> Result<()> {
     let db = database::Database::new(&data_dir).await?;
     
     // Initialize if needed
-    if !data_dir.join("internal/ci-internal.db").exists() {
+    if !data_dir.join("internal/ci_internal.db").exists() {
         info!("Initializing database for first use...");
         db.initialize().await?;
         db.optimize().await?;

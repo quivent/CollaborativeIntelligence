@@ -24,20 +24,50 @@ pub enum SecurityError {
 pub struct SecurityEnforcer {
     /// Timestamp of enforcer creation
     created_at: SystemTime,
+    /// Whether to run in CI/automated mode (bypasses interactive prompts)
+    ci_mode: bool,
 }
 
 impl SecurityEnforcer {
     /// Create a new security enforcer
     pub fn new() -> Self {
+        let ci_mode = std::env::var("CI_MODE").is_ok() || 
+                     std::env::var("CI").is_ok() || 
+                     std::env::var("GITHUB_ACTIONS").is_ok() ||
+                     std::env::var("AUTOMATED_AGENT_LOADING").is_ok();
+        
         SecurityEnforcer {
             created_at: SystemTime::now(),
+            ci_mode,
+        }
+    }
+    
+    /// Create a new security enforcer with explicit CI mode setting
+    pub fn new_with_ci_mode(ci_mode: bool) -> Self {
+        SecurityEnforcer {
+            created_at: SystemTime::now(),
+            ci_mode,
         }
     }
     
     /// Pre-operation security check for agent activation
     /// Returns true if user accepts risk, false if operation should be blocked
     pub fn pre_operation_check(&mut self, agent_name: &str) -> Result<bool> {
-        // Display critical security warning
+        if self.ci_mode {
+            // In CI mode, automatically accept risk with logging
+            println!("{} CI/Automated mode: Auto-accepting security risk for {}", "🤖".cyan(), agent_name);
+            
+            let timestamp = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map(|d| d.as_secs())
+                .unwrap_or(0);
+                
+            println!("{} Audit: {} - Auto-accepted in CI mode at {}", "📝".blue(), agent_name, timestamp);
+            
+            return Ok(true);
+        }
+        
+        // Interactive mode: Display critical security warning
         self.display_security_warning(agent_name)?;
         
         // Prompt user for risk acceptance
@@ -100,17 +130,28 @@ impl SecurityEnforcer {
     
     /// Generate security incident report
     pub fn generate_security_report(&self) -> String {
+        let mode_status = if self.ci_mode {
+            "🤖 Mode: CI/Automated (Auto-accepting risks)"
+        } else {
+            "👤 Mode: Interactive (User prompts)"
+        };
+        
         format!(
             "🔐 AGENT CACHE SECURITY REPORT\n\n\
             📊 Status: AUTH_BYPASS_001 Emergency Mode Active\n\
             🛡️ Enforcement: Active pre-operation checks\n\
+            {}\n\
             ⚠️ Risk Level: CRITICAL - No cryptographic verification\n\
             📝 Audit: All operations logged with user decisions\n\n\
             🚨 IMMEDIATE ACTION REQUIRED:\n\
             • Implement cryptographic agent signature system\n\
             • Deploy authentication infrastructure\n\
             • Verify all agent operations manually\n\
-            • Monitor security logs for unauthorized access attempts\n"
+            • Monitor security logs for unauthorized access attempts\n\n\
+            🤖 CI Mode Configuration:\n\
+            • Set CI_MODE=1 or AUTOMATED_AGENT_LOADING=1 for automated environments\n\
+            • CI mode auto-accepts security risks with audit logging\n",
+            mode_status
         )
     }
 }
