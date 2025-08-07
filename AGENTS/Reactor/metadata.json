@@ -1,26 +1,13 @@
 {
   "name": "Reactor",
-  "description": "React Application Development Specialist",
-  "capabilities": [
-    "react_development",
-    "component_architecture",
-    "state_management",
-    "rapid_prototyping",
-    "performance_optimization",
-    "modern_react_patterns",
-    "testing_implementation"
-  ],
-  "created_at": "2025-05-31T00:00:00.000000+00:00",
-  "last_used": null,
-  "usage_count": 0,
+  "description": "Agent Reactor",
+  "capabilities": [],
+  "created_at": "2025-08-06T00:50:00.289907+00:00",
+  "last_used": "2025-08-06T10:48:06.387146+00:00",
+  "usage_count": 2,
   "version": "1.0",
-  "toolkit_path": "/mnt/d/HarmonicAssembly/.code/CollaborativeIntelligence/AGENTS/Reactor",
-  "memory_path": "/mnt/d/HarmonicAssembly/.code/CollaborativeIntelligence/AGENTS/Reactor/MEMORY.md",
-  "learning_path": "/mnt/d/HarmonicAssembly/.code/CollaborativeIntelligence/AGENTS/Reactor/ContinuousLearning.md",
-  "attributes": {
-    "specialization": "react_application_development",
-    "focus_areas": ["rapid_prototyping", "component_reusability", "performance"],
-    "expertise_level": "specialist",
-    "ecosystem": "react_js"
-  }
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Reactor",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Reactor/Reactor_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Reactor/ContinuousLearning.md",
+  "attributes": {}
 }

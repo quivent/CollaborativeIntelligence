@@ -1,0 +1,13 @@
+{
+  "name": "ProjectManager",
+  "description": "Agent ProjectManager",
+  "capabilities": [],
+  "created_at": "2025-08-01T15:08:24.328805+00:00",
+  "last_used": "2025-08-03T01:16:05.717730+00:00",
+  "usage_count": 5,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/ProjectManager",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/ProjectManager/ProjectManager_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/ProjectManager/ContinuousLearning.md",
+  "attributes": {}
+}

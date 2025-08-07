@@ -1,0 +1,13 @@
+{
+  "name": "WebArchitect",
+  "description": "Agent WebArchitect",
+  "capabilities": [],
+  "created_at": "2025-08-01T00:48:05.115086+00:00",
+  "last_used": "2025-08-07T14:13:06.487444+00:00",
+  "usage_count": 11,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/WebArchitect",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/WebArchitect/WebArchitect_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/WebArchitect/ContinuousLearning.md",
+  "attributes": {}
+}
