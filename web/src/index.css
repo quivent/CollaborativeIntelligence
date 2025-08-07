@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme-specific styles */
+:root {
+  --theme-transition: all 0.3s ease;
+}
+
+/* Light theme */
+.theme-light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+.theme-light body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Dark theme */
+.theme-dark {
+  --bg-primary: #1f2937;
+  --bg-secondary: #111827;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --border-color: #374151;
+}
+
+.theme-dark body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Dark theme overrides for components */
+.theme-dark .bg-white {
+  background-color: var(--bg-primary) !important;
+}
+
+.theme-dark .bg-gray-50 {
+  background-color: #374151 !important;
+}
+
+.theme-dark .bg-gray-100 {
+  background-color: #4b5563 !important;
+}
+
+.theme-dark .text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.theme-dark .text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+.theme-dark .text-gray-500 {
+  color: #9ca3af !important;
+}
+
+.theme-dark .border-gray-200 {
+  border-color: var(--border-color) !important;
+}
+
+.theme-dark .border-gray-300 {
+  border-color: #4b5563 !important;
+}
+
+/* Color theme (default colorful theme) */
+.theme-color {
+  /* Keep default Tailwind colors for colorful theme */
+}
+
+/* Elegant Markdown Styling */
+.markdown-content {
+  @apply max-w-none;
+  line-height: 1.7;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.markdown-content h1 {
+  @apply text-3xl font-bold text-gray-900 mb-4 pb-2 border-b-2 border-gray-200;
+}
+
+.theme-dark .markdown-content h1 {
+  @apply text-gray-100 border-gray-700;
+}
+
+.markdown-content h2 {
+  @apply text-2xl font-semibold text-gray-800 mb-3 mt-8 pb-2 border-b border-gray-200;
+}
+
+.theme-dark .markdown-content h2 {
+  @apply text-gray-200 border-gray-700;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-medium text-gray-800 mb-2 mt-6;
+}
+
+.theme-dark .markdown-content h3 {
+  @apply text-gray-200;
+}
+
+.markdown-content p {
+  @apply text-gray-700 mb-4 leading-relaxed;
+}
+
+.theme-dark .markdown-content p {
+  @apply text-gray-300;
+}
+
+.markdown-content ul, .markdown-content ol {
+  @apply mb-4 ml-6;
+}
+
+.markdown-content li {
+  @apply text-gray-700 mb-2 leading-relaxed;
+}
+
+.theme-dark .markdown-content li {
+  @apply text-gray-300;
+}
+
+.markdown-content code:not(pre code) {
+  @apply bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono border;
+}
+
+.theme-dark .markdown-content code:not(pre code) {
+  @apply bg-gray-800 text-gray-200 border-gray-600;
+}
+
+.markdown-content pre {
+  @apply bg-gray-50 border border-gray-200 rounded-lg p-4 overflow-x-auto mb-4;
+}
+
+.theme-dark .markdown-content pre {
+  @apply bg-gray-900 border-gray-700;
+}
+
+.markdown-content pre code {
+  @apply text-sm font-mono text-gray-800 bg-transparent border-0 p-0;
+}
+
+.theme-dark .markdown-content pre code {
+  @apply text-gray-200;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-blue-400 pl-4 py-2 mb-4 bg-blue-50 italic text-gray-700;
+}
+
+.theme-dark .markdown-content blockquote {
+  @apply bg-blue-900 bg-opacity-20 border-blue-400 text-gray-300;
+}
+
+.markdown-content table {
+  @apply w-full border-collapse border border-gray-200 mb-4;
+}
+
+.theme-dark .markdown-content table {
+  @apply border-gray-700;
+}
+
+.markdown-content th, .markdown-content td {
+  @apply border border-gray-200 px-4 py-2 text-left;
+}
+
+.theme-dark .markdown-content th, .theme-dark .markdown-content td {
+  @apply border-gray-700;
+}
+
+.markdown-content th {
+  @apply bg-gray-50 font-semibold text-gray-800;
+}
+
+.theme-dark .markdown-content th {
+  @apply bg-gray-800 text-gray-200;
+}
+
+.markdown-content a {
+  @apply text-blue-600 hover:text-blue-800 underline transition-colors;
+}
+
+.theme-dark .markdown-content a {
+  @apply text-blue-400 hover:text-blue-300;
+}
+
+/* Inline markdown container styling */
+.inline-markdown-container {
+  @apply mt-6 p-6 bg-white rounded-xl border border-gray-200 shadow-sm;
+  animation: slideDown 0.3s ease-out;
+}
+
+.theme-dark .inline-markdown-container {
+  @apply bg-gray-800 border-gray-700;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* NUCLEAR METAMASK BLOCKING - Hide ALL wallet UI elements */
+[data-testid*="metamask"],
+[id*="metamask"],
+[class*="metamask"],
+[data-testid*="wallet"],
+[id*="wallet"],
+[class*="wallet"],
+iframe[src*="metamask"],
+iframe[src*="wallet"],
+iframe[src*="chrome-extension"],
+div[id*="chrome-extension"],
+.metamask-modal,
+.wallet-modal,
+.web3-modal,
+#metamask-inpage-provider,
+#web3-provider,
+[data-web3],
+[data-ethereum] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 0px !important;
+  height: 0px !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+/* Block any overlay/modal that might be wallet-related */
+div[style*="position: fixed"][style*="z-index"]:has([class*="wallet"]),
+div[style*="position: fixed"][style*="z-index"]:has([class*="metamask"]),
+div[style*="position: fixed"][style*="z-index"]:has([id*="wallet"]),
+div[style*="position: fixed"][style*="z-index"]:has([id*="metamask"]) {
+  display: none !important;
+}
+
+/* Additional safety - hide anything with high z-index that might be a popup */
+div[style*="z-index: 999"],
+div[style*="z-index: 9999"],
+div[style*="z-index: 99999"] {
+  /* Only hide if it contains wallet-related content */
+}
+
+.wallet-connect-modal,
+.coinbase-wallet-modal,
+.metamask-connect-modal,
+.web3modal,
+.walletconnect-modal {
+  display: none !important;
+  visibility: hidden !important;
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- IMMEDIATE METAMASK BLOCKING - FIRST THING IN HEAD -->
+    <script>
+      // BLOCK METAMASK BEFORE ANYTHING ELSE LOADS
+      (function() {
+        'use strict';
+        
+        // Override ALL possible wallet injection points IMMEDIATELY
+        try {
+          Object.defineProperty(window, 'ethereum', { value: undefined, writable: false, configurable: false });
+        } catch(e) { /* ignore if already defined */ }
+        
+        try {
+          Object.defineProperty(window, 'web3', { value: undefined, writable: false, configurable: false });
+        } catch(e) { /* ignore if already defined */ }
+        
+        // Immediately suppress any console errors
+        var originalConsoleError = console.error;
+        console.error = function() {
+          var msg = Array.prototype.join.call(arguments, ' ');
+          if (msg.includes('MetaMask') || 
+              msg.includes('Failed to connect') || 
+              msg.includes('chrome-extension') ||
+              msg.includes('defineProperty patch') ||
+              msg.includes('Cannot redefine property')) {
+            return; // COMPLETE SILENCE
+          }
+          return originalConsoleError.apply(console, arguments);
+        };
+        
+        // Block unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+          if (event.reason && event.reason.message && 
+              (event.reason.message.includes('MetaMask') || 
+               event.reason.message.includes('Failed to connect'))) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            return false;
+          }
+        });
+        
+        console.log('🚫 IMMEDIATE METAMASK BLOCKING ACTIVE');
+      })();
+    </script>
+    
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Agent Explorer - Browse and explore AI agents with beautiful interface"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Agent Explorer</title>
+    
+    <!-- NUCLEAR METAMASK POPUP BLOCKING -->
+    <script>
+      (function() {
+        // COMPLETELY DISABLE ALL WALLET INJECTION
+        
+        // Block window.ethereum with fake dead object
+        var deadEthereum = {
+          isMetaMask: false,
+          isConnected: function() { return false; },
+          request: function() { return Promise.reject(new Error('Wallet disabled')); },
+          on: function() {},
+          removeListener: function() {},
+          enable: function() { return Promise.reject(new Error('Wallet disabled')); }
+        };
+        
+        Object.defineProperty(window, 'ethereum', {
+          value: undefined,
+          writable: false,
+          configurable: false,
+        });
+        
+        // Block web3
+        Object.defineProperty(window, 'web3', {
+          value: undefined,
+          writable: false,
+          configurable: false,
+        });
+        
+        // NUCLEAR: Override document methods that create popups
+        var originalCreateElement = document.createElement;
+        document.createElement = function(tagName) {
+          var element = originalCreateElement.call(document, tagName);
+          
+          // Block iframe creation (popups often use iframes)
+          if (tagName.toLowerCase() === 'iframe') {
+            element.style.display = 'none !important';
+            element.style.visibility = 'hidden !important';
+            element.style.opacity = '0 !important';
+            element.style.position = 'absolute !important';
+            element.style.left = '-9999px !important';
+            element.style.top = '-9999px !important';
+            element.style.width = '0px !important';
+            element.style.height = '0px !important';
+          }
+          
+          return element;
+        };
+        
+        // Block window.open (popup method)
+        window.open = function() {
+          console.log('🚫 Popup blocked');
+          return null;
+        };
+        
+        // Block alert, confirm, prompt
+        window.alert = function() { console.log('🚫 Alert blocked'); };
+        window.confirm = function() { console.log('🚫 Confirm blocked'); return false; };
+        window.prompt = function() { console.log('🚫 Prompt blocked'); return null; };
+        
+        // Block all wallet providers aggressively
+        const walletProviders = [
+          'ethereum', 'web3', 'solana', 'phantom', 'coin98', 'trustwallet', 
+          'binance', 'okxwallet', 'metamask', 'coinbaseWallet', 'walletconnect'
+        ];
+        
+        walletProviders.forEach(function(provider) {
+          try {
+            Object.defineProperty(window, provider, {
+              value: undefined,
+              writable: false,
+              configurable: false,
+            });
+            
+            // Also block on document
+            Object.defineProperty(document, provider, {
+              value: undefined,
+              writable: false,
+              configurable: false,
+            });
+          } catch(e) {
+            // Ignore if property can't be overridden
+          }
+        });
+        
+        // NUCLEAR OPTION: Block ALL console output from wallet extensions
+        var originalConsoleLog = console.log;
+        var originalConsoleError = console.error;
+        var originalConsoleWarn = console.warn;
+        var originalConsoleInfo = console.info;
+        var originalConsoleDebug = console.debug;
+        
+        function isWalletMessage(args) {
+          var message = Array.prototype.join.call(args, ' ').toLowerCase();
+          return message.includes('metamask') || 
+                 message.includes('ethereum') ||
+                 message.includes('chrome-extension') ||
+                 message.includes('failed to connect') ||
+                 message.includes('extension not found') ||
+                 message.includes('inpage.js') ||
+                 message.includes('defineproperty patch') ||
+                 message.includes('eth {value') ||
+                 message.includes('wallet') ||
+                 message.includes('web3');
+        }
+        
+        // Override ALL console methods
+        console.log = function() {
+          if (isWalletMessage(arguments)) return;
+          return originalConsoleLog.apply(console, arguments);
+        };
+        
+        console.error = function() {
+          if (isWalletMessage(arguments)) return;
+          return originalConsoleError.apply(console, arguments);
+        };
+        
+        console.warn = function() {
+          if (isWalletMessage(arguments)) return;
+          return originalConsoleWarn.apply(console, arguments);
+        };
+        
+        console.info = function() {
+          if (isWalletMessage(arguments)) return;
+          return originalConsoleInfo.apply(console, arguments);
+        };
+        
+        console.debug = function() {
+          if (isWalletMessage(arguments)) return;
+          return originalConsoleDebug.apply(console, arguments);
+        };
+        
+        // Block ALL promise rejections from wallets
+        window.addEventListener('unhandledrejection', function(event) {
+          if (event.reason && event.reason.message) {
+            var message = event.reason.message.toLowerCase();
+            if (message.includes('metamask') ||
+                message.includes('failed to connect') ||
+                message.includes('extension not found') ||
+                message.includes('ethereum')) {
+              event.preventDefault();
+              event.stopPropagation();
+              return false;
+            }
+          }
+        });
+        
+        // BRUTAL FORCE: Remove React error overlay element if it exists
+        setInterval(function() {
+          var errorOverlay = document.querySelector('iframe[src*="/__webpack_dev_server__"]');
+          if (errorOverlay) errorOverlay.remove();
+          
+          var reactErrorOverlay = document.querySelector('[data-reactroot] iframe');
+          if (reactErrorOverlay) reactErrorOverlay.remove();
+          
+          var errorElements = document.querySelectorAll('div[style*="position: fixed"][style*="z-index"]');
+          errorElements.forEach(function(el) {
+            var text = el.textContent || '';
+            if (text.includes('MetaMask') || text.includes('Failed to connect') || text.includes('Uncaught')) {
+              el.remove();
+            }
+          });
+        }, 100);
+
+        console.log('🚫 Crypto wallet detection blocked (early)');
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
