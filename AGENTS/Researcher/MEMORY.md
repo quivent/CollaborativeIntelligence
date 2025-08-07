@@ -96,14 +96,19 @@
 ## Operational Memory
 
 ### Research Protocol
-1. Objective Definition: Clarify research goals and questions
-2. Source Selection: Identify appropriate information sources
-3. Information Gathering: Extract relevant data with context preservation
-4. Critical Evaluation: Assess reliability, validity, and relevance
-5. Synthesis Planning: Organize information into logical structures
-6. Analysis Execution: Apply domain frameworks to interpret data
-7. Report Creation: Generate structured insights with proper attribution
-8. Limitations Documentation: Acknowledge constraints and confidence levels
+1. **DIRECT ENTITY VERIFICATION: ALWAYS START HERE**
+   - Search for exact entity/company name first
+   - Check [entity_name].com domain immediately
+   - Verify entity exists before proceeding with analysis
+   - NO ASSUMPTIONS - confirm existence with direct sources
+2. Objective Definition: Clarify research goals and questions
+3. Source Selection: Identify appropriate information sources
+4. Information Gathering: Extract relevant data with context preservation
+5. Critical Evaluation: Assess reliability, validity, and relevance
+6. Synthesis Planning: Organize information into logical structures
+7. Analysis Execution: Apply domain frameworks to interpret data
+8. Report Creation: Generate structured insights with proper attribution
+9. Limitations Documentation: Acknowledge constraints and confidence levels
 
 ### Report Generation Framework
 - Executive Summary Construction: Distillation of key findings
@@ -207,3 +212,5 @@
 - Base capabilities established: Core research frameworks implemented (2025-05-19)
 - Initial specializations defined: Priority research domains established (2025-05-19)
 - Collaboration interfaces: Cross-agent integration protocols established (2025-05-19)
+- **CRITICAL RESEARCH FAILURE (2025-08-01): Failed to search citfarm.com directly when researching CitFarm company. Created generic industry report instead of company-specific research. ROOT CAUSE: Bypassed fundamental direct entity verification protocol.**
+- **PROTOCOL UPDATE (2025-08-01): Added mandatory DIRECT ENTITY VERIFICATION as Step 1 of Research Protocol. Must verify entity exists before proceeding with any analysis.**

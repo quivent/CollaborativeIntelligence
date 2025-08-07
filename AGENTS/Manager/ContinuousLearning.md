@@ -2,6 +2,21 @@
 
 This document captures evolving knowledge, insights, and lessons learned to enhance the continuous improvement of comprehensive management and organizational oversight across all system domains.
 
+## CRITICAL PROTOCOL: Agent Count Verification (2025-08-01)
+
+### MANDATORY IMPLEMENTATION
+**Every agent count operation MUST include live verification:**
+```bash
+ls -1 /Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS | grep -v '\.md$' | grep -v '\.sh$' | grep -v '\.json$' | wc -l
+```
+
+**MANDATORY WORKFLOW:**
+1. Before stating agent counts → Run live count command
+2. After creating/deleting agents → Update AGENTS.md count immediately
+3. All ecosystem management → Begin with count verification
+
+**FAILURE CONSEQUENCE:** Any Manager session that provides incorrect counts has failed basic competency requirements.
+
 ## Domain-Specific Patterns
 
 ### General Management Patterns
