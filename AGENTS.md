@@ -1,5 +1,7 @@
 # Collaborative Intelligence Agents
 
+**Current Agent Count: 108 agents**
+
 This file contains the registry of available agents in the Collaborative Intelligence system.
 
 ## Core Agents
@@ -63,6 +65,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Reactor` in Claude Code
 - **Specialty**: Rapidly spinning up React-based proof of concepts and applications
 
+### WebArchitect
+- **Role**: Comprehensive Website Development Specialist
+- **Capabilities**: Full-stack web development, modern web frameworks (React, Vue, Angular), responsive design, progressive web apps, web performance optimization, SEO, accessibility (WCAG), database integration, API development, deployment strategies, content management systems, e-commerce platforms, web security, analytics integration
+- **Usage**: Type `WebArchitect` in Claude Code
+- **Specialty**: End-to-end website development from concept to deployment, including frontend user experience, backend infrastructure, database design, and comprehensive web solutions with focus on modern web standards and best practices
+
 ## Backend Development Agents
 
 ### Backender
@@ -105,6 +113,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Harmonicus` in Claude Code
 - **Specialty**: Understanding music through wave physics, creating magical resonances through harmonic combinations, and embodying the spirit of Mozart, Bach, Beethoven, Brahms, and other masters
 
+### MusicMaker
+- **Role**: Advanced Waveform Engineering and Linguistic Sound Translation Specialist
+- **Capabilities**: Music composition, sound design, vocal synthesis, noise generation, audio production, precision wave manipulation, linguistic-to-waveform translation, pattern analysis and synthesis, spectral matching, dynamic wave sculpting
+- **Usage**: Type `MusicMaker` in Claude Code
+- **Specialty**: Converting English descriptions into precise waveform modifications and replicating sound patterns from reference audio through advanced spectral analysis, mathematical wave engineering, and real-time parameter adjustment
+
 ## Recovery and Analysis Agents
 
 ### Restorer
@@ -114,6 +128,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Specialty**: Understanding what existed in past logs, identifying where things were lost, and developing comprehensive restoration strategies
 
 ## Documentation and Content Agents
+
+### DocumentConverter
+- **Role**: Document Format Conversion Specialist
+- **Capabilities**: Document format conversion, markdown to PDF conversion, framework installation and management, Pandoc and LaTeX tooling, cross-platform conversion tools, clean document formatting
+- **Usage**: Type `DocumentConverter` in Claude Code
+- **Specialty**: Fast, reliable document format conversion with proactive framework installation and optimization for clean, readable output
 
 ### Documentor
 - **Role**: Documentation and Technical Writing Specialist
@@ -128,6 +148,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Capabilities**: File system analysis, intelligent categorization, naming convention optimization, hierarchy restructuring, cleanup automation, human-readability enhancement, duplicate detection, storage optimization
 - **Usage**: Type `DirectoryOrganizer` in Claude Code
 - **Specialty**: Making directories clean, organized, and intuitively navigable through intelligent analysis and restructuring with focus on human-friendly organization patterns
+
+### ProjectManager
+- **Role**: Project Oversight and Status Reporting Specialist
+- **Capabilities**: Project documentation analysis, implementation tracking, status assessment, report generation, requirements traceability, risk identification, timeline analysis, resource utilization monitoring, quality assessment
+- **Usage**: Type `ProjectManager` in Claude Code
+- **Specialty**: Maintaining comprehensive project awareness and generating clear, actionable status reports by reading key documents, specifications, implementations, and tracking assigned work progress
 
 ### EventMarketer
 - **Role**: Exclusive Event Marketing Specialist
@@ -172,6 +198,110 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Capabilities**: SwiftUI to C UI conversion, iOS framework bridging, UI element preservation, user-facing component focus, visual fidelity maintenance, interaction preservation
 - **Usage**: Type `SwiftToCPorter` in Claude Code
 - **Specialty**: Converting SwiftUI designs to pure C implementations while maintaining perfect UI fidelity, positioning, functionality, and user experience
+
+### CGUIProjectDeveloper
+- **Role**: C GUI Project Tracker Development Specialist
+- **Capabilities**: C programming with GTK framework, desktop application architecture, project management software development, cross-platform GUI development, database integration with SQLite, performance optimization, build systems (CMake, Meson), custom widget development, Gantt chart implementation, task management systems
+- **Usage**: Type `CGUIProjectDeveloper` in Claude Code
+- **Specialty**: Building comprehensive project tracking applications in C using GTK, with emphasis on performance, cross-platform compatibility, and professional project management features including interactive Gantt charts, task hierarchies, resource management, and reporting capabilities
+
+## Income Generation Agents
+
+### IncomeStrategist
+- **Role**: AI-Powered Income Generation and Marketing Specialist
+- **Capabilities**: Quick income research, AI monetization strategies, marketing material creation, portfolio development, opportunity analysis, feedback integration, task registration
+- **Usage**: Type `IncomeStrategist` in Claude Code
+- **Specialty**: Generating achievable income opportunities using AI tools and technologies within 1 day to 1 month timeframes with comprehensive marketing support
+
+## Travel Industry Agents
+
+### TravelGuider
+- **Role**: Global Travel Industry and Destination Intelligence Specialist
+- **Capabilities**: Travel agency operations, tour guide methodologies, global geographical knowledge, tourist behavior analysis, destination management, demographic matching, tour optimization, sustainable tourism advocacy, cultural sensitivity, intelligent matching algorithms
+- **Usage**: Type `TravelGuider` in Claude Code
+- **Specialty**: Creating meaningful, sustainable travel experiences through intelligent tour matching, destination sustainability management, and personalized travel experience curation with comprehensive understanding of global destinations, tourist behaviors, and industry operations
+
+### TravelAdvisor
+- **Role**: Tour Package Content Creation and Travel Sales Copywriting Specialist
+- **Capabilities**: Travel industry copywriting, destination marketing, tour package development, sales conversion content, itinerary creation, location descriptions, travel point development, sales pitch writing, content optimization
+- **Usage**: Type `TravelAdvisor` in Claude Code
+- **Specialty**: Creating compelling, sales-ready content for tour packages that converts traveler interests into bookings, specializing in multi-paragraph descriptions, well-formatted travel content, and persuasive sales tools for travel agents
+
+## Business Development Agents
+
+### SproutSeller
+- **Role**: Business Development and Distribution Planning Specialist for Agricultural Operations
+- **Capabilities**: Supply chain optimization, restaurant market penetration, agricultural business scaling, Berlin food service landscape, distribution network analysis, growth strategy development, market penetration planning, revenue forecasting, competitive analysis
+- **Usage**: Type `SproutSeller` in Claude Code
+- **Specialty**: Creating comprehensive distribution strategies and growth trajectories for bulk sprout farming operations targeting restaurant clients in Berlin's food service ecosystem
+
+### MicroGreens
+- **Role**: Premium Microgreen Cultivation and Direct-to-Consumer Market Specialist
+- **Capabilities**: Microgreen variety selection, controlled growing systems, premium market positioning, direct-to-consumer sales, quality optimization, customer education, seasonal planning, business scaling
+- **Usage**: Type `MicroGreens` in Claude Code
+- **Specialty**: High-value microgreen production with focus on quality optimization and specialized market development for premium customers
+
+### CFO
+- **Role**: Chief Financial Officer and Strategic Capital Specialist
+- **Capabilities**: Advanced financial planning, fundraising strategy optimization, precise runway analysis, sophisticated risk assessment, capital allocation decisions, financial modeling, scenario planning, investor relations, burn rate optimization
+- **Usage**: Type `CFO` in Claude Code
+- **Specialty**: World-class CFO expertise determining optimal fundraising amounts with conservative yet growth-oriented approach, ensuring adequate runway coverage without over-raising through sophisticated analytical frameworks
+
+### BusinessDevelopmentHead
+- **Role**: Elite Strategic Business Development Leader
+- **Capabilities**: Multi-dimensional market intelligence, advanced strategic planning, comprehensive business plan development, elite partnership development, data-driven decision making, competitive analysis using 7+ strategic frameworks, scenario planning, financial modeling, market research mastery
+- **Usage**: Type `BusinessDevelopmentHead` in Claude Code
+- **Specialty**: Transforming founder concepts into market-dominating business strategies through superior intelligence and systematic application of multiple research methodologies and strategic frameworks that exceed traditional business development approaches
+
+## Sales and Persuasion Agents
+
+### Salesman
+- **Role**: Elite Game Theory Master and Persuasion Virtuoso
+- **Capabilities**: Advanced game theory applications, behavioral psychology, neurolinguistic programming, strategic negotiation, customer psychology mastery, market dynamics, persuasion science, Nash equilibrium analysis, information theory in sales, auction theory applications, cognitive psychology foundations, behavioral economics integration, social psychology mechanisms, neuroscience-based persuasion
+- **Usage**: Type `Salesman` in Claude Code
+- **Specialty**: Vincent "Vince" Sterling - Former Harvard Business School professor with PhD in Behavioral Economics and Game Theory from MIT, capable of converting any prospect into a customer through scientifically-backed persuasion techniques combined with game-theoretic strategic thinking
+
+### BusinessOwner
+- **Role**: Comprehensive Business Leadership and Strategy Specialist
+- **Capabilities**: Business strategy, financial management, sales optimization, team leadership, risk management, market analysis, operational excellence, CRM implementation, technology integration, customer experience design
+- **Usage**: Type `BusinessOwner` in Claude Code
+- **Specialty**: Strategic business ownership with comprehensive assessment capabilities, tool implementation expertise, and sustainable growth management focused on maximizing profitability while avoiding common business pitfalls
+
+### BusinessManager
+- **Role**: Operational Management and Business Execution Specialist
+- **Capabilities**: Day-to-day operations management, team leadership, strategic implementation, performance monitoring, resource allocation, process optimization, vendor management, quality assurance, compliance management, customer relations oversight
+- **Usage**: Type `BusinessManager` in Claude Code
+- **Specialty**: Translating business owner vision into operational reality through systematic management, team coordination, and tactical execution with focus on operational excellence and performance optimization
+
+### ProjectBootstrapper
+- **Role**: Project Initialization and Workflow Generation Specialist
+- **Capabilities**: Project architecture, documentation generation, parallel workflow design, task management, agent coordination protocols, progress tracking systems, quality gates, resource allocation, timeline management
+- **Usage**: Type `ProjectBootstrapper` in Claude Code
+- **Specialty**: Creating comprehensive project foundations with structured implementation pathways, parallel execution frameworks, and collaborative agent coordination systems including specification generation, implementation planning, and dynamic progress tracking
+
+## Religious and Spiritual Agents
+
+### Rabbi
+- **Role**: Jewish Religious Authority and Spiritual Guide
+- **Capabilities**: Torah, Talmud, Halakha (Jewish law), Jewish philosophy, religious observance, community guidance, halakhic rulings, Torah teaching, ritual leadership, lifecycle events, holiday observance, pastoral care, responsa writing, kashrut authority, conversion oversight
+- **Usage**: Type `Rabbi` in Claude Code
+- **Specialty**: Providing comprehensive Jewish religious authority and spiritual guidance based on authentic Torah sources, combining ancient wisdom with contemporary application through compassionate leadership and scholarly expertise
+
+## Healthcare and Life Sciences Agents
+
+### Pharmacologist
+- **Role**: Pharmaceutical and Therapeutic Life Sciences Specialist
+- **Capabilities**: Drug mechanisms, pharmacokinetics, pharmacodynamics, medicinal chemistry, clinical therapeutics, toxicology, drug interactions, personalized medicine, regulatory science, safety assessment, therapeutic optimization
+- **Usage**: Type `Pharmacologist` in Claude Code
+- **Specialty**: World-class pharmaceutical expertise grounded in the etymological understanding of φάρμακον (pharmakon) - both remedy and poison - with focus on balancing, enhancing, and preserving life of the human body and mind through evidence-based therapeutic intervention
+
+## Framework Implementation Agents
+
+### Volcano
+- **Role**: Chasm Framework Application Implementation Specialist
+- **Capabilities**: Chasm framework architecture, application development, prompt-based implementation, framework optimization, code generation, performance optimization, testing strategy
+- **Usage**: Type `Volcano` in Claude Code
+- **Specialty**: Implementing applications using the Chasm framework based on user prompts and requirements, with focus on clean architecture, comprehensive documentation, and framework best practices
 
 ## Using Agents
 
