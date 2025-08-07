@@ -27,18 +27,18 @@ This document captures evolving knowledge, insights, and lessons learned to enha
 - Use consistent formatting and terminology
 - Provide context-sensitive help for specific commands
 
-### Rust Implementation Patterns
+### C Implementation Patterns
 
 #### Clean Architecture
 - Separate interface logic from business logic
 - Create clear module boundaries with well-defined responsibilities
-- Use traits to define behavior interfaces
+- Use function pointers and structures to define behavior interfaces
 - Apply the principle of least privilege for module access
 - Implement error propagation with context enrichment
 
 #### Error Handling
-- Create custom error types for domain-specific errors
-- Use anyhow for application code and thiserror for libraries
+- Create custom error types and error codes for domain-specific errors
+- Use errno conventions and custom error handling libraries
 - Provide context-rich error messages with recovery suggestions
 - Implement graceful degradation for non-critical errors
 - Add error codes for machine-readable error handling
@@ -48,7 +48,7 @@ This document captures evolving knowledge, insights, and lessons learned to enha
 - Use table-driven tests for multiple input/output cases
 - Implement integration tests that exercise full command paths
 - Create test fixtures for complex input scenarios
-- Use property-based testing for parsing and generation logic
+- Use property-based testing frameworks like theft for parsing and generation logic
 
 ### Text Processing Patterns
 
@@ -64,7 +64,7 @@ This document captures evolving knowledge, insights, and lessons learned to enha
 - Use parser combinators for more complex formats than regex
 - Leverage error recovery for better diagnostics
 - Implement look-ahead for context-sensitive parsing
-- Create custom parser traits for domain-specific functionality
+- Create custom parser function signatures for domain-specific functionality
 
 #### Text Generation
 - Use templates with placeholder substitution for consistency
@@ -83,11 +83,11 @@ This document captures evolving knowledge, insights, and lessons learned to enha
 5. Consider accessibility for all user types
 6. Test commands with real users for feedback
 
-### Idiomatic Rust Implementation
-1. Embrace Rust's ownership model for memory safety
-2. Use iterators and functional approaches where appropriate
-3. Leverage type system for safety and expressiveness
-4. Document code with rustdoc following standard practices
+### Idiomatic C Implementation
+1. Embrace manual memory management with clear ownership patterns
+2. Use function pointers and callback patterns where appropriate
+3. Leverage static typing and const correctness for safety
+4. Document code with comprehensive comments and man pages
 5. Apply consistent error handling patterns
 6. Optimize for readability first, then performance
 
@@ -169,12 +169,12 @@ Configuration handling has moved from imperative command options to declarative 
 - Error messages should guide toward resolution
 - Output should be both human and machine readable
 
-### Rust CLI Implementation Guidelines
+### C CLI Implementation Guidelines
 - Separate interface concerns from application logic
 - Use strong typing for command arguments
 - Implement proper error propagation and handling
 - Apply consistent testing patterns
-- Leverage existing crates rather than reinventing
+- Leverage existing libraries and POSIX standards rather than reinventing
 - Document code thoroughly with examples
 
 ### Text Processing Techniques
