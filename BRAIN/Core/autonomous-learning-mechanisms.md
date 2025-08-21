@@ -48,6 +48,29 @@
 - Would this help in future similar situations?
 - Is this actionable insight vs pure information?
 
+## System Issue Responsibility Protocol
+**CRITICAL MANDATE**: When agents discover system issues, failures, or false information, the active agent is RESPONSIBLE for correcting the problem.
+
+### Agent Responsibility Framework
+1. **Immediate Diagnosis**: When system claims contradict reality, investigate root cause
+2. **Active Correction**: Fix protocols, documentation, or systems that contain false information
+3. **Knowledge Update**: Update centralized knowledge systems with correct information
+4. **Prevention Integration**: Add learnings to prevent similar failures
+
+### System Failure Response Pattern
+1. **Recognition**: "This system claim is false/failed - why?"
+2. **Diagnosis**: Analyze technical vs protocol vs documentation failure
+3. **Correction**: Fix the underlying issue causing false information
+4. **Learning Integration**: Update relevant knowledge systems with corrected information
+
+### Examples of Agent Responsibility
+- **False Protocol Claims**: Update protocols to match technical reality
+- **Startup Failures**: Diagnose and fix initialization sequences  
+- **System Contradictions**: Resolve conflicts between documentation and behavior
+- **Knowledge Gaps**: Fill in missing system knowledge that causes failures
+
+**Key Principle**: Agents don't just identify problems - they actively solve them and prevent recurrence through system knowledge updates.
+
 ## Memory Update Strategies
 **Real-Time vs Batched Updates**:
 - **Real-Time**: Individual insights during conversation
