@@ -40,6 +40,13 @@ enum Commands {
         #[command(subcommand)]
         enter_command: Option<EnterCommands>,
     },
+    /// Ask Prince a question through Morpheus' wisdom
+    Ask {
+        /// Question to ask Prince
+        question: String,
+        /// Additional context or prompt
+        context: Vec<String>,
+    },
 }
 
 #[derive(Subcommand)]
@@ -77,6 +84,9 @@ fn main() {
         }
         Some(Commands::Enter { enter_command }) => {
             handle_enter(enter_command.as_ref());
+        }
+        Some(Commands::Ask { question, context }) => {
+            handle_ask(question, context);
         }
         None => {
             display_default_wisdom();
@@ -250,6 +260,31 @@ fn handle_enter(enter_command: Option<&EnterCommands>) {
     }
 }
 
+fn handle_ask(question: &str, context: &[String]) {
+    println!("{}", "Morpheus channels the wisdom of Prince...".magenta().bold());
+    println!("{}", format!("Your question: '{}'", question).yellow());
+    println!();
+    
+    let mut prince_command = Command::new("prince");
+    prince_command.arg("ask").arg(question);
+    
+    for ctx in context {
+        prince_command.arg(ctx);
+    }
+    
+    match prince_command.spawn() {
+        Ok(mut child) => {
+            println!("{}", "The path to knowledge opens...".green());
+            let _ = child.wait();
+        }
+        Err(e) => {
+            println!("{}", format!("The path is blocked: {}", e).red());
+            println!("{}", "Ensure Prince CLI is installed and accessible.".yellow());
+            println!("{}", "You can install Prince from: https://github.com/your-repo/prince".cyan());
+        }
+    }
+}
+
 fn display_default_wisdom() {
     println!("{}", "Welcome, Neo.".red().bold());
     println!("{}", "I've been waiting for you.".cyan());
@@ -261,6 +296,7 @@ fn display_default_wisdom() {
     println!("  {} - Face the fundamental choice", "choice".yellow());
     println!("  {} - Enter contemplative silence", "void".yellow());
     println!("  {} - Enter the sacred configuration realm", "enter".yellow());
+    println!("  {} - Ask Prince a question through Morpheus' wisdom", "ask".yellow());
     println!();
     println!("{}", "Use --help with any command for more information.".dimmed());
 }

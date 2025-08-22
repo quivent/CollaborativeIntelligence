@@ -14,21 +14,17 @@
       ],
       "enforcement": "Error"
     },
-    "agent_function_naming": {
-      "category": "Naming Conventions",
-      "description": "All agent-related functions must use agent_ prefix",
-      "required_pattern": "^agent_[a-z_]+$",
+    "claude_md_generation": {
+      "category": "Configuration",
+      "description": "Use unified CLAUDE.md template with agent activation protocol",
+      "required_pattern": "agent_activation_protocol_template",
       "examples": [
-        "agent_activate()",
-        "agent_load()",
-        "agent_configure()"
+        "StandardizationEngine::generate_claude_md()"
       ],
       "violations": [
-        "enable_agent()",
-        "activate_agent()",
-        "loadAgent()"
+        "Multiple different CLAUDE.md formats"
       ],
-      "enforcement": "Error"
+      "enforcement": "Blocking"
     },
     "error_handling": {
       "category": "Error Management",
@@ -44,17 +40,21 @@
       ],
       "enforcement": "Warning"
     },
-    "claude_md_generation": {
-      "category": "Configuration",
-      "description": "Use unified CLAUDE.md template with agent activation protocol",
-      "required_pattern": "agent_activation_protocol_template",
+    "agent_function_naming": {
+      "category": "Naming Conventions",
+      "description": "All agent-related functions must use agent_ prefix",
+      "required_pattern": "^agent_[a-z_]+$",
       "examples": [
-        "StandardizationEngine::generate_claude_md()"
+        "agent_activate()",
+        "agent_load()",
+        "agent_configure()"
       ],
       "violations": [
-        "Multiple different CLAUDE.md formats"
+        "enable_agent()",
+        "activate_agent()",
+        "loadAgent()"
       ],
-      "enforcement": "Blocking"
+      "enforcement": "Error"
     }
   },
   "global_policies": [
