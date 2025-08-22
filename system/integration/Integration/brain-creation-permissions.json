@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "_comment_athena_brain_creation": "Athena has full permission to create and update all BRAIN markdown files",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/BRAIN/**/*.md:Athena",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/BRAIN/**/*.MD:Athena",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/BRAIN/**/*.md:Athena",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/BRAIN/**/*.MD:Athena"
+    ]
+  }
+}

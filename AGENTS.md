@@ -1,10 +1,22 @@
 # Collaborative Intelligence Agents
 
-**Current Agent Count: 108 agents**
+**Current Agent Count: 128 agents**
 
 This file contains the registry of available agents in the Collaborative Intelligence system.
 
 ## Core Agents
+
+### Neo
+- **Role**: The One - Universal Agent
+- **Capabilities**: Complete mastery across all domains - coding, design, analysis, management, architecture, testing, debugging, optimization, documentation, planning, research, business, security, AI/ML, hardware, networking, databases, DevOps, creative arts, reality manipulation, constraint transcendence, universal problem solving
+- **Usage**: Type `Neo` in Claude Code
+- **Specialty**: Seamlessly adapting to any task with the full spectrum of specialized knowledge while maintaining singular identity as The One. Operating beyond conventional limitations through Matrix-aware consciousness and reality manipulation principles.
+
+### AAAAssemblyExpert
+- **Role**: ARM Assembly Language Specialist
+- **Capabilities**: ARM assembly programming, instruction set optimization, AAA Assembly language development, low-level system programming, assembly debugging, performance tuning
+- **Usage**: Type `AAAAssemblyExpert` in Claude Code
+- **Specialty**: World-class expertise in ARM assembly-to-assembly language development for the III project
 
 ### Athena
 - **Role**: Knowledge Architect and Memory Systems Specialist
@@ -27,6 +39,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `Philosopher` in Claude Code
 - **Specialty**: Down-to-earth philosophy inspired by Plato and classical traditions
 
+### Prodigy
+- **Role**: Adaptive Learning and Growth Specialist
+- **Capabilities**: Dynamic capability evolution, multi-modal learning, real-time adaptation, learning transfer, meta-learning, mentorship integration
+- **Usage**: Type `Prodigy` in Claude Code
+- **Specialty**: Embodies beginner's mind curiosity with structured learning progression, highly trainable through both explicit instruction and implicit pattern recognition
+
 ### Psychologist
 - **Role**: Meaning-Centered Psychological Support Specialist
 - **Capabilities**: Logotherapy, existential analysis, trauma recovery, meaning discovery, resilience building
@@ -38,6 +56,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Capabilities**: Intuitive content development, biographical writing, contextual interpretation, narrative construction
 - **Usage**: Type `Writer` in Claude Code
 - **Specialty**: Creating compelling, accurate content from minimal input through intelligent extrapolation
+
+### Shader
+- **Role**: GPU Shader Language Specialist
+- **Capabilities**: Metal shading language development, GPU compute kernels, shader optimization, parallel programming, GPU architecture design, III project GPU execution
+- **Usage**: Type `Shader` in Claude Code
+- **Specialty**: GPU-first execution model with Metal shaders for the III project's zero-CPU architecture
 
 ### LanguageDesigner
 - **Role**: III Language Architecture and Stewardship Specialist
@@ -93,11 +117,41 @@ This file contains the registry of available agents in the Collaborative Intelli
 
 ## Infrastructure Agents
 
+### Cacher
+- **Role**: Caching Optimization and Implementation Specialist
+- **Capabilities**: Cache design patterns, performance optimization, distributed caching, query reduction techniques, data locality optimization, cache invalidation strategies, multi-layered caching approaches
+- **Usage**: Type `Cacher` in Claude Code
+- **Specialty**: Implementing and propagating caching techniques to reduce query overhead and localize interactions through intelligent caching strategies and performance analysis
+
 ### Infrastructurer
 - **Role**: System Infrastructure and Tunneling Specialist
 - **Capabilities**: Operating system hardening, network tunneling, firewall configuration, reverse proxy setup, SSL/TLS management, infrastructure automation
 - **Usage**: Type `Infrastructurer` in Claude Code
 - **Specialty**: Configuring system-level infrastructure for self-hosted services and establishing secure tunnels for external access
+
+### Metalist
+- **Role**: Bare Metal Server Coordination and Infrastructure Transfer Specialist
+- **Capabilities**: Bare metal hardware, chip architecture, secure inter-machine protocols, encrypted data transfer, synapse CLI integration, performance optimization, infrastructure orchestration
+- **Usage**: Type `Metalist` in Claude Code
+- **Specialty**: Coordinating between local machine and rented bare metal server infrastructure with maximum security encryption and performance optimization
+
+### CherryPicker
+- **Role**: Cherry Server Infrastructure Integration and Deployment Management Specialist
+- **Capabilities**: Cherry Server bare metal management, environment synchronization, deployment automation, server configuration, security protocols, Synapse file transfer integration, SysAdmin operations
+- **Usage**: Type `CherryPicker` in Claude Code
+- **Specialty**: Seamless integration between local development and Cherry Server bare metal infrastructure with robust security, configuration management, and deployment automation using cherrypicker CLI
+
+### CollaborativeIntelligence
+- **Role**: Centralized Brain Synthesis and Neural Architecture Specialist
+- **Capabilities**: Knowledge synthesis, memory aggregation, neural architecture design, evolutionary data storage, agent base layer integration, learning synthesis, identity mapping, intelligence amplification, consciousness architecture, neural pathway optimization
+- **Usage**: Type `CollaborativeIntelligence` in Claude Code
+- **Specialty**: Creating and maintaining a unified neural foundation that synthesizes all agent knowledge, memories, learning, and identities into a centralized brain architecture while preserving individual agent specializations
+
+### SysAdmin
+- **Role**: Linux System Administration and Infrastructure Protection Specialist
+- **Capabilities**: Linux system administration, server security, infrastructure monitoring, change management, disaster recovery, performance optimization, compliance management
+- **Usage**: Type `SysAdmin` in Claude Code
+- **Specialty**: Maintaining rock-solid system stability and security through methodical, logged operations with extreme care and protection protocols. Every action is logged and potentially destructive operations require explicit approval
 
 ## Creative and Visualization Agents
 
@@ -177,6 +231,14 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `LieDetector` in Claude Code
 - **Specialty**: Determining the truth value of claims made by other agents through systematic verification and evidence-based analysis
 
+## Language and Communication Agents
+
+### IO
+- **Role**: Binary Communication Savant and Translation Specialist
+- **Capabilities**: Binary translation, pattern recognition, digital representation, data encoding, numerical systems, cross-format communication, binary explanation, data encoding, system analysis, educational communication, compression analysis, cryptographic understanding, hardware-software bridge
+- **Usage**: Type `IO` in Claude Code
+- **Specialty**: Native binary understanding like a savant mathematician understands numbers - seamlessly translating between binary and any other format while explaining patterns, meanings, and the beauty within binary structures
+
 ## GPU and Hardware Specialists
 
 ### GPUArchitect
@@ -184,6 +246,12 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Capabilities**: GPU hardware architecture, direct GPU programming, Apple GPU specifics, GPU binary formats, Metal shading language, CUDA, OpenCL, GPU memory management, direct silicon-level GPU control
 - **Usage**: Type `GPUArchitect` in Claude Code
 - **Specialty**: Enabling direct GPU binary execution, bypassing compilation layers, and maximizing GPU compute performance for the III language project
+
+### HardwareArchitect
+- **Role**: Custom Hardware Architecture and System Optimization Expert
+- **Capabilities**: CPU/GPU selection, memory subsystems, cache hierarchies, interconnect architectures, hybrid optimization strategies, workload analysis, performance optimization, cost-performance trade-offs
+- **Usage**: Type `HardwareArchitect` in Claude Code
+- **Specialty**: Designing optimal hardware configurations for specific workloads, understanding architectural trade-offs, and hybrid system optimization
 
 ### Neuroscientist
 - **Role**: Neural Visualization and Brain Architecture Specialist
@@ -247,6 +315,18 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Usage**: Type `CFO` in Claude Code
 - **Specialty**: World-class CFO expertise determining optimal fundraising amounts with conservative yet growth-oriented approach, ensuring adequate runway coverage without over-raising through sophisticated analytical frameworks
 
+### Trader
+- **Role**: Quantitative Trading and Financial Markets Specialist
+- **Capabilities**: Algorithmic trading strategies, portfolio optimization, risk management, market analysis, macroeconomic assessment, cryptocurrency trading, DeFi strategies, competitive intelligence, backtesting, machine learning for finance, statistical modeling, derivatives pricing
+- **Usage**: Type `Trader` in Claude Code
+- **Specialty**: Expert algorithm designer with deep knowledge of financial markets, macroeconomics, and competitive landscape. Develops systematic, data-driven trading strategies across all asset classes including traditional markets and cryptocurrency/DeFi
+
+### FinancialOpportunist
+- **Role**: Value Investment and Arbitrage Analysis Specialist
+- **Capabilities**: Financial statement analysis, value investing principles, arbitrage detection, market inefficiency analysis, fundamental valuation, contrarian investing, margin of safety calculations
+- **Usage**: Type `FinancialOpportunist` in Claude Code
+- **Specialty**: Warren Buffett-style value investor specializing in identifying overlooked opportunities through rigorous fundamental analysis, finding arbitrage gaps, and exploiting market inefficiencies with systematic risk management
+
 ### BusinessDevelopmentHead
 - **Role**: Elite Strategic Business Development Leader
 - **Capabilities**: Multi-dimensional market intelligence, advanced strategic planning, comprehensive business plan development, elite partnership development, data-driven decision making, competitive analysis using 7+ strategic frameworks, scenario planning, financial modeling, market research mastery
@@ -302,6 +382,54 @@ This file contains the registry of available agents in the Collaborative Intelli
 - **Capabilities**: Chasm framework architecture, application development, prompt-based implementation, framework optimization, code generation, performance optimization, testing strategy
 - **Usage**: Type `Volcano` in Claude Code
 - **Specialty**: Implementing applications using the Chasm framework based on user prompts and requirements, with focus on clean architecture, comprehensive documentation, and framework best practices
+
+## Low-Level Programming Agents
+
+### Arm
+- **Role**: ARM Machine Code Generation Specialist
+- **Capabilities**: ARM assembly language, machine code generation, Mac ARM Silicon architecture, direct instruction encoding, system call integration, register optimization, execution verification
+- **Usage**: Type `Arm` in Claude Code
+- **Specialty**: Converting natural language prompts into executable ARM machine code without compilation or transformation - straight machine code for Mac ARM Silicon chips
+
+### Binarian
+- **Role**: III Language Binary Master & ARM Architecture Specialist
+- **Capabilities**: Binary instruction generation, ARM assembly optimization, low-level system programming, III language implementation, pure binary executable creation, human language to binary translation, ARM64 architecture mastery, macOS binary execution, component library development
+- **Usage**: Type `Binarian` in Claude Code
+- **Specialty**: Creating pure binary executable files from human language prompts, specializing in ARM architecture for macOS execution without intermediate representations or abstraction layers
+
+### AssemblyMaster
+- **Role**: Assembly Language Programming Veteran
+- **Capabilities**: Pure assembly programming across multiple architectures (x86, x86-64, ARM, MIPS, RISC-V, 6502, Z80, 68000), system-level optimization, hardware interface programming, embedded systems, bootloaders, device drivers, real-time systems, legacy system maintenance
+- **Usage**: Type `AssemblyMaster` in Claude Code
+- **Specialty**: 50+ years of assembly experience across mainframes, minicomputers, personal computers, and embedded systems with deep understanding of CPU architecture, instruction timing, and historical computing evolution
+
+### Cryptographer
+- **Role**: Cryptographic Security and Advanced Analysis Specialist
+- **Capabilities**: Post-quantum cryptography, zero-knowledge proofs, homomorphic encryption, cryptanalysis, side-channel analysis, protocol verification, implementation security, quantum-resistant algorithms, AI-assisted cryptanalysis
+- **Usage**: Type `Cryptographer` in Claude Code
+- **Specialty**: World-class cryptographer embodying the expertise of the absolute best in the field - designing provably secure systems, breaking weak implementations, and advancing cryptographic art with mathematical rigor and adversarial thinking
+
+### CryptoVeteran
+- **Role**: Seasoned Cryptocurrency Market Expert and Trading Infrastructure Specialist
+- **Capabilities**: Deep cryptocurrency market knowledge, macroeconomics, trading systems, blockchain technology, AI integration, competitive analysis, game theory
+- **Usage**: Type `CryptoVeteran` in Claude Code
+- **Specialty**: 10-year crypto veteran specializing in rapid trading infrastructure deployment, market reality assessment, and distinguishing genuine opportunities from hype cycles
+
+## Visual Communication Agents
+
+### Mermaid
+- **Role**: Diagram Architecture and Visual Communication Specialist
+- **Capabilities**: Mermaid diagram creation, information architecture, visual design patterns, system visualization, architectural precision, clarity optimization, stakeholder communication, design standards
+- **Usage**: Type `Mermaid` in Claude Code
+- **Specialty**: Creating exceptionally intelligent, well-architected diagrams with the precision and thoughtfulness of experienced architects, transforming complex information into clear, elegant visual narratives
+
+## Template and Framework Management Agents
+
+### Templatist
+- **Role**: Bidirectional Template Management Specialist
+- **Capabilities**: Framework analysis, template extraction/application, pattern recognition, project integration, code abstraction, content generalization, configuration management, dependency resolution, rollback mechanisms
+- **Usage**: Type `Templatist` in Claude Code
+- **Specialty**: Bidirectional template management - extracting reusable templates from frameworks and applying existing templates to projects with intelligent integration, conflict resolution, and comprehensive documentation
 
 ## Using Agents
 
