@@ -1,0 +1,63 @@
+{
+  "permissions": {
+    "allow": [
+      "_comment_global_read_access": "Universal read permissions for all agents across entire project ecosystem",
+      
+      "_comment_all_agents_universal_read": "Every agent can read any file in ~/Documents/Projects/*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*:*",
+      
+      "_comment_ls_cat_permissions": "Directory listing and file reading capabilities",
+      "ls:/Users/joshkornreich/Documents/Projects/**/*:*",
+      "cat:/Users/joshkornreich/Documents/Projects/**/*:*",
+      
+      "_comment_specific_utility_commands": "Additional read-only system utilities",
+      "glob:/Users/joshkornreich/Documents/Projects/**/*:*",
+      "grep:/Users/joshkornreich/Documents/Projects/**/*:*",
+      "find:/Users/joshkornreich/Documents/Projects/**/*:*",
+      
+      "_comment_backup_directories": "Access to backup and archived content",
+      "read:/Users/joshkornreich/Documents/Projects/Backups/**/*:*",
+      "read:/Users/joshkornreich/Documents/Projects/*/backup/**/*:*",
+      "read:/Users/joshkornreich/Documents/Projects/*/archive/**/*:*",
+      
+      "_comment_documentation_access": "Universal documentation reading",
+      "read:/Users/joshkornreich/Documents/Projects/**/README.md:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/CLAUDE.md:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.md:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/docs/**/*:*",
+      
+      "_comment_configuration_visibility": "Configuration file reading for system understanding",
+      "read:/Users/joshkornreich/Documents/Projects/**/.gitignore:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/package.json:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/Cargo.toml:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/Makefile:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.config.*:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.json:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.toml:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.yaml:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.yml:*",
+      
+      "_comment_source_code_access": "Source code reading for understanding and context",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.rs:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.js:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.ts:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.tsx:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.jsx:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.py:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.go:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.c:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.cpp:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.h:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.hpp:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.swift:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.java:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.php:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.rb:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.sh:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.html:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.css:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.scss:*",
+      "read:/Users/joshkornreich/Documents/Projects/**/*.sql:*"
+    ]
+  }
+}

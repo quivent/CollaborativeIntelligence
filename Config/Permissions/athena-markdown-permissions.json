@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "_comment_athena_markdown_access": "Athena has full permission to read any markdown file when responding to user prompts",
+      "read:**/*.md:Athena",
+      "read:**/*.MD:Athena",
+      "read:**/*.markdown:Athena",
+      "read:**/*.mdown:Athena",
+      "read:/**/*.md:Athena",
+      "read:/**/*.MD:Athena",
+      "read:/**/*.markdown:Athena",
+      "read:/**/*.mdown:Athena"
+    ]
+  }
+}

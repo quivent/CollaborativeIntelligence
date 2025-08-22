@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "_comment_prodigy_universal_read": "Prodigy agent universal read access for learning purposes",
+      "read:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/**/*:Prodigy",
+      "read:/Users/joshkornreich/Documents/Projects/**/*:Prodigy",
+      "read:/Users/joshkornreich/**/*:Prodigy",
+      
+      "_comment_prodigy_agent_directory_write": "Full write access to Prodigy agent directory",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/**/*:Prodigy",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/**/*:Prodigy",
+      
+      "_comment_prodigy_specific_files": "Specific Prodigy agent file permissions",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/ContinuousLearning.md:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/MEMORY.md:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/working_*.md:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/Sessions/**/*:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/metadata.json:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/README.md:Prodigy",
+      
+      "_comment_prodigy_learning_directories": "Learning and documentation directories",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/Learning/**/*:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/Docs/**/*:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/Plans/**/*:Prodigy",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Prodigy/Scripts/**/*:Prodigy"
+    ]
+  }
+}

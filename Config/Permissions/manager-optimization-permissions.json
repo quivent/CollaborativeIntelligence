@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "_comment_manager_ecosystem_maintenance": "Manager needs comprehensive permissions for automated agent lifecycle management",
+      
+      "_comment_agent_creation_automation": "Full agent directory creation and template generation",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/README.md:Manager",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/MEMORY.md:Manager",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/ContinuousLearning.md:Manager",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/metadata.json:Manager",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/Reference/**/*:Manager",
+      
+      "_comment_registry_maintenance": "Automated ecosystem database integrity",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/AGENTS.md:Manager",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/README.md:Manager",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/AGENT_INDEX.md:Manager",
+      
+      "_comment_verification_testing": "Automated learning mechanism and integrity testing",
+      "read:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/**/*.md:Manager",
+      "read:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/**/*.json:Manager",
+      
+      "_comment_batch_operations": "Efficient multi-file operations",
+      "read:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/MEMORY.md:Manager",
+      "read:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/README.md:Manager",
+      "read:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/ContinuousLearning.md:Manager",
+      
+      "_comment_ecosystem_optimization": "Cross-agent analysis and optimization",
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/Sessions/**/*:Manager",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Manager/ecosystem-reports/**/*:Manager"
+    ]
+  }
+}
