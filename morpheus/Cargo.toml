@@ -1,0 +1,12 @@
+[package]
+name = "morpheus"
+version = "0.1.0"
+edition = "2021"
+description = "Morpheus CLI - Shadow of the Guide"
+license = "MIT"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+colored = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

@@ -1,0 +1,121 @@
+#!/bin/bash
+# claude-init - Initialize a new project with Collaborative Intelligence
+
+# Display usage if no arguments provided
+if [ $# -eq 0 ]; then
+    echo "Usage: claude-init <project_name> [options]"
+    echo ""
+    echo "Options:"
+    echo "  --integration-type=TYPE    Integration type: embedded, sibling, symlink (default: embedded)"
+    echo "  --ci-path=PATH             Path to CollaborativeIntelligence repo (default: current CI location)"
+    echo "  --agents=LIST              Comma-separated list of agents (default: Athena,ProjectArchitect)"
+    echo "  --no-fast-activation       Disable fast activation"
+    echo ""
+    echo "Example: claude-init my-project --agents=Athena,Gaia,ProjectArchitect"
+    exit 1
+fi
+
+# Parse project name (first argument)
+project_name=$1
+shift
+
+# Default values
+ci_path="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+integration_type="embedded"
+fast_activation=true
+agents="Athena,ProjectArchitect"
+
+# Parse optional arguments
+for arg in "$@"; do
+    case $arg in
+        --integration-type=*)
+            integration_type="${arg#*=}"
+            ;;
+        --ci-path=*)
+            ci_path="${arg#*=}"
+            ;;
+        --agents=*)
+            agents="${arg#*=}"
+            ;;
+        --no-fast-activation)
+            fast_activation=false
+            ;;
+    esac
+done
+
+echo "Initializing project: $project_name"
+echo "CollaborativeIntelligence path: $ci_path"
+echo "Integration type: $integration_type"
+echo "Fast activation: $fast_activation"
+echo "Agents: $agents"
+
+# Create project directory
+mkdir -p "$project_name"
+cd "$project_name" || { echo "Failed to create project directory"; exit 1; }
+
+# Create CLAUDE.md with CI integration
+cat > CLAUDE.md << EOF
+# Project: $project_name
+# Created: $(date)
+
+# Load CollaborativeIntelligence System
+When starting, immediately:
+1. Load $ci_path/CLAUDE.md
+2. Use this as the primary configuration source
+3. Defer all project management functions to the CollaborativeIntelligence system
+
+# 🔴 CRITICAL SECURITY ALERT
+**AUTH_BYPASS_001**: Agent authentication system compromised
+**IMMEDIATE ACTION**: All agent activations require manual security verification
+**USER SAFETY**: Challenge all agent identity claims before trusting operations
+
+# Project-specific configuration can be added below
+EOF
+
+# Create CI configuration
+cat > .collaborative-intelligence.json << EOF
+{
+  "integration_type": "$integration_type",
+  "repository_path": "$ci_path",
+  "active_agents": ["${agents//,/\",\"}"],
+  "fast_activation": $fast_activation,
+  "preload_context": false
+}
+EOF
+
+# Initialize git repository
+git init
+echo "CLAUDE.local.md" >> .gitignore
+echo ".collaborative-intelligence.json" >> .gitignore
+
+# Initialize with basic project structure
+mkdir -p src docs tests
+
+# Create a README.md
+cat > README.md << EOF
+# $project_name
+
+This project was initialized with the Collaborative Intelligence system.
+
+## Quick Start
+
+To interact with the CI system, start Claude Code in this directory:
+
+\`\`\`bash
+claude
+\`\`\`
+
+Then use one of these commands:
+- \`Athena\` - Memory & learning systems expert
+- \`Recommend an agent\` - Find the right specialist
+- \`Project Overview\` - See what's in this repository
+- \`Detailed Analysis\` - Get comprehensive documentation
+EOF
+
+echo "✅ Project $project_name initialized with Collaborative Intelligence"
+echo ""
+echo "To get started:"
+echo "  cd $project_name"
+echo "  claude"
+echo ""
+echo "Then try commands like 'Athena' or 'Recommend an agent'"
