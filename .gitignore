@@ -116,7 +116,7 @@ Projects/
 # Other organizational directories
 Conversations/
 Visions/
-Manager/
+# Manager/ - commented out to allow AGENTS/Manager/ directory
 
 # Tool-specific library files
 ci-tools/lib/claude-integrity.sh
@@ -178,3 +178,50 @@ CLIs/**/.clippy.toml
 .cir/
 build_temp/
 .build_cache/
+
+# Rust build artifacts (comprehensive)
+**/target/
+**/target/**
+Cargo.lock
+target/
+**/*.rlib
+**/*.pdb
+**/*.rmeta
+
+# Additional compiled objects
+**/*.o
+**/*.obj
+**/*.exe
+**/*.dll
+**/*.dylib
+**/*.so
+**/*.a
+**/*.lib
+
+# CLI build outputs
+cli/target/
+**/cli/target/
+*/target/
+morpheus/target/
+core/target/
+api/target/
+data/*/target/
+interfaces/*/target/
+system/*/target/
+
+# Session files and logs
+AGENTS/multi_agent_session_*.json
+AGENTS/parallel_session_*/
+**/*_session.json
+**/session_*.json
+session_*.md
+Session-*.md
+
+# Brain cache and temporary files
+.brain_cache.md
+**/.brain_cache/
+**/brain_cache/
+
+# Validation and startup scripts
+**/startup-sequence-enforcer.sh
+**/validate-startup-compliance.sh
