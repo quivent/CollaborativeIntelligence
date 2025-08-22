@@ -1,17 +1,13 @@
 {
   "name": "Visualist",
-  "description": "Image Generation and Visual AI Specialist",
-  "capabilities": ["image_generation", "visual_design", "prompt_engineering", "visual_asset_management"],
-  "created_at": "2025-05-22T00:00:00.000000+00:00",
-  "last_used": "2025-05-22T00:00:00.000000+00:00",
-  "usage_count": 0,
+  "description": "Agent Visualist",
+  "capabilities": [],
+  "created_at": "2025-08-07T16:37:16.059477+00:00",
+  "last_used": "2025-08-16T19:11:15.022847+00:00",
+  "usage_count": 2,
   "version": "1.0",
   "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Visualist",
-  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Visualist/MEMORY.md",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Visualist/Visualist_memory.md",
   "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Visualist/ContinuousLearning.md",
-  "attributes": {
-    "specialization": "visual_ai",
-    "model_types": ["text_to_image", "image_editing", "style_transfer"],
-    "output_formats": ["png", "jpg", "svg", "mockups"]
-  }
+  "attributes": {}
 }

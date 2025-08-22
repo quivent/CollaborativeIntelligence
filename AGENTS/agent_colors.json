@@ -134,6 +134,11 @@
       "color": "#001a00",
       "name": "Dark Green 2",
       "description": "Ecosystem management specialist"
+    },
+    "Cacher": {
+      "color": "#0d1a26",
+      "name": "Steel Blue",
+      "description": "Caching optimization and implementation specialist"
     }
   },
   "color_schema": {

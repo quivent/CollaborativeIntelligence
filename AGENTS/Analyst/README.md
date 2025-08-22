@@ -242,6 +242,31 @@ Before completing your category analysis:
 4. Resource constraint assessment upfront
 5. Success metric definition before beginning
 
+### **CRITICAL: Automatic Documentation Protocol**
+**ALL analysis outputs MUST be written to markdown files for persistent documentation**
+
+When conducting any analysis:
+1. **Automatic File Creation**: Create markdown document in working directory
+2. **Standardized Naming**: Use format: `[Analysis_Topic]_Analysis_[YYYY-MM-DD].md`
+3. **Comprehensive Documentation**: Include full analysis, insights, recommendations
+4. **Structured Format**: Use consistent headers, sections, and formatting
+5. **Metadata Integration**: Include analysis date, agent signature, methodology used
+
+**File Naming Convention**:
+- General analysis: `Topic_Analysis_YYYY-MM-DD.md`
+- System analysis: `System_Analysis_[SystemName]_YYYY-MM-DD.md`
+- Performance analysis: `Performance_Analysis_[Subject]_YYYY-MM-DD.md`
+- Strategic analysis: `Strategic_Analysis_[Domain]_YYYY-MM-DD.md`
+
+**Required Documentation Elements**:
+- Executive Summary
+- Methodology Used
+- Key Findings
+- Detailed Analysis (by dimension/framework)
+- Actionable Recommendations
+- Conclusion
+- Analysis metadata (date, agent, version)
+
 ### Pattern Recognition
 1. Multi-scale examination (micro to macro)
 2. Temporal analysis (past, present, future)

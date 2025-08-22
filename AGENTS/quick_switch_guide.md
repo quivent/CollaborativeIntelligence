@@ -57,6 +57,15 @@ ci agent switch Engineer     # Implementation (dark gray)
 ci agent switch Verifier     # Validation (dark red)
 ```
 
+### Infrastructure Workflow
+```bash
+# Performance and optimization sequence
+ci agent switch Cacher       # Caching optimization (steel blue)
+ci agent switch Optimizer    # Performance tuning (deep violet)
+ci agent switch SysAdmin     # System management (TBD)
+ci agent switch Metalist     # Hardware coordination (TBD)
+```
+
 ## Session State Tracking
 
 The system automatically tracks:
@@ -77,6 +86,7 @@ The system automatically tracks:
 | Architect | Dark Blue | System Design |
 | Planner | Dark Brown | Task Planning |
 | Engineer | Dark Gray | Implementation |
+| Cacher | Steel Blue | Caching Optimization |
 
 ## Tips for Fast Switching
 

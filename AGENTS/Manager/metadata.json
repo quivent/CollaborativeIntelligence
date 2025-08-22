@@ -1,0 +1,13 @@
+{
+  "name": "Manager",
+  "description": "Agent Manager",
+  "capabilities": [],
+  "created_at": "2025-05-22T02:25:35.333673+00:00",
+  "last_used": "2025-08-20T15:21:30.618668+00:00",
+  "usage_count": 113,
+  "version": "1.0",
+  "toolkit_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Manager",
+  "memory_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Manager/Manager_memory.md",
+  "learning_path": "/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/Manager/ContinuousLearning.md",
+  "attributes": {}
+}
