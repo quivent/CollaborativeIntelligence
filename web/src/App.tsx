@@ -4,9 +4,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Auth0ProviderWrapper } from './contexts/Auth0Provider';
 import { AccessControl } from './components/AccessControl';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { SearchProvider } from './contexts/SearchContext';
 import { Navigation } from './components/Navigation';
+import { LandingPage } from './components/LandingPage';
 import { DirectoryView } from './components/DirectoryView';
 import { GridView } from './components/GridView';
+import { ConversationView } from './components/ConversationView';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
 
 // Simple callback handler for Auth0
@@ -74,19 +77,22 @@ function App() {
     <Auth0ProviderWrapper>
       <AccessControl>
         <ThemeProvider>
-          <Router>
-            <div className="min-h-screen bg-gray-50">
-              <Navigation />
-              <main className="h-[calc(100vh-4rem)]">
-                <Routes>
-                  <Route path="/" element={<Navigate to="/directory" replace />} />
-                  <Route path="/directory" element={<DirectoryView />} />
-                  <Route path="/grid" element={<GridView />} />
-                </Routes>
-              </main>
-              <ThemeSwitcher />
-            </div>
-          </Router>
+          <SearchProvider>
+            <Router>
+              <div className="min-h-screen bg-gray-50">
+                <Navigation />
+                <main className="h-[calc(100vh-4rem)]">
+                  <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/directory" element={<DirectoryView />} />
+                    <Route path="/grid" element={<GridView />} />
+                    <Route path="/chat" element={<ConversationView />} />
+                  </Routes>
+                </main>
+                <ThemeSwitcher />
+              </div>
+            </Router>
+          </SearchProvider>
         </ThemeProvider>
       </AccessControl>
     </Auth0ProviderWrapper>

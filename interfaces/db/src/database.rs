@@ -169,7 +169,7 @@ impl CIDatabaseAPI {
         conn.execute(
             "INSERT INTO agents (name, agent_type, status, activation_count, created_at, memory_path)
              VALUES (?1, ?2, 'active', 0, ?3, ?4)",
-            [&req.name, &req.agent_type, &timestamp.to_string(), &req.memory_path.unwrap_or_default()]
+            [&req.name, &req.agent_type, &timestamp.to_string(), &req.memory_path.as_ref().unwrap_or(&String::new())]
         )?;
         
         Ok(Agent {

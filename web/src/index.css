@@ -73,6 +73,196 @@
   /* Keep default Tailwind colors for colorful theme */
 }
 
+/* Pastel Color Palette Variables */
+:root {
+  --pastel-blue: #dbeafe;
+  --pastel-blue-dark: #1e3a8a;
+  --pastel-green: #d1fae5;
+  --pastel-green-dark: #064e3b;
+  --pastel-purple: #e9d5ff;
+  --pastel-purple-dark: #581c87;
+  --pastel-pink: #fce7f3;
+  --pastel-pink-dark: #831843;
+  --pastel-orange: #fed7aa;
+  --pastel-orange-dark: #9a3412;
+  --pastel-teal: #ccfbf1;
+  --pastel-teal-dark: #0f5144;
+  --pastel-indigo: #e0e7ff;
+  --pastel-indigo-dark: #3730a3;
+  --pastel-slate: #e2e8f0;
+  --pastel-slate-dark: #0f172a;
+  --pastel-yellow: #fef3c7;
+  --pastel-yellow-dark: #92400e;
+  --pastel-rose: #ffe4e6;
+  --pastel-rose-dark: #9f1239;
+  --pastel-emerald: #d1fae5;
+  --pastel-emerald-dark: #064e3b;
+  --pastel-violet: #ede9fe;
+  --pastel-violet-dark: #5b21b6;
+}
+
+/* Pastel Button Classes */
+.pastel-blue {
+  background-color: var(--pastel-blue);
+  color: var(--pastel-blue-dark);
+  border-color: transparent;
+}
+
+.pastel-blue:hover {
+  background-color: #bfdbfe;
+  transform: scale(1.02);
+}
+
+.pastel-green {
+  background-color: var(--pastel-green);
+  color: var(--pastel-green-dark);
+  border-color: transparent;
+}
+
+.pastel-green:hover {
+  background-color: #a7f3d0;
+  transform: scale(1.02);
+}
+
+.pastel-purple {
+  background-color: var(--pastel-purple);
+  color: var(--pastel-purple-dark);
+  border-color: transparent;
+}
+
+.pastel-purple:hover {
+  background-color: #ddd6fe;
+  transform: scale(1.02);
+}
+
+.pastel-pink {
+  background-color: var(--pastel-pink);
+  color: var(--pastel-pink-dark);
+  border-color: transparent;
+}
+
+.pastel-pink:hover {
+  background-color: #fbcfe8;
+  transform: scale(1.02);
+}
+
+.pastel-orange {
+  background-color: var(--pastel-orange);
+  color: var(--pastel-orange-dark);
+  border-color: transparent;
+}
+
+.pastel-orange:hover {
+  background-color: #fdba74;
+  transform: scale(1.02);
+}
+
+.pastel-teal {
+  background-color: var(--pastel-teal);
+  color: var(--pastel-teal-dark);
+  border-color: transparent;
+}
+
+.pastel-teal:hover {
+  background-color: #99f6e4;
+  transform: scale(1.02);
+}
+
+.pastel-indigo {
+  background-color: var(--pastel-indigo);
+  color: var(--pastel-indigo-dark);
+  border-color: transparent;
+}
+
+.pastel-indigo:hover {
+  background-color: #c7d2fe;
+  transform: scale(1.02);
+}
+
+.pastel-slate {
+  background-color: var(--pastel-slate);
+  color: var(--pastel-slate-dark);
+  border-color: transparent;
+}
+
+.pastel-slate:hover {
+  background-color: #cbd5e1;
+  transform: scale(1.02);
+}
+
+/* Pastel Card/Container Classes */
+.pastel-card-blue {
+  background: linear-gradient(135deg, var(--pastel-blue), #f0f9ff);
+  border-color: #bfdbfe;
+  color: var(--pastel-blue-dark);
+}
+
+.pastel-card-green {
+  background: linear-gradient(135deg, var(--pastel-green), #f0fdf4);
+  border-color: #bbf7d0;
+  color: var(--pastel-green-dark);
+}
+
+.pastel-card-purple {
+  background: linear-gradient(135deg, var(--pastel-purple), #faf5ff);
+  border-color: #d8b4fe;
+  color: var(--pastel-purple-dark);
+}
+
+.pastel-card-pink {
+  background: linear-gradient(135deg, var(--pastel-pink), #fdf2f8);
+  border-color: #f9a8d4;
+  color: var(--pastel-pink-dark);
+}
+
+.pastel-card-orange {
+  background: linear-gradient(135deg, var(--pastel-orange), #fffbeb);
+  border-color: #fcd34d;
+  color: var(--pastel-orange-dark);
+}
+
+.pastel-card-teal {
+  background: linear-gradient(135deg, var(--pastel-teal), #f0fdfa);
+  border-color: #5eead4;
+  color: var(--pastel-teal-dark);
+}
+
+/* Pastel Icon/Accent Classes */
+.pastel-icon-blue {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+}
+
+.pastel-icon-green {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  color: white;
+}
+
+.pastel-icon-purple {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  color: white;
+}
+
+.pastel-icon-pink {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  color: white;
+}
+
+.pastel-icon-orange {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  color: white;
+}
+
+.pastel-icon-teal {
+  background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+  color: white;
+}
+
+/* Transition utilities for all pastel elements */
+.pastel-transition {
+  transition: all 0.2s ease-in-out;
+}
+
 /* Elegant Markdown Styling */
 .markdown-content {
   @apply max-w-none;

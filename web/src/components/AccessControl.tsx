@@ -6,6 +6,7 @@ const ALLOWED_EMAILS = [
   'jbenjaminkr@gmail.com',
   'claude.jbenjaminkr@gmail.com',
   'sudhirparam@gmail.com',
+  'mintzer.elad@gmail.com',
 ];
 
 interface AccessControlProps {
@@ -13,6 +14,15 @@ interface AccessControlProps {
 }
 
 export const AccessControl: React.FC<AccessControlProps> = ({ children }) => {
+  // Check if Auth0 is disabled for local development
+  const isAuthDisabled = process.env.REACT_APP_DISABLE_AUTH === 'true';
+  
+  // If Auth0 is disabled, bypass all authentication checks
+  if (isAuthDisabled) {
+    console.log('AccessControl: Auth0 disabled for local development, bypassing authentication');
+    return <>{children}</>;
+  }
+  
   const { isLoading, isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
   
   // Debug logging

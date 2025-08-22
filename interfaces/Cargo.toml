@@ -2,8 +2,7 @@
 members = [
     "agent-cache",
     "db", 
-    "memory",
-    "CIA"
+    "memory"
 ]
 
 [workspace.dependencies]

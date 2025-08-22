@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { Agent, AgentComponent } from '../types/agent';
 import { getAgents, getMarkdownContent } from '../services/agentService';
 import { useTheme } from '../contexts/ThemeContext';
+import { useSearch } from '../contexts/SearchContext';
+import { CategoryFilter } from './CategoryFilter';
+import { categorizeAgent } from '../types/categories';
 
 interface GridViewProps {
   onAgentSelect?: (agent: Agent) => void;
@@ -10,6 +14,8 @@ interface GridViewProps {
 
 export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
   const { theme } = useTheme();
+  const { filterAgents } = useSearch();
+  const navigate = useNavigate();
   const [agents, setAgents] = useState<Agent[]>([]);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [selectedComponent, setSelectedComponent] = useState<AgentComponent | null>(null);
@@ -17,9 +23,15 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
   const [loading, setLoading] = useState(true);
   const [loadingMarkdown, setLoadingMarkdown] = useState(false);
   const [showAgentDetail, setShowAgentDetail] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   useEffect(() => {
     loadAgents();
+  }, []);
+
+  // Clear category filters when component mounts (i.e., when navigating to this view)
+  useEffect(() => {
+    setSelectedCategories([]);
   }, []);
 
   const loadAgents = async () => {
@@ -32,6 +44,33 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const filteredAgents = useMemo(() => {
+    // First apply search filter
+    let filtered = filterAgents(agents);
+    
+    // Then apply category filter
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter(agent => {
+        const agentCategories = categorizeAgent(agent);
+        return selectedCategories.every(category => agentCategories.includes(category));
+      });
+    }
+    
+    return filtered;
+  }, [agents, selectedCategories, filterAgents]);
+
+  const handleCategoryToggle = (categoryId: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(categoryId)
+        ? prev.filter(id => id !== categoryId)
+        : [...prev, categoryId]
+    );
+  };
+
+  const handleClearAllCategories = () => {
+    setSelectedCategories([]);
   };
 
   const handleAgentClick = (agent: Agent) => {
@@ -76,76 +115,111 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
     setMarkdownContent('');
   };
 
+  const handleStartChat = (agent: Agent, e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/chat?agent=${encodeURIComponent(agent.name)}`);
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-300"></div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Agent Grid</h1>
-          <p className="text-gray-600">{agents.length} agents organized in a visual grid</p>
+    <div className="p-4 bg-gray-50 min-h-screen">
+      <div className="max-w-full mx-auto px-4">
+
+        {/* Category Filter */}
+        <div className="mb-8 p-6 bg-white rounded-xl shadow-sm">
+          <CategoryFilter
+            selectedCategories={selectedCategories}
+            onCategoryToggle={handleCategoryToggle}
+            onClearAll={handleClearAllCategories}
+            className="grid-view"
+          />
         </div>
 
-        {/* Agent Grid - 4 per row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {agents.map((agent) => (
-            <button
+        {/* Agent Grid - Optimized for more agents per row */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
+          {filteredAgents.map((agent) => (
+            <div
               key={agent.name}
               onClick={() => handleAgentClick(agent)}
-              className={`group p-6 rounded-xl border-2 text-left transition-all duration-300 hover:shadow-lg hover:scale-105 ${
-                theme === 'color' ? agent.color : 
-                theme === 'light' ? 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-xl' :
-                'bg-gray-800 border-gray-600 hover:border-gray-500 hover:shadow-xl text-white'
+              className={`group p-4 rounded-lg border-2 text-left transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer ${
+                theme === 'color' ? `${agent.color} hover:brightness-110 hover:saturate-110` : 
+                theme === 'light' ? 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-xl hover:bg-blue-50' :
+                'bg-gray-800 border-gray-600 hover:border-gray-500 hover:shadow-xl hover:bg-gray-700 text-white'
               }`}
             >
               {/* Agent Icon/Avatar */}
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-white bg-opacity-50 mb-4 mx-auto">
-                <div className="w-8 h-8 rounded-full bg-current opacity-60"></div>
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white bg-opacity-50 mb-3 mx-auto">
+                <div className="w-6 h-6 rounded-full bg-current opacity-60"></div>
               </div>
 
               {/* Agent Name */}
-              <h3 className="font-bold text-lg text-center mb-2 truncate">
+              <h3 className="font-bold text-base text-center mb-2 truncate">
                 {agent.name}
               </h3>
 
               {/* Agent Subtitle */}
-              <p className="text-sm opacity-80 text-center mb-3 line-clamp-2 min-h-[2.5rem]">
+              <p className="text-xs opacity-80 text-center mb-2 line-clamp-2 min-h-[2rem]">
                 {agent.subtitle}
               </p>
 
               {/* Stats */}
-              <div className="flex justify-between items-center text-xs opacity-70 border-t border-current border-opacity-20 pt-3">
+              <div className="flex justify-between items-center text-xs opacity-70 border-t border-current border-opacity-20 pt-2 mb-3">
                 <span>{agent.metadata.usage_count} uses</span>
                 <span>{agent.components.length} parts</span>
               </div>
 
-              {/* Hover indicator */}
-              <div className="mt-3 text-center">
-                <div className="inline-flex items-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span>Click to explore</span>
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              {/* Action Buttons */}
+              <div className="flex gap-1">
+                <button
+                  onClick={(e) => handleStartChat(agent, e)}
+                  className={`flex-1 px-2 py-1.5 text-xs font-medium rounded-lg border transition-all duration-200 flex items-center justify-center gap-1 ${
+                    theme === 'color' 
+                      ? 'bg-white bg-opacity-90 text-current border-white border-opacity-30 hover:bg-opacity-100 hover:border-opacity-50'
+                      : theme === 'light'
+                      ? 'bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-200 hover:border-blue-300'
+                      : 'bg-gray-700 text-white border-gray-600 hover:bg-gray-600 hover:border-gray-500'
+                  }`}
+                >
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
-                </div>
+                  <span>Chat</span>
+                </button>
               </div>
-            </button>
+            </div>
           ))}
         </div>
 
         {/* Empty state if no agents */}
-        {agents.length === 0 && (
+        {filteredAgents.length === 0 && (
           <div className="text-center py-12">
             <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
-            <h3 className="text-lg font-medium text-gray-600 mb-2">No Agents Available</h3>
-            <p className="text-gray-500">Check back later for available agents.</p>
+            <h3 className="text-lg font-medium text-gray-600 mb-2">
+              {selectedCategories.length > 0 ? 'No Agents Match Filter' : 'No Agents Available'}
+            </h3>
+            <p className="text-gray-500">
+              {selectedCategories.length > 0 
+                ? 'Try adjusting your category filters to see more agents.'
+                : 'Check back later for available agents.'
+              }
+            </p>
+            {selectedCategories.length > 0 && (
+              <button
+                onClick={handleClearAllCategories}
+                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Clear Filters
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -218,19 +292,25 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
                       <p className="text-gray-700 text-sm leading-relaxed mb-3">{selectedAgent.metadata.description}</p>
                       
                       <h4 className="font-medium text-gray-800 mb-2">Key Capabilities</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedAgent.metadata.capabilities.slice(0, 6).map((capability, index) => (
-                          <span
+                      <div className="space-y-2">
+                        {selectedAgent.metadata.capabilities.slice(0, 4).map((capability, index) => (
+                          <div
                             key={index}
-                            className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-medium border border-blue-200"
+                            className="flex items-start gap-2 p-2 bg-blue-50 rounded-lg border border-blue-100"
                           >
-                            {capability.replace('-', ' ')}
-                          </span>
+                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                            <div>
+                              <div className="font-medium text-blue-900 text-xs">{capability}</div>
+                              <div className="text-xs text-blue-700 mt-0.5">
+                                Advanced proficiency with proven expertise
+                              </div>
+                            </div>
+                          </div>
                         ))}
-                        {selectedAgent.metadata.capabilities.length > 6 && (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
-                            +{selectedAgent.metadata.capabilities.length - 6} more
-                          </span>
+                        {selectedAgent.metadata.capabilities.length > 4 && (
+                          <div className="text-xs text-gray-500 text-center pt-1">
+                            +{selectedAgent.metadata.capabilities.length - 4} additional capabilities
+                          </div>
                         )}
                       </div>
                     </div>
@@ -266,10 +346,10 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
                     <button
                       key={`${component.path}-${index}`}
                       onClick={() => handleComponentClick(component)}
-                      className={`p-4 rounded-lg border-2 hover:shadow-md transition-all duration-200 text-left group ${
+                      className={`p-4 rounded-lg border transition-all duration-200 text-left group ${
                         selectedComponent?.path === component.path
-                          ? 'bg-blue-50 border-blue-500 shadow-md'
-                          : 'bg-gray-50 hover:bg-gray-100 border-gray-200 hover:border-gray-300'
+                          ? 'bg-blue-100 border-blue-300 shadow-md text-blue-900'
+                          : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <div className="flex items-start justify-between mb-2">
@@ -281,11 +361,11 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
                           {component.name}
                         </h4>
                         <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
-                          component.type === 'memory' ? 'bg-blue-400' :
-                          component.type === 'learning' ? 'bg-green-400' :
-                          component.type === 'readme' ? 'bg-purple-400' :
-                          component.type === 'protocol' ? 'bg-orange-400' :
-                          'bg-gray-400'
+                          component.type === 'memory' ? 'bg-blue-300' :
+                          component.type === 'learning' ? 'bg-green-300' :
+                          component.type === 'readme' ? 'bg-purple-300' :
+                          component.type === 'protocol' ? 'bg-orange-300' :
+                          'bg-gray-300'
                         }`} />
                       </div>
                       <p className={`text-sm capitalize mb-2 ${
@@ -312,7 +392,7 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
                       </h4>
                       <button
                         onClick={closeMarkdownViewer}
-                        className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                        className="p-2 text-gray-400 hover:text-gray-600 hover:bg-blue-50 border border-transparent hover:border-blue-200 rounded-lg transition-all duration-200"
                         title="Close document"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -323,7 +403,7 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
                     
                     {loadingMarkdown ? (
                       <div className="flex items-center justify-center py-8">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-300"></div>
                       </div>
                     ) : (
                       <div className="markdown-content max-h-96 overflow-y-auto">
@@ -337,15 +417,21 @@ export const GridView: React.FC<GridViewProps> = ({ onAgentSelect }) => {
               {/* Capabilities */}
               {selectedAgent.metadata.capabilities.length > 0 && (
                 <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Capabilities</h3>
-                  <div className="flex flex-wrap gap-2">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">All Capabilities</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {selectedAgent.metadata.capabilities.map((capability, index) => (
-                      <span
+                      <div
                         key={index}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+                        className="flex items-start gap-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100 hover:border-blue-200 transition-colors"
                       >
-                        {capability.replace('-', ' ')}
-                      </span>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div>
+                          <h4 className="font-medium text-blue-900 mb-1">{capability}</h4>
+                          <p className="text-sm text-blue-700">
+                            Professional expertise with comprehensive knowledge and practical experience in {capability.toLowerCase().replace(/[&-]/g, ' and ').replace(/  +/g, ' ')}.
+                          </p>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>

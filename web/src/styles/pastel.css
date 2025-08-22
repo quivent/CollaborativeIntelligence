@@ -1,0 +1,96 @@
+/* Pastel Color Classes - Light and Beautiful */
+
+.pastel-blue {
+  background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+  border-color: #dae8f5;
+  color: #4a5568;
+}
+
+.pastel-green {
+  background: linear-gradient(135deg, #f0fff4 0%, #e6ffed 100%);
+  border-color: #d4edda;
+  color: #4a5568;
+}
+
+.pastel-purple {
+  background: linear-gradient(135deg, #f8f4ff 0%, #f0e6ff 100%);
+  border-color: #e6d7ff;
+  color: #4a5568;
+}
+
+.pastel-pink {
+  background: linear-gradient(135deg, #fff4f8 0%, #ffe6f0 100%);
+  border-color: #f5d7e3;
+  color: #4a5568;
+}
+
+.pastel-orange {
+  background: linear-gradient(135deg, #fff8f0 0%, #ffede6 100%);
+  border-color: #f5e1d4;
+  color: #4a5568;
+}
+
+.pastel-yellow {
+  background: linear-gradient(135deg, #fffef0 0%, #fefce6 100%);
+  border-color: #f7f3d4;
+  color: #4a5568;
+}
+
+/* Icon backgrounds - colorful but soft */
+.pastel-icon {
+  background: linear-gradient(135deg, #e8f2ff 0%, #dae8f5 100%);
+  color: #5a6c7d;
+}
+
+.pastel-icon-blue {
+  background: linear-gradient(135deg, #e8f2ff 0%, #dae8f5 100%);
+  color: #4a6fa5;
+}
+
+.pastel-icon-green {
+  background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+  color: #4a7c59;
+}
+
+.pastel-icon-purple {
+  background: linear-gradient(135deg, #f0e8ff 0%, #e6d7ff 100%);
+  color: #7c4dff;
+}
+
+.pastel-icon-pink {
+  background: linear-gradient(135deg, #ffe8f0 0%, #f5d7e3 100%);
+  color: #d63384;
+}
+
+.pastel-icon-orange {
+  background: linear-gradient(135deg, #ffede6 0%, #f5e1d4 100%);
+  color: #fd7e14;
+}
+
+/* Text colors for variety */
+.text-pastel-blue { color: #4a6fa5; }
+.text-pastel-green { color: #4a7c59; }
+.text-pastel-purple { color: #7c4dff; }
+.text-pastel-pink { color: #d63384; }
+.text-pastel-orange { color: #fd7e14; }
+
+/* Hover states */
+.pastel-blue:hover {
+  background-color: #f0f6ff;
+}
+
+.pastel-green:hover {
+  background-color: #f0fff0;
+}
+
+.pastel-purple:hover {
+  background-color: #f6f0ff;
+}
+
+.pastel-pink:hover {
+  background-color: #fff0f6;
+}
+
+.pastel-orange:hover {
+  background-color: #fff6f0;
+}

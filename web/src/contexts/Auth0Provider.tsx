@@ -6,6 +6,14 @@ interface Auth0ProviderWrapperProps {
 }
 
 export const Auth0ProviderWrapper: React.FC<Auth0ProviderWrapperProps> = ({ children }) => {
+  // Check if Auth0 is disabled for local development
+  const isAuthDisabled = process.env.REACT_APP_DISABLE_AUTH === 'true';
+  
+  // If Auth0 is disabled, return children directly without wrapping
+  if (isAuthDisabled) {
+    return <>{children}</>;
+  }
+  
   const domain = process.env.REACT_APP_AUTH0_DOMAIN!;
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID!;
   
