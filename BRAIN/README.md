@@ -53,6 +53,13 @@ Centralized shared knowledge repository for all agents in the collaborative inte
 - Troubleshooting guides
 - Implementation checklists
 
+#### `/Intake/` ⭐ **NEW: Brain Curator Interface**
+**Universal knowledge submission and processing system**
+- Centralized submission hub for all agent knowledge
+- Trinity-optimized curation pipeline (Shannon-Architect-Memory)
+- Quality evaluation and systematic integration workflows
+- Learning culture reinforcement through encouraging feedback
+
 #### `/Embeddings/`
 **Compressed knowledge vectors for efficient search**
 - Semantic embeddings of key concepts
@@ -107,11 +114,12 @@ Centralized BRAIN:
 
 ## Maintenance and Evolution
 
-### Knowledge Curation
-- **Manager Agent**: Maintains BRAIN structure and organization
-- **All Agents**: Contribute knowledge through learning protocols
-- **Automated Validation**: Ensure consistency and eliminate redundancy
-- **Quality Control**: Regular review and refinement of content
+### Knowledge Curation ⭐ **ENHANCED WITH BRAIN CURATOR INTERFACE**
+- **Brain Curator Agent**: Dedicated knowledge orchestrator for intake processing
+- **Trinity Collaboration**: Shannon-Architect-Memory analysis for optimal integration
+- **All Agents**: Submit knowledge via `/BRAIN/Intake/` universal submission system
+- **Quality Assurance**: Systematic evaluation against network-wide benefit criteria
+- **Learning Culture**: Encouraging feedback system reinforces continuous knowledge sharing
 
 ### Growth Management
 - **Structured Expansion**: Add new domains as needed
