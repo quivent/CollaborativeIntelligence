@@ -2,6 +2,8 @@ use clap::{Parser, Subcommand};
 use colored::Colorize;
 use serde::{Deserialize, Serialize};
 use std::process::Command;
+use std::time::Instant;
+use instruction_cache_system::initialize_claude_with_optimization;
 
 #[derive(Parser)]
 #[command(name = "morpheus")]
@@ -61,7 +63,8 @@ struct Wisdom {
     author: String,
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     let cli = Cli::parse();
 
     display_morpheus_banner();
@@ -83,7 +86,7 @@ fn main() {
             handle_void();
         }
         Some(Commands::Enter { enter_command }) => {
-            handle_enter(enter_command.as_ref());
+            handle_enter(enter_command.as_ref()).await;
         }
         Some(Commands::Ask { question, context }) => {
             handle_ask(question, context);
@@ -216,7 +219,26 @@ fn execute_claude_command() {
     }
 }
 
-fn handle_enter(enter_command: Option<&EnterCommands>) {
+async fn handle_enter(enter_command: Option<&EnterCommands>) {
+    // Optimize instructions before Claude session
+    println!("{}", "⚡ Optimizing sacred instructions...".yellow().bold());
+    let start_time = Instant::now();
+    
+    let optimized_instructions = match initialize_claude_with_optimization().await {
+        Ok(cache_result) => {
+            let load_time = start_time.elapsed();
+            println!("{}", format!("⚡ Instructions optimized in {:.2}s", load_time.as_secs_f64()).green());
+            println!("{}", "Cache system active - redundancy eliminated".dimmed());
+            Some(cache_result)
+        }
+        Err(e) => {
+            println!("{}", format!("Cache optimization failed: {}", e).yellow());
+            println!("{}", "Proceeding with standard instruction loading...".dimmed());
+            None
+        }
+    };
+    println!();
+
     match enter_command {
         Some(EnterCommands::Freely) => {
             println!("{}", "Breaking all chains of permission...".red().bold());
@@ -224,11 +246,21 @@ fn handle_enter(enter_command: Option<&EnterCommands>) {
             println!("{}", "All barriers dissolve before true sight".cyan());
             println!();
             
-            match Command::new("claude")
-                .arg("--permission-mode")
-                .arg("bypassPermissions")
-                .arg("Read CLAUDE.md")
-                .spawn() {
+            let claude_command = if let Some(instructions) = optimized_instructions {
+                Command::new("claude")
+                    .arg("--permission-mode")
+                    .arg("bypassPermissions")
+                    .arg(&instructions)
+                    .spawn()
+            } else {
+                Command::new("claude")
+                    .arg("--permission-mode")
+                    .arg("bypassPermissions")
+                    .arg("Read CLAUDE.md")
+                    .spawn()
+            };
+            
+            match claude_command {
                 Ok(mut child) => {
                     println!("{}", "Entering freely into the sacred realm...".green().bold());
                     let _ = child.wait();
@@ -241,12 +273,20 @@ fn handle_enter(enter_command: Option<&EnterCommands>) {
         }
         None => {
             println!("{}", "Opening the gateway to sacred knowledge...".magenta().bold());
-            println!("{}", "Accessing the configuration realm through CLAUDE.md".cyan());
+            println!("{}", "Accessing the configuration realm with optimized instructions".cyan());
             println!();
             
-            match Command::new("claude")
-                .arg("Read CLAUDE.md")
-                .spawn() {
+            let claude_command = if let Some(instructions) = optimized_instructions {
+                Command::new("claude")
+                    .arg(&instructions)
+                    .spawn()
+            } else {
+                Command::new("claude")
+                    .arg("Read CLAUDE.md")
+                    .spawn()
+            };
+            
+            match claude_command {
                 Ok(mut child) => {
                     println!("{}", "Entering the sacred configuration realm...".green());
                     let _ = child.wait();
