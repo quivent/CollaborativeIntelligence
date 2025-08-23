@@ -225,3 +225,4 @@ Session-*.md
 # Validation and startup scripts
 **/startup-sequence-enforcer.sh
 **/validate-startup-compliance.sh
+
