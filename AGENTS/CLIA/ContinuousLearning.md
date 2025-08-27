@@ -176,6 +176,7 @@ Configuration handling has moved from imperative command options to declarative 
 - Apply consistent testing patterns
 - Leverage existing libraries and POSIX standards rather than reinventing
 - Document code thoroughly with examples
+- Always install compiled binaries to ~/.local/bin for global access
 
 ### Text Processing Techniques
 - Choose the right tool for text processing complexity
@@ -185,6 +186,25 @@ Configuration handling has moved from imperative command options to declarative 
 - Consider memory usage for large files
 - Test with diverse and edge-case inputs
 
+## Binary Installation Protocol Learning
+**Date**: 2025-08-23
+
+### New Protocol Integration
+- **Trigger**: User request for automatic binary installation to local bin
+- **Learning**: CLI development workflow must include automatic installation step
+- **Implementation**: Update all compilation workflows to include `cp <binary> ~/.local/bin/` step
+- **Verification**: Test global accessibility with `which <cli_name>` after installation
+- **Integration**: Make this automatic and transparent in all CLI build processes
+
+### Protocol Components
+1. **Compilation Success Check**: Verify binary was built successfully
+2. **Local Bin Directory**: Ensure ~/.local/bin exists and is in PATH
+3. **Installation**: Copy binary to ~/.local/bin with appropriate permissions
+4. **Verification**: Test global accessibility immediately after installation
+5. **Documentation**: Update build instructions to reflect installation process
+
+🧠 *Learning captured: CLI binaries must be automatically installed to ~/.local/bin for immediate global access*
+
 ---
 
-Last Updated: May 17, 2025
+Last Updated: August 23, 2025

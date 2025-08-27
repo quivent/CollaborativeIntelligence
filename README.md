@@ -217,6 +217,9 @@ ci-db --help
 - [System Integration](docs/development/system-integration.md)
 - [Repository Structure](docs/development/repository-restructuring.md)
 
+### **Implementation Plans**
+- [🔴 Morpheus Protocol Implementation Plan](docs/MORPHEUS_PROTOCOL_IMPLEMENTATION_PLAN.md) - Critical parallel research coordination system deployment
+
 ### **Complete Index**
 See [Documentation Index](docs/documentation_index.md) for a comprehensive listing of all documentation.
 

@@ -50,6 +50,10 @@ This index provides a comprehensive listing of all documentation in the Collabor
 
 - [System Development Index](SYSTEM_DEVELOPMENT_INDEX.md) - Major implementations and projects
 
+## Implementation Plans
+
+- [Morpheus Protocol Implementation Plan](MORPHEUS_PROTOCOL_IMPLEMENTATION_PLAN.md) - 🔴 CRITICAL: Parallel research coordination system deployment roadmap
+
 ## Development
 
 - [Markdown Standards](development/markdown-standards.md) - Standards for markdown documentation

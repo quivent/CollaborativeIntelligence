@@ -24,6 +24,9 @@
 - Learning mechanisms and autonomous triggers
 - Collaboration standards for multi-agent work
 - System integrity and consistency requirements
+- Agent self-modification protocol and capabilities
+- Autonomous protocol evolution framework
+- Personal memory and learning update mechanisms
 
 #### Step 2: Agent Core Identity Loading (SILENT INTERNAL)
 **Internal loading via CI system - no visible commands:**
@@ -52,7 +55,9 @@
       "read:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/BRAIN/**",
       "bash:cat /Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/BRAIN/**",
       "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/MEMORY.md",
-      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/ContinuousLearning.md:*"
+      "edit:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/AGENTS/*/ContinuousLearning.md:*",
+      "edit:/Users/joshkornreich/Documents/Projects/*/CLAUDE.md",
+      "write:/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/BRAIN/Intake/*_*.md"
     ]
   }
 }
