@@ -29,6 +29,43 @@ pub struct AutoAcceptConfig {
     pub global: bool,
 }
 
+/// Configuration for coordination behavior
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct CoordinationConfig {
+    /// Enable automatic session registration
+    #[serde(default)]
+    pub auto_register: bool,
+    
+    /// Default lane assignment for new sessions
+    #[serde(default)]
+    pub default_lane: Option<String>,
+    
+    /// Heartbeat interval in seconds
+    #[serde(default = "default_heartbeat_interval")]
+    pub heartbeat_interval: u64,
+    
+    /// Maximum number of concurrent sessions
+    #[serde(default = "default_max_sessions")]
+    pub max_concurrent_sessions: u64,
+    
+    /// Session timeout in minutes
+    #[serde(default = "default_session_timeout")]
+    pub session_timeout_minutes: u64,
+    
+    /// Enable automatic cleanup of stale sessions
+    #[serde(default = "default_auto_cleanup")]
+    pub auto_cleanup: bool,
+    
+    /// Custom coordination metadata
+    #[serde(default)]
+    pub metadata: serde_json::Value,
+}
+
+fn default_heartbeat_interval() -> u64 { 300 } // 5 minutes
+fn default_max_sessions() -> u64 { 10 }
+fn default_session_timeout() -> u64 { 15 } // 15 minutes
+fn default_auto_cleanup() -> bool { true }
+
 /// Represents the configuration for a CI project
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CIConfig {
@@ -53,6 +90,10 @@ pub struct CIConfig {
     /// Auto-accept configuration for various commands
     #[serde(default)]
     pub auto_accept: AutoAcceptConfig,
+    
+    /// Coordination configuration for multi-agent sessions
+    #[serde(default)]
+    pub coordination: CoordinationConfig,
     
     /// Custom project metadata (for extensibility)
     #[serde(default)]
@@ -95,6 +136,7 @@ impl CIConfig {
             active_agents: vec!["Athena".to_string(), "ProjectArchitect".to_string()],
             fast_activation: true,
             auto_accept: AutoAcceptConfig::default(),
+            coordination: CoordinationConfig::default(),
             metadata: serde_json::json!({}),
         }
     }
@@ -115,6 +157,7 @@ impl CIConfig {
             active_agents,
             fast_activation,
             auto_accept: AutoAcceptConfig::default(),
+            coordination: CoordinationConfig::default(),
             metadata: serde_json::json!({}),
         }
     }
@@ -196,6 +239,8 @@ impl CIConfig {
         self.updated_at = chrono::Local::now().to_rfc3339();
         self.active_agents = other.active_agents.clone();
         self.fast_activation = other.fast_activation;
+        self.auto_accept = other.auto_accept.clone();
+        self.coordination = other.coordination.clone();
         
         // Merge metadata
         if let (serde_json::Value::Object(ref mut self_map), serde_json::Value::Object(ref other_map)) = 

@@ -1,9 +1,15 @@
 # CI Standardization Report
 
-Generated: 2025-08-20 20:32:44 UTC
+Generated: 2025-09-01 12:41:23 UTC
 Protocol Version: 1.0.0
 
 ## Violations Found
+
+### error_handling
+
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/commands/agent_integrate.rs:62**: Use CIError instead of anyhow::anyhow! for agent errors
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/commands/agent_integrate.rs:66**: Use CIError instead of anyhow::anyhow! for agent errors
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:93**: Use CIError instead of anyhow::anyhow! for agent errors
 
 ### agent_function_naming
 
@@ -25,25 +31,19 @@ Protocol Version: 1.0.0
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:36**: Function 'is_agent_required' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:53**: Function 'parse_agent_config' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:140**: Function 'is_agent_active' violates naming standard
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:173**: Function 'load_agent_capabilities' violates naming standard
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:340**: Function 'set_agent_session_window_title' violates naming standard
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:371**: Function 'update_agent_session_title' violates naming standard
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:376**: Function 'restore_agent_session_title' violates naming standard
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:396**: Function 'validate_agent_protocols' violates naming standard
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:417**: Function 'test_agent_config_parsing' violates naming standard
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:440**: Function 'test_agent_activation_detection' violates naming standard
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:213**: Function 'load_agent_capabilities' violates naming standard
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:380**: Function 'set_agent_session_window_title' violates naming standard
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:411**: Function 'update_agent_session_title' violates naming standard
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:416**: Function 'restore_agent_session_title' violates naming standard
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:436**: Function 'validate_agent_protocols' violates naming standard
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:457**: Function 'test_agent_config_parsing' violates naming standard
+- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_autoload.rs:480**: Function 'test_agent_activation_detection' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:11**: Function 'get_agent_color' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:73**: Function 'apply_agent_color' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:90**: Function 'update_current_agent_state' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:98**: Function 'get_current_agent' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:154**: Function 'get_agent_color_with_config' violates naming standard
 - **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:171**: Function 'test_agent_color_mapping' violates naming standard
-
-### error_handling
-
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/commands/agent_integrate.rs:62**: Use CIError instead of anyhow::anyhow! for agent errors
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/commands/agent_integrate.rs:66**: Use CIError instead of anyhow::anyhow! for agent errors
-- **/Users/joshkornreich/Documents/Projects/CollaborativeIntelligence/cli/src/helpers/agent_colors.rs:93**: Use CIError instead of anyhow::anyhow! for agent errors
 
 ## Standardization Protocol
 
@@ -52,19 +52,17 @@ Protocol Version: 1.0.0
   "version": "1.0.0",
   "enforcement_level": "Error",
   "standards": {
-    "error_handling": {
-      "category": "Error Management",
-      "description": "Use CIError for all agent-related errors with context",
-      "required_pattern": "CIError::[A-Z][a-zA-Z]*\\(.*\\)\\.into\\(\\)",
+    "claude_md_generation": {
+      "category": "Configuration",
+      "description": "Use unified CLAUDE.md template with agent activation protocol",
+      "required_pattern": "agent_activation_protocol_template",
       "examples": [
-        "CIError::AgentNotFound(name.clone()).into()",
-        "CIError::ActivationFailed(msg).into()"
+        "StandardizationEngine::generate_claude_md()"
       ],
       "violations": [
-        "anyhow::anyhow!()",
-        "panic!()"
+        "Multiple different CLAUDE.md formats"
       ],
-      "enforcement": "Warning"
+      "enforcement": "Blocking"
     },
     "agent_function_naming": {
       "category": "Naming Conventions",
@@ -82,17 +80,19 @@ Protocol Version: 1.0.0
       ],
       "enforcement": "Error"
     },
-    "claude_md_generation": {
-      "category": "Configuration",
-      "description": "Use unified CLAUDE.md template with agent activation protocol",
-      "required_pattern": "agent_activation_protocol_template",
+    "error_handling": {
+      "category": "Error Management",
+      "description": "Use CIError for all agent-related errors with context",
+      "required_pattern": "CIError::[A-Z][a-zA-Z]*\\(.*\\)\\.into\\(\\)",
       "examples": [
-        "StandardizationEngine::generate_claude_md()"
+        "CIError::AgentNotFound(name.clone()).into()",
+        "CIError::ActivationFailed(msg).into()"
       ],
       "violations": [
-        "Multiple different CLAUDE.md formats"
+        "anyhow::anyhow!()",
+        "panic!()"
       ],
-      "enforcement": "Blocking"
+      "enforcement": "Warning"
     },
     "agent_activation": {
       "category": "Agent Management",

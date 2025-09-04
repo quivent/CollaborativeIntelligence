@@ -31,6 +31,8 @@ mod commands {
     pub mod web;
     pub mod brain;
     pub mod docs;
+    pub mod coordination;
+    pub mod dashboard;
 }
 
 pub mod helpers;
@@ -713,6 +715,55 @@ enum Commands {
         command: BrainCommands,
     },
 
+    /// Manage multi-agent coordination and session orchestration
+    /// 
+    /// The coordination command provides comprehensive management of multi-agent
+    /// collaboration sessions, including session lifecycle, heartbeat monitoring,
+    /// task coordination, lane management, and system reporting.
+    /// 
+    /// Examples:
+    ///   ci coordination start --lane development                    # Start new session
+    ///   ci coordination status --system                             # Show system status
+    ///   ci coordination heartbeat --session <ID> --tasks-completed 5   # Send heartbeat
+    ///   ci coordination task reserve --session <ID> --task <TASK>   # Reserve task
+    ///   ci coordination reports summary --timeframe 24h             # Generate report
+    Coordination {
+        #[command(subcommand)]
+        command: CoordinationCommands,
+    },
+
+    /// Launch coordination dashboard
+    /// 
+    /// The dashboard provides real-time monitoring and visualization of the coordination
+    /// system, including active sessions, task progress, lane assignments, and system health.
+    /// 
+    /// Examples:
+    ///   ci dashboard                                    # Terminal dashboard (system view)
+    ///   ci dashboard --view sessions                    # Show active sessions
+    ///   ci dashboard --web --port 8080                  # Launch web dashboard
+    ///   ci dashboard --export report.json --view tasks # Export task data
+    Dashboard {
+        /// Launch web dashboard instead of terminal
+        #[arg(long)]
+        web: bool,
+        
+        /// Port for web dashboard
+        #[arg(long, short = 'p', default_value = "8080")]
+        port: u16,
+        
+        /// Refresh interval in seconds for terminal dashboard
+        #[arg(long, short = 'r', default_value = "5")]
+        refresh: u64,
+        
+        /// Dashboard view mode
+        #[arg(long, short = 'v', value_parser = ["system", "sessions", "tasks", "lanes"], default_value = "system")]
+        view: String,
+        
+        /// Export dashboard data to file
+        #[arg(long, short = 'e')]
+        export: Option<String>,
+    },
+
     /// Launch CI agents for specific task-focused operations
     /// 
     /// The task command launches your CI agents with a specific task description,
@@ -1253,6 +1304,204 @@ enum BrainCommands {
     Status,
 }
 
+#[derive(Subcommand)]
+enum CoordinationCommands {
+    /// Start a new coordination session
+    Start {
+        /// Custom session ID (optional)
+        #[arg(long, short = 's')]
+        session: Option<String>,
+        
+        /// Assign session to specific lane
+        #[arg(long, short = 'l')]
+        lane: Option<String>,
+        
+        /// Claude version identifier
+        #[arg(long, short = 'v')]
+        claude_version: Option<String>,
+        
+        /// Additional user context
+        #[arg(long, short = 'c')]
+        context: Option<String>,
+    },
+    
+    /// Show coordination system status
+    Status {
+        /// Show status for specific session
+        #[arg(long, short = 's')]
+        session: Option<String>,
+        
+        /// Show all sessions
+        #[arg(long, short = 'a')]
+        all: bool,
+        
+        /// Show only active sessions
+        #[arg(long)]
+        active: bool,
+        
+        /// Show system status overview
+        #[arg(long)]
+        system: bool,
+        
+        /// Output format (table, json)
+        #[arg(long, short = 'f', value_parser = ["table", "json"], default_value = "table")]
+        format: String,
+    },
+    
+    /// Send heartbeat for active session
+    Heartbeat {
+        /// Session ID to send heartbeat for
+        #[arg(long, short = 's')]
+        session: String,
+        
+        /// Number of tasks completed
+        #[arg(long, short = 'c')]
+        tasks_completed: Option<u64>,
+        
+        /// Number of tasks reserved
+        #[arg(long, short = 'r')]
+        tasks_reserved: Option<u64>,
+        
+        /// Additional activity data as JSON
+        #[arg(long, short = 'a')]
+        activity: Option<String>,
+    },
+    
+    /// Manage task coordination
+    Task {
+        #[command(subcommand)]
+        command: TaskCommands,
+    },
+    
+    /// Manage coordination lanes
+    Lane {
+        #[command(subcommand)]
+        command: LaneCommands,
+    },
+    
+    /// End an active coordination session
+    End {
+        /// Session ID to end
+        #[arg(long, short = 's')]
+        session: String,
+        
+        /// Termination reason
+        #[arg(long, short = 'r', default_value = "Normal termination")]
+        reason: String,
+    },
+    
+    /// Generate coordination reports
+    Reports {
+        #[command(subcommand)]
+        command: ReportsCommands,
+    },
+    
+    /// Clean up stale sessions and data
+    Cleanup {
+        /// Show what would be cleaned without making changes
+        #[arg(long)]
+        dry_run: bool,
+        
+        /// Force cleanup even if sessions appear active
+        #[arg(long)]
+        force: bool,
+    },
+}
+
+#[derive(Subcommand)]
+enum TaskCommands {
+    /// Reserve a task for a session
+    Reserve {
+        /// Session ID
+        #[arg(long, short = 's')]
+        session: String,
+        
+        /// Task ID to reserve
+        #[arg(long, short = 't')]
+        task: String,
+        
+        /// Task priority (high, medium, low)
+        #[arg(long, short = 'p', value_parser = ["high", "medium", "low"], default_value = "medium")]
+        priority: String,
+    },
+    
+    /// Mark a task as completed
+    Complete {
+        /// Session ID
+        #[arg(long, short = 's')]
+        session: String,
+        
+        /// Task ID to complete
+        #[arg(long, short = 't')]
+        task: String,
+        
+        /// Task completion result data as JSON
+        #[arg(long, short = 'r')]
+        result: Option<String>,
+    },
+    
+    /// Show task coordination status
+    Status {
+        /// Filter by lane
+        #[arg(long, short = 'l')]
+        lane: Option<String>,
+        
+        /// Output format (table, json)
+        #[arg(long, short = 'f', value_parser = ["table", "json"], default_value = "table")]
+        format: String,
+    },
+}
+
+#[derive(Subcommand)]
+enum LaneCommands {
+    /// Assign session to lane
+    Assign {
+        /// Session ID
+        #[arg(long, short = 's')]
+        session: String,
+        
+        /// Lane identifier
+        #[arg(long, short = 'l')]
+        lane: String,
+    },
+    
+    /// Show lane assignment status
+    Status {
+        /// Output format (table, json)
+        #[arg(long, short = 'f', value_parser = ["table", "json"], default_value = "table")]
+        format: String,
+    },
+}
+
+#[derive(Subcommand)]
+enum ReportsCommands {
+    /// Generate coordination summary report
+    Summary {
+        /// Output file path
+        #[arg(long, short = 'o')]
+        output: Option<String>,
+        
+        /// Report format (markdown, json, html)
+        #[arg(long, short = 'f', value_parser = ["markdown", "json", "html"], default_value = "markdown")]
+        format: String,
+        
+        /// Report timeframe (1h, 24h, 7d, 30d)
+        #[arg(long, short = 't', value_parser = ["1h", "24h", "7d", "30d"], default_value = "24h")]
+        timeframe: String,
+    },
+    
+    /// Generate activity report
+    Activity {
+        /// Output file path
+        #[arg(long, short = 'o')]
+        output: Option<String>,
+        
+        /// Report format (markdown, json, csv)
+        #[arg(long, short = 'f', value_parser = ["markdown", "json", "csv"], default_value = "markdown")]
+        format: String,
+    },
+}
+
 /// Returns colored category headers and commands for help output
 fn get_colored_command_help() -> String {
     let mut help_text = String::new();
@@ -1375,6 +1624,18 @@ fn get_colored_command_help() -> String {
     help_text.push_str(&format!("             {}", "↳ git-analysis: Detailed git repository topology analysis".dimmed()));
     help_text.push_str("\n");
     help_text.push_str(&format!("  {:<12} {}", "session".magenta(), "Manage Collaborative Intelligence sessions".magenta()));
+    help_text.push_str("\n");
+    help_text.push_str(&format!("  {:<12} {}", "coordination".magenta(), "Multi-agent coordination and session orchestration".magenta()));
+    help_text.push_str("\n");
+    help_text.push_str(&format!("             {}", "↳ start: Start new coordination session with lane assignment".dimmed()));
+    help_text.push_str("\n");
+    help_text.push_str(&format!("             {}", "↳ status: Show system status and active sessions".dimmed()));
+    help_text.push_str("\n");
+    help_text.push_str(&format!("             {}", "↳ heartbeat: Send session heartbeat with activity data".dimmed()));
+    help_text.push_str("\n");
+    help_text.push_str(&format!("             {}", "↳ task: Reserve, complete, and track coordination tasks".dimmed()));
+    help_text.push_str("\n");
+    help_text.push_str(&format!("             {}", "↳ reports: Generate coordination summaries and activity reports".dimmed()));
     help_text.push_str("\n");
     help_text.push_str(&format!("  {:<12} {}", "ls".magenta(), "Enhanced file listing with intelligent grouping".magenta()));
     help_text.push_str("\n\n");
@@ -1550,6 +1811,242 @@ async fn handle_session_command(command: &SessionCommands) -> anyhow::Result<()>
         SessionCommands::Cleanup { days: _, dry_run: _ } => {
             let args = clap::ArgMatches::default();
             commands::session::execute(&args)
+        },
+    }
+}
+
+/// Handle coordination commands
+async fn handle_coordination_command(command: &CoordinationCommands) -> anyhow::Result<()> {
+    use clap::ArgMatches;
+    
+    // Create a coordination command to get proper ArgMatches
+    let app = commands::coordination::create_command();
+    
+    match command {
+        CoordinationCommands::Start { session, lane, claude_version, context } => {
+            let mut args = vec!["coordination".to_string(), "start".to_string()];
+            if let Some(s) = session {
+                args.extend(vec!["--session".to_string(), s.clone()]);
+            }
+            if let Some(l) = lane {
+                args.extend(vec!["--lane".to_string(), l.clone()]);
+            }
+            if let Some(cv) = claude_version {
+                args.extend(vec!["--claude-version".to_string(), cv.clone()]);
+            }
+            if let Some(ctx) = context {
+                args.extend(vec!["--context".to_string(), ctx.clone()]);
+            }
+            
+            match app.try_get_matches_from(&args) {
+                Ok(matches) => commands::coordination::execute(&matches),
+                Err(e) => {
+                    eprintln!("Coordination command parsing failed: {}", e);
+                    std::process::exit(1);
+                }
+            }
+        },
+        CoordinationCommands::Status { session, all, active, system, format } => {
+            let mut args = vec!["coordination".to_string(), "status".to_string()];
+            if let Some(s) = session {
+                args.extend(vec!["--session".to_string(), s.clone()]);
+            }
+            if *all {
+                args.push("--all".to_string());
+            }
+            if *active {
+                args.push("--active".to_string());
+            }
+            if *system {
+                args.push("--system".to_string());
+            }
+            args.extend(vec!["--format".to_string(), format.clone()]);
+            
+            match app.try_get_matches_from(&args) {
+                Ok(matches) => commands::coordination::execute(&matches),
+                Err(e) => {
+                    eprintln!("Coordination command parsing failed: {}", e);
+                    std::process::exit(1);
+                }
+            }
+        },
+        CoordinationCommands::Heartbeat { session, tasks_completed, tasks_reserved, activity } => {
+            let mut args = vec!["coordination".to_string(), "heartbeat".to_string()];
+            args.extend(vec!["--session".to_string(), session.clone()]);
+            if let Some(tc) = tasks_completed {
+                args.extend(vec!["--tasks-completed".to_string(), tc.to_string()]);
+            }
+            if let Some(tr) = tasks_reserved {
+                args.extend(vec!["--tasks-reserved".to_string(), tr.to_string()]);
+            }
+            if let Some(a) = activity {
+                args.extend(vec!["--activity".to_string(), a.clone()]);
+            }
+            
+            match app.try_get_matches_from(&args) {
+                Ok(matches) => commands::coordination::execute(&matches),
+                Err(e) => {
+                    eprintln!("Coordination command parsing failed: {}", e);
+                    std::process::exit(1);
+                }
+            }
+        },
+        CoordinationCommands::Task { command: task_cmd } => {
+            match task_cmd {
+                TaskCommands::Reserve { session, task, priority } => {
+                    let args = vec![
+                        "coordination".to_string(), "task".to_string(), "reserve".to_string(),
+                        "--session".to_string(), session.clone(),
+                        "--task".to_string(), task.clone(),
+                        "--priority".to_string(), priority.clone(),
+                    ];
+                    
+                    match app.try_get_matches_from(&args) {
+                        Ok(matches) => commands::coordination::execute(&matches),
+                        Err(e) => {
+                            eprintln!("Coordination command parsing failed: {}", e);
+                            std::process::exit(1);
+                        }
+                    }
+                },
+                TaskCommands::Complete { session, task, result } => {
+                    let mut args = vec![
+                        "coordination".to_string(), "task".to_string(), "complete".to_string(),
+                        "--session".to_string(), session.clone(),
+                        "--task".to_string(), task.clone(),
+                    ];
+                    if let Some(r) = result {
+                        args.extend(vec!["--result".to_string(), r.clone()]);
+                    }
+                    
+                    match app.try_get_matches_from(&args) {
+                        Ok(matches) => commands::coordination::execute(&matches),
+                        Err(e) => {
+                            eprintln!("Coordination command parsing failed: {}", e);
+                            std::process::exit(1);
+                        }
+                    }
+                },
+                TaskCommands::Status { lane, format } => {
+                    let mut args = vec!["coordination".to_string(), "task".to_string(), "status".to_string()];
+                    if let Some(l) = lane {
+                        args.extend(vec!["--lane".to_string(), l.clone()]);
+                    }
+                    args.extend(vec!["--format".to_string(), format.clone()]);
+                    
+                    match app.try_get_matches_from(&args) {
+                        Ok(matches) => commands::coordination::execute(&matches),
+                        Err(e) => {
+                            eprintln!("Coordination command parsing failed: {}", e);
+                            std::process::exit(1);
+                        }
+                    }
+                },
+            }
+        },
+        CoordinationCommands::Lane { command: lane_cmd } => {
+            match lane_cmd {
+                LaneCommands::Assign { session, lane } => {
+                    let args = vec![
+                        "coordination".to_string(), "lane".to_string(), "assign".to_string(),
+                        "--session".to_string(), session.clone(),
+                        "--lane".to_string(), lane.clone(),
+                    ];
+                    
+                    match app.try_get_matches_from(&args) {
+                        Ok(matches) => commands::coordination::execute(&matches),
+                        Err(e) => {
+                            eprintln!("Coordination command parsing failed: {}", e);
+                            std::process::exit(1);
+                        }
+                    }
+                },
+                LaneCommands::Status { format } => {
+                    let args = vec![
+                        "coordination".to_string(), "lane".to_string(), "status".to_string(),
+                        "--format".to_string(), format.clone(),
+                    ];
+                    
+                    match app.try_get_matches_from(&args) {
+                        Ok(matches) => commands::coordination::execute(&matches),
+                        Err(e) => {
+                            eprintln!("Coordination command parsing failed: {}", e);
+                            std::process::exit(1);
+                        }
+                    }
+                },
+            }
+        },
+        CoordinationCommands::End { session, reason } => {
+            let args = vec![
+                "coordination".to_string(), "end".to_string(),
+                "--session".to_string(), session.clone(),
+                "--reason".to_string(), reason.clone(),
+            ];
+            
+            match app.try_get_matches_from(&args) {
+                Ok(matches) => commands::coordination::execute(&matches),
+                Err(e) => {
+                    eprintln!("Coordination command parsing failed: {}", e);
+                    std::process::exit(1);
+                }
+            }
+        },
+        CoordinationCommands::Reports { command: reports_cmd } => {
+            match reports_cmd {
+                ReportsCommands::Summary { output, format, timeframe } => {
+                    let mut args = vec![
+                        "coordination".to_string(), "reports".to_string(), "summary".to_string(),
+                        "--format".to_string(), format.clone(),
+                        "--timeframe".to_string(), timeframe.clone(),
+                    ];
+                    if let Some(o) = output {
+                        args.extend(vec!["--output".to_string(), o.clone()]);
+                    }
+                    
+                    match app.try_get_matches_from(&args) {
+                        Ok(matches) => commands::coordination::execute(&matches),
+                        Err(e) => {
+                            eprintln!("Coordination command parsing failed: {}", e);
+                            std::process::exit(1);
+                        }
+                    }
+                },
+                ReportsCommands::Activity { output, format } => {
+                    let mut args = vec![
+                        "coordination".to_string(), "reports".to_string(), "activity".to_string(),
+                        "--format".to_string(), format.clone(),
+                    ];
+                    if let Some(o) = output {
+                        args.extend(vec!["--output".to_string(), o.clone()]);
+                    }
+                    
+                    match app.try_get_matches_from(&args) {
+                        Ok(matches) => commands::coordination::execute(&matches),
+                        Err(e) => {
+                            eprintln!("Coordination command parsing failed: {}", e);
+                            std::process::exit(1);
+                        }
+                    }
+                },
+            }
+        },
+        CoordinationCommands::Cleanup { dry_run, force } => {
+            let mut args = vec!["coordination".to_string(), "cleanup".to_string()];
+            if *dry_run {
+                args.push("--dry-run".to_string());
+            }
+            if *force {
+                args.push("--force".to_string());
+            }
+            
+            match app.try_get_matches_from(&args) {
+                Ok(matches) => commands::coordination::execute(&matches),
+                Err(e) => {
+                    eprintln!("Coordination command parsing failed: {}", e);
+                    std::process::exit(1);
+                }
+            }
         },
     }
 }
@@ -2057,6 +2554,8 @@ async fn main() -> anyhow::Result<()> {
                 Commands::Config { .. } => "config",
                 Commands::Web { .. } => "web",
                 Commands::Brain { .. } => "brain",
+                Commands::Coordination { .. } => "coordination",
+                Commands::Dashboard { .. } => "dashboard",
                 Commands::Task { .. } => "task",
             }
         },
@@ -2333,6 +2832,32 @@ async fn main() -> anyhow::Result<()> {
         },
         Commands::Brain { command } => {
             commands::brain::handle_brain_command(&command, &config).await
+        },
+        Commands::Coordination { command } => {
+            handle_coordination_command(&command).await
+        },
+        Commands::Dashboard { web, port, refresh, view, export } => {
+            let app = commands::dashboard::create_command();
+            let mut args = vec!["dashboard".to_string()];
+            
+            if web {
+                args.push("--web".to_string());
+            }
+            args.extend(vec!["--port".to_string(), port.to_string()]);
+            args.extend(vec!["--refresh".to_string(), refresh.to_string()]);
+            args.extend(vec!["--view".to_string(), view.clone()]);
+            
+            if let Some(export_path) = export {
+                args.extend(vec!["--export".to_string(), export_path.clone()]);
+            }
+            
+            match app.try_get_matches_from(&args) {
+                Ok(matches) => commands::dashboard::execute(&matches),
+                Err(e) => {
+                    eprintln!("Dashboard command parsing failed: {}", e);
+                    std::process::exit(1);
+                }
+            }
         },
         Commands::Task { description, agent, autonomous, context, output, path } => {
             commands::intelligence::execute_task(&description, &agent, autonomous, context.as_deref(), output.as_deref(), path.as_deref(), &config).await
