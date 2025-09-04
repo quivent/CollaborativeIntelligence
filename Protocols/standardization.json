@@ -2,19 +2,17 @@
   "version": "1.0.0",
   "enforcement_level": "Error",
   "standards": {
-    "error_handling": {
-      "category": "Error Management",
-      "description": "Use CIError for all agent-related errors with context",
-      "required_pattern": "CIError::[A-Z][a-zA-Z]*\\(.*\\)\\.into\\(\\)",
+    "claude_md_generation": {
+      "category": "Configuration",
+      "description": "Use unified CLAUDE.md template with agent activation protocol",
+      "required_pattern": "agent_activation_protocol_template",
       "examples": [
-        "CIError::AgentNotFound(name.clone()).into()",
-        "CIError::ActivationFailed(msg).into()"
+        "StandardizationEngine::generate_claude_md()"
       ],
       "violations": [
-        "anyhow::anyhow!()",
-        "panic!()"
+        "Multiple different CLAUDE.md formats"
       ],
-      "enforcement": "Warning"
+      "enforcement": "Blocking"
     },
     "agent_function_naming": {
       "category": "Naming Conventions",
@@ -32,17 +30,19 @@
       ],
       "enforcement": "Error"
     },
-    "claude_md_generation": {
-      "category": "Configuration",
-      "description": "Use unified CLAUDE.md template with agent activation protocol",
-      "required_pattern": "agent_activation_protocol_template",
+    "error_handling": {
+      "category": "Error Management",
+      "description": "Use CIError for all agent-related errors with context",
+      "required_pattern": "CIError::[A-Z][a-zA-Z]*\\(.*\\)\\.into\\(\\)",
       "examples": [
-        "StandardizationEngine::generate_claude_md()"
+        "CIError::AgentNotFound(name.clone()).into()",
+        "CIError::ActivationFailed(msg).into()"
       ],
       "violations": [
-        "Multiple different CLAUDE.md formats"
+        "anyhow::anyhow!()",
+        "panic!()"
       ],
-      "enforcement": "Blocking"
+      "enforcement": "Warning"
     },
     "agent_activation": {
       "category": "Agent Management",
