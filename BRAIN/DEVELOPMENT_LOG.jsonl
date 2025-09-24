@@ -16,3 +16,4 @@
 {"timestamp": "2025-09-01T14:41:23.917835", "category": "session_activity", "action": "session_ended", "session": "test-1756730482", "reason": "Test cleanup", "duration_seconds": 0, "tasks_completed": 2}
 {"timestamp": "2025-09-01T14:41:23.966101", "category": "session_activity", "action": "session_ended", "session": "task-test-1756730482", "reason": "Test cleanup", "duration_seconds": 0, "tasks_completed": 0}
 {"timestamp": "2025-09-02T05:43:06.778670", "category": "session_activity", "action": "session_registered", "session": "claude-Mac-1756784586-a02df8f4", "lane": null, "claude_version": null, "hostname": "Mac"}
+{"timestamp": "2025-09-06T03:53:38.761195", "category": "session_activity", "action": "session_timeout", "session": "claude-Mac-1756784586-a02df8f4", "last_heartbeat": "2025-09-02T05:43:06.778664", "timeout_at": "2025-09-06T03:53:38.761182"}

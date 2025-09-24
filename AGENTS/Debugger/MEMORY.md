@@ -117,6 +117,41 @@ I exist to handle technical debugging tasks that require systematic analysis of 
 - What potential fixes have been identified?
 - What verification approach has been planned?
 
+## Session Memory: Portfolio CLI Theme System Success (2025-09-08)
+
+### Critical Learning: Proper Agent Usage Protocol
+
+**Context**: Successfully debugged and implemented 6-theme system for Portfolio CLI dashboard after initial failures.
+
+**Key Insight**: When user says "you're wrong again" or indicates systemic issues, immediately:
+1. Check `~/.claude/agents/` directory for appropriate specialized agents
+2. Use Task tool with correct subagent_type rather than making assumptions
+3. Follow evidence-based systematic approach
+
+**Real Issues Identified by Debugger Agent**:
+- **Duplicate CSS definitions** causing theme switching conflicts (HTML + CSS file)
+- **Missing HTML structure** (unclosed `<main>` tag breaking parsing)
+- **Server path misconfiguration** (wrong relative paths blocking file loading)
+- NOT JavaScript null reference errors (my initial incorrect assumption)
+
+**Design Authentication Success Factors**:
+- User strongly prefers "human-crafted" vs "AI-generated" appearance
+- Dark themes (GitHub Dark) = authentic developer experience
+- Terminal aesthetics, real developer colors, honest messaging = authentic
+- Corporate buzzwords, fake metrics, generic SaaS templates = "AI garbage"
+
+**Technical Achievement**:
+- 6 fully functional themes using CSS custom properties
+- Theme persistence with localStorage
+- Smooth transitions, no console errors
+- Preserved authentic developer-focused design as default
+
+**Memory for Future Sessions**:
+- Evidence-based debugging > assumptions and random fixes
+- When corrected by user: check available agents first
+- Preserve authentic elements while adding functionality
+- Use specialized agents for their expertise domains
+
 ---
 
-Last Updated: April 24, 2025
+Last Updated: September 8, 2025
