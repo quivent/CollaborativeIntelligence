@@ -4,27 +4,69 @@
 
 CollaborativeIntelligence transforms traditional AI assistance into a collaborative ecosystem with persistent learning and specialized expertise. Unlike traditional AI interactions, this system maintains persistent memory across sessions, develops specialized capabilities through dedicated agent roles, and builds cumulative understanding through principled learning mechanisms.
 
+---
+
+## ⚠️ Prerequisites
+
+**This system requires the [CI CLI](https://github.com/quivent/CI) to function.**
+
+```bash
+# Clone and install the CLI first
+git clone https://github.com/quivent/CI.git
+cd CI
+cargo build --release
+cargo run -- install
+```
+
+Without the CI CLI, you cannot activate agents, manage projects, or interact with the system.
+
+---
+
 ## 🚀 Quick Start
+
+### 1. Install the CI CLI (Required)
+
+```bash
+git clone https://github.com/quivent/CI.git
+cd CI
+cargo build --release && cargo run -- install
+```
+
+### 2. Clone this repository
+
+```bash
+git clone https://github.com/quivent/CollaborativeIntelligence.git
+```
+
+### 3. Set the CI path
+
+```bash
+export CI_PATH=/path/to/CollaborativeIntelligence
+```
+
+### 4. Start using agents
 
 | Command | Description |
 |---------|-------------|
-| `athena` or `@@athena` | Activate memory & learning systems expert |
-| `Recommend an agent` | Find the perfect agent for your task |
-| `Overview` | See what's in this repository |
+| `ci agents` | List all available agents |
+| `ci load Athena \| claude` | Load the knowledge architect into Claude Code |
+| `ci load Developer \| claude` | Load the implementation specialist |
+| `ci projects` | List integrated projects |
 
-For complete details, see the [QuickStart Guide](docs/guides/QuickStart.md)
+---
 
 ## 📋 Table of Contents
 
-- [Core Features](#core-features)
-- [System Architecture](#system-architecture)
-- [Agent System](#agent-system)
-- [Getting Started](#getting-started)
-- [Project Structure](#project-structure)
-- [Technical Stack](#technical-stack)
-- [Documentation](#documentation)
-- [Development](#development)
-- [Contributing](#contributing)
+- [Prerequisites](#️-prerequisites)
+- [Quick Start](#-quick-start)
+- [Core Features](#-core-features)
+- [System Architecture](#️-system-architecture)
+- [Agent System](#-agent-system)
+- [Project Structure](#-project-structure)
+- [Technical Stack](#-technical-stack)
+- [Documentation](#-documentation)
+- [Development](#-development)
+- [Contributing](#-contributing)
 
 ## ✨ Core Features
 
@@ -69,6 +111,12 @@ CollaborativeIntelligence/
 └── tools/            # Development and analysis utilities
 ```
 
+### **Required External Component**
+
+| Component | Repository | Purpose |
+|-----------|------------|---------|
+| **CI CLI** | [quivent/CI](https://github.com/quivent/CI) | Primary interface for agent management, project integration, and system operations |
+
 ### **Database Architecture**
 - **Dual SQLite System**: Internal system metadata + project-specific data
 - **Comprehensive CLI**: Agent management, learning systems, session tracking
@@ -95,12 +143,17 @@ CollaborativeIntelligence/
 - **Documentor**: Technical writing and documentation systems
 - **EventMarketer**: Exclusive event marketing and promotion
 
-### **Agent Activation**
-Multiple activation patterns supported:
+### **Agent Activation (via CI CLI)**
+
 ```bash
-Athena                    # Direct name activation
-Agent:Developer          # Prefix format
-[Designer]               # Bracketed format
+# List available agents
+ci agents
+
+# Load an agent into Claude Code
+ci load Athena | claude
+
+# Load with specific context
+ci load Developer --context="Fix compilation errors" | claude
 ```
 
 For a complete list of agents, see [AGENTS.md](AGENTS.md)
@@ -108,51 +161,57 @@ For a complete list of agents, see [AGENTS.md](AGENTS.md)
 ## 🛠️ Getting Started
 
 ### **Prerequisites**
+- [CI CLI](https://github.com/quivent/CI) (required)
 - Rust (latest stable version)
 - SQLite3
 - Git
 
 ### **Installation**
 
-1. **Clone the repository**
+1. **Install the CI CLI first** (see [CI repository](https://github.com/quivent/CI))
    ```bash
-   git clone https://github.com/joshkornreich/CollaborativeIntelligence.git
+   git clone https://github.com/quivent/CI.git
+   cd CI
+   cargo build --release
+   cargo run -- install
+   ```
+
+2. **Clone this repository**
+   ```bash
+   git clone https://github.com/quivent/CollaborativeIntelligence.git
    cd CollaborativeIntelligence
    ```
 
-2. **Build the core system**
+3. **Set environment variable**
    ```bash
-   cd core
-   cargo build --release
-   cargo install --path .
+   export CI_PATH=$(pwd)
+   # Add to your shell profile for persistence
+   echo 'export CI_PATH=/path/to/CollaborativeIntelligence' >> ~/.zshrc
    ```
 
-3. **Set up interfaces**
+4. **Build optional components** (for development)
    ```bash
-   cd ../interfaces
-   cargo build --release
-   ```
-
-4. **Initialize the database**
-   ```bash
-   cd db
-   cargo run -- init
+   cd core && cargo build --release
+   cd ../interfaces && cargo build --release
    ```
 
 ### **Basic Usage**
 
 ```bash
-# Activate an agent
-athena
+# List all agents
+ci agents
 
-# Get agent recommendations
-Recommend an agent for database optimization
+# Load an agent
+ci load Athena | claude
 
-# Use matrix analysis
-matrix_cli --type priority --format ascii
+# Initialize a new project with CI
+ci init my-project
 
-# Access database CLI
-ci-db --help
+# Integrate CI into existing project
+cd existing-project && ci integrate
+
+# Check project status
+ci verify
 ```
 
 ## 📁 Project Structure
@@ -217,6 +276,9 @@ ci-db --help
 - [System Integration](docs/development/system-integration.md)
 - [Repository Structure](docs/development/repository-restructuring.md)
 
+### **Implementation Plans**
+- [🔴 Morpheus Protocol Implementation Plan](docs/MORPHEUS_PROTOCOL_IMPLEMENTATION_PLAN.md) - Critical parallel research coordination system deployment
+
 ### **Complete Index**
 See [Documentation Index](docs/documentation_index.md) for a comprehensive listing of all documentation.
 
@@ -236,9 +298,9 @@ cargo install --path interfaces/db/
 ```
 
 ### **Development Tools**
+- **CI CLI**: Primary interface ([separate repository](https://github.com/quivent/CI))
 - **Database CLI**: `ci-db` for database management
 - **Matrix CLI**: `matrix_cli` for analysis tools
-- **Agent Tools**: Various utilities for agent development
 
 ### **Testing**
 ```bash
@@ -285,4 +347,9 @@ CollaborativeIntelligence represents a fundamental shift from transactional AI a
 
 ---
 
-**Ready to start?** Try `athena` to activate the system architect, or `Recommend an agent` to find the perfect specialist for your needs.
+## Getting Help
+
+- **CI CLI Issues**: [github.com/quivent/CI/issues](https://github.com/quivent/CI/issues)
+- **System Issues**: [github.com/quivent/CollaborativeIntelligence/issues](https://github.com/quivent/CollaborativeIntelligence/issues)
+
+**Ready to start?** Install the [CI CLI](https://github.com/quivent/CI) first, then run `ci load Athena | claude` to begin.
